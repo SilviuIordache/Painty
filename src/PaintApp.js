@@ -4,32 +4,42 @@ export default class PaintApp extends React.Component {
     super(props);
     this.state = {
       cursorX: 0, 
-      cursorY: 0
+      cursorY: 0,
+      ctx: null
     };
   }
-  // setupCanvas = () => {
-  //   this.setState({
-  //     ctx: this.state.canvas.getContext('2d')
-  //   })
-  // }
+  setupCanvas = () => {
+    const canvas = document.getElementById('canvas');
+    canvas.style.backgroundColor = 'lightgray';
+    this.setState({
+      ctx: canvas.getContext('2d')
+    });
+  }
 
   handleMouseMove = (e) => {
+    const canvas = document.getElementById('canvas');
+    const rect = canvas.getBoundingClientRect();
+
     this.setState({
-      canvas: undefined,
-      ctx: undefined,
-      cursorX: e.clientX,
-      cursorY: e.clientY
+      cursorX: e.clientX - rect.left,
+      cursorY: e.clientY - rect.top
     })
   }
 
   
-  createRectangleAtCoordinates = (ctx, x, y, width, height, color) => {
-    ctx.fillStyle = color || 'green';
-    ctx.fillRect(x, y, width, height);
+  createRectangleAtCoordinates = (x, y, width, height, color) => {
+    const newCTX = this.state.ctx;
+    newCTX.fillStyle = color || 'green';
+    newCTX.fillRect(x, y, width, height);
+
+    this.setState({
+      ctx: newCTX
+    })
+
   }
 
   handleMouseClick = (e) => {
-    this.createRectangleAtCoordinates(e.clientX, e.clientY, 10, 10, 'red')
+    this.createRectangleAtCoordinates(this.state.cursorX, this.state.cursorY, 10, 10, 'red')
   }
 
 
@@ -37,13 +47,7 @@ export default class PaintApp extends React.Component {
     document.onmousemove = this.handleMouseMove;
     document.onclick = this.handleMouseClick;
 
-    const canvas = document.getElementById('canvas');
-    canvas.style.backgroundColor = 'lightgray';
-    const ctx = canvas.getContext('2d');
-
-
-    this.createRectangleAtCoordinates(ctx, 10, 10, 150, 100, 'green');
-    this.createRectangleAtCoordinates(ctx, 100, 100, 150, 100, 'red')
+    this.setupCanvas();
   }
 
   render() {
