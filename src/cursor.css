@@ -2,8 +2,10 @@
   width: 10px;
   height: 10px;
   position: absolute;
+  border-radius: 50%;
   background-color: black;
   pointer-events: none;
+  transform: translate(-50%, -50%)
 }
 
 .no-cursor {
