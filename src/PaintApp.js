@@ -1,19 +1,35 @@
 import React from "react";
+import './cursor.css'
 export default class PaintApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       cursorX: 0, 
       cursorY: 0,
-      ctx: null
+      ctx: null,
+      isDrawing: false
     };
   }
+
+  componentDidMount() {
+    this.setupCanvas();
+  }
+
   setupCanvas = () => {
     const canvas = document.getElementById('canvas');
     canvas.style.backgroundColor = 'lightgray';
     this.setState({
       ctx: canvas.getContext('2d')
     });
+  }
+
+  handleMouseEnter = (e) => {
+    // console.log('entering canvas')
+  }
+
+  handleMouseLeave = (e) => {
+    const brushCursor = document.getElementById('brush-cursor');
+    brushCursor.style.className += "hidden"
   }
 
   handleMouseMove = (e) => {
@@ -23,13 +39,23 @@ export default class PaintApp extends React.Component {
     this.setState({
       cursorX: e.clientX - rect.left,
       cursorY: e.clientY - rect.top
-    })
+    });
+
+    // set brush cursor position
+    const brushCursor = document.getElementById('brush-cursor');
+    brushCursor.style.top = e.clientY + 'px';
+    brushCursor.style.left = e.clientX + 'px';
+
+    // if in drawing state, also draw shape
+    if (this.state.isDrawing) {
+      this.createRectangleAtCoordinates(this.state.cursorX, this.state.cursorY, 10, 10)
+
+    }
   }
 
-  
   createRectangleAtCoordinates = (x, y, width, height, color) => {
     const newCTX = this.state.ctx;
-    newCTX.fillStyle = color || 'green';
+    newCTX.fillStyle = color || 'black';
     newCTX.fillRect(x, y, width, height);
 
     this.setState({
@@ -38,17 +64,18 @@ export default class PaintApp extends React.Component {
 
   }
 
-  handleMouseClick = (e) => {
-    this.createRectangleAtCoordinates(this.state.cursorX, this.state.cursorY, 10, 10, 'red')
+  enableDrawing = () => {
+    this.setState({
+      isDrawing: true
+    });
   }
 
-
-  componentDidMount() {
-    document.onmousemove = this.handleMouseMove;
-    document.onclick = this.handleMouseClick;
-
-    this.setupCanvas();
+  disableDrawing = () => {
+    this.setState({
+      isDrawing: false
+    });
   }
+  
 
   render() {
     return (
@@ -57,7 +84,18 @@ export default class PaintApp extends React.Component {
           <p> x: {this.state.cursorX} </p>
           <p> y: {this.state.cursorY} </p>
         </div>
-        <canvas width="1000" height="500" id="canvas"></canvas>
+        <canvas 
+          width="1000" 
+          height="500"
+          id="canvas"
+          className="no-cursor"
+          onMouseEnter={this.handleMouseEnter}
+          onMouseLeave={this.handleMouseLeave}
+          onMouseMove={this.handleMouseMove}
+          onMouseDown={this.enableDrawing}
+          onMouseUp={this.disableDrawing}
+        />
+        <div id="brush-cursor" className="cursor-brush"/>
       </div>
     )
   }

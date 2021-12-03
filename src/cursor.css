@@ -1,0 +1,16 @@
+.cursor-brush {
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  background-color: black;
+  pointer-events: none;
+}
+
+.no-cursor {
+  cursor: none;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
