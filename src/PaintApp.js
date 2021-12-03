@@ -136,3 +136,6 @@ export default class PaintApp extends React.Component {
 
 // need to improve
 // https://www.youtube.com/watch?v=3GqUM4mEYKA&t=351s
+
+// How to move canvas to ref
+// https://medium.com/@pdx.lucasm/canvas-with-react-js-32e133c05258
