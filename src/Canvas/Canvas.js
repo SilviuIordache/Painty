@@ -1,4 +1,5 @@
 import React from "react";
+import Toolbar from '../Toolbar/Toolbar'
 import "./canvas.css";
 
 export default class PaintApp extends React.Component {
@@ -9,6 +10,12 @@ export default class PaintApp extends React.Component {
       cursorY: 0,
       ctx: null,
       isDrawing: false,
+      brush: [
+        { size: 10 },
+        { size: 15 },
+        { size: 20 }
+      ],
+      currentBrushSize: 3
     };
   }
 
@@ -26,15 +33,6 @@ export default class PaintApp extends React.Component {
     this.setState({
       ctx: canvas.getContext("2d"),
     });
-  };
-
-  handleMouseEnter = (e) => {
-    // console.log('entering canvas')
-  };
-
-  handleMouseLeave = (e) => {
-    // const brushCursor = document.getElementById('brush-cursor');
-    // brushCursor.style.className += "hidden"
   };
 
   handleMouseMove = (e) => {
@@ -56,6 +54,12 @@ export default class PaintApp extends React.Component {
       this.drawPath();
     }
   };
+
+  handleBrushSizeChange = (size) => {
+    this.setState({
+      currentBrushSize: size
+    })
+  }
 
   createRectangleAtCoordinates = (x, y, width, height, color) => {
     const newCTX = this.state.ctx;
@@ -100,7 +104,7 @@ export default class PaintApp extends React.Component {
     if (!this.state.isDrawing) return
 
     const ctx = this.state.ctx;
-    ctx.lineWidth = 10;
+    ctx.lineWidth = this.state.brush[this.state.currentBrushSize - 1].size;
     ctx.lineCap = 'round';
     ctx.strokeStyle = "black";
 
@@ -112,6 +116,7 @@ export default class PaintApp extends React.Component {
   render() {
     return (
       <div>
+        
         <Coordinates
           x={this.state.cursorX}
           y={this.state.cursorY}
@@ -125,10 +130,20 @@ export default class PaintApp extends React.Component {
           onMouseDown={this.startDrawing}
           onMouseUp={this.stopDrawing}
         />
-        <div id="brush-cursor" className="cursor-brush" />
+        <Brush size={this.state.currentBrushSize}/>
+        <Toolbar
+          handleBrushSizeChange={this.handleBrushSizeChange}
+        />
       </div>
     );
   }
+}
+
+function Brush(props) {
+  const className = `cursor-brush brush-size-${props.size}`
+  return (
+    <div id="brush-cursor" className={className} />
+  )
 }
 
 function Coordinates(props) {
