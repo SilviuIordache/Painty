@@ -13,9 +13,6 @@ export default class PaintApp extends React.Component {
 
   componentDidMount() {
     this.setupCanvas();
-    // setTimeout(() => {
-    //   this.pathDrawingTest();
-    // }, 1);
   }
 
   setupCanvas = () => {
@@ -114,10 +111,10 @@ export default class PaintApp extends React.Component {
   render() {
     return (
       <div>
-        <div id="coordinates">
-          <p> x: {this.state.cursorX} </p>
-          <p> y: {this.state.cursorY} </p>
-        </div>
+        <Coordinates
+          x={this.state.cursorX}
+          y={this.state.cursorY}
+        />
         <canvas
           id="canvas"
           className="no-cursor"
@@ -131,6 +128,15 @@ export default class PaintApp extends React.Component {
       </div>
     );
   }
+}
+
+function Coordinates(props) {
+  return (
+    <div id="coordinates">
+      <p> x: {props.x} </p>
+      <p> y: {props.y} </p>
+    </div>
+  )
 }
 
 
