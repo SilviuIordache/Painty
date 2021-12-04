@@ -1,5 +1,6 @@
 import React from "react";
-import "./cursor.css";
+import "./canvas.css";
+
 export default class PaintApp extends React.Component {
   constructor(props) {
     super(props);
