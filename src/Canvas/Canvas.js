@@ -15,6 +15,8 @@ export default class PaintApp extends React.Component {
         { size: 15 },
         { size: 20 }
       ],
+      canvasWidth: 800,
+      canvasHeight: 600,
       currentBrushSize: 3
     };
   }
@@ -27,8 +29,8 @@ export default class PaintApp extends React.Component {
     const canvas = document.getElementById("canvas");
 
     canvas.style.backgroundColor = "lightgray";
-    canvas.width = 800;
-    canvas.height = 600;
+    canvas.width = this.state.canvasWidth;
+    canvas.height = this.state.canvasHeight;
 
     this.setState({
       ctx: canvas.getContext("2d"),
@@ -55,7 +57,7 @@ export default class PaintApp extends React.Component {
     }
   };
 
-  handleBrushSizeChange = (size) => {
+  selectBrushSize = (size) => {
     this.setState({
       currentBrushSize: size
     })
@@ -113,6 +115,10 @@ export default class PaintApp extends React.Component {
     ctx.moveTo(this.state.cursorX, this.state.cursorY);
   }
 
+  eraseCanvas = () => {
+    this.state.ctx.clearRect(0, 1, this.state.canvasWidth, this.state.canvasHeight);
+  }
+
   render() {
     return (
       <div>
@@ -132,7 +138,8 @@ export default class PaintApp extends React.Component {
         />
         <Brush size={this.state.currentBrushSize}/>
         <Toolbar
-          handleBrushSizeChange={this.handleBrushSizeChange}
+          selectBrushSize={this.selectBrushSize}
+          eraseCanvas={this.eraseCanvas}
         />
       </div>
     );
