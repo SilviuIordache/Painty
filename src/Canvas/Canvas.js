@@ -124,7 +124,6 @@ export default class PaintApp extends React.Component {
   render() {
     return (
       <div>
-        
         <Coordinates
           x={this.state.cursorX}
           y={this.state.cursorY}
@@ -147,8 +146,6 @@ export default class PaintApp extends React.Component {
     );
   }
 }
-
-
 
 
 // need to improve
