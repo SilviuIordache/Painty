@@ -13,15 +13,21 @@ export default class Toolbar extends React.Component {
   render() {
     return (
       <div>
-        <div>
-          <button onClick={() => this.selectBrushSize(1)}>small</button>
-          <button onClick={() => this.selectBrushSize(2)}>medium</button>
-          <button onClick={() => this.selectBrushSize(3)}>big</button>
-        </div>
+        <BrushSizeSelector onBrushSizeSelected={this.selectBrushSize}/>
         <div>
           <button onClick={this.eraseCanvas}>Erase</button>
         </div>
       </div>
     )
   }
+}
+
+function BrushSizeSelector(props) {
+  return (
+    <div>
+      <button onClick={() => props.onBrushSizeSelected(1)}>small</button>
+      <button onClick={() => props.onBrushSizeSelected(2)}>medium</button>
+      <button onClick={() => props.onBrushSizeSelected(3)}>big</button>
+    </div>
+  )
 }
