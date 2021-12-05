@@ -13,11 +13,14 @@ export default class Toolbar extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='d-flex justify-content-around align-items-center'>
         <BrushSizeSelector onBrushSizeSelected={this.selectBrushSize}/>
-        <div>
-          <button onClick={this.eraseCanvas}>Erase</button>
-        </div>
+          <button 
+            className='btn btn-danger' 
+            onClick={this.eraseCanvas}
+          >
+            Erase
+          </button>
       </div>
     )
   }
