@@ -145,6 +145,7 @@ export default class Canvas extends React.Component {
         />
         <BrushCursor 
           size={this.state.currentBrushSize}
+          color={this.state.currentBrushColor}
           hideBrush={this.state.hideBrush}
           x={this.state.canvasX}
           y={this.state.canvasY}
