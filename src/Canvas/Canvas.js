@@ -117,7 +117,7 @@ export default class PaintApp extends React.Component {
   }
 
   eraseCanvas = () => {
-    this.state.ctx.clearRect(0, 1, this.state.canvasWidth, this.state.canvasHeight);
+    this.state.ctx.clearRect(0, 0, this.state.canvasWidth, this.state.canvasHeight);
   }
 
   render() {
