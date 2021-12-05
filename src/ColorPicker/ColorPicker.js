@@ -33,7 +33,8 @@ function ColorGrid(props) {
     const style = {
       backgroundColor: color,
       width: '2rem',
-      height: '2rem'
+      height: '2rem',
+      cursor: 'pointer'
     }
     return (
       <div 

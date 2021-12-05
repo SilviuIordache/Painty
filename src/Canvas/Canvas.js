@@ -153,6 +153,7 @@ export default class Canvas extends React.Component {
           <Toolbar
             selectBrushSize={this.selectBrushSize}
             selectBrushColor={this.selectBrushColor}
+            selectedColor={this.state.currentBrushColor}
             eraseCanvas={this.eraseCanvas}
             toolbarWidth={this.state.canvasWidth}
           />
