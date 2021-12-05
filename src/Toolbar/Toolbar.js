@@ -1,4 +1,5 @@
 import React from "react";
+import BrushSizeSelector from './BrushSizeSelector'
 
 export default class Toolbar extends React.Component {
 
@@ -20,14 +21,4 @@ export default class Toolbar extends React.Component {
       </div>
     )
   }
-}
-
-function BrushSizeSelector(props) {
-  return (
-    <div>
-      <button onClick={() => props.onBrushSizeSelected(1)}>small</button>
-      <button onClick={() => props.onBrushSizeSelected(2)}>medium</button>
-      <button onClick={() => props.onBrushSizeSelected(3)}>big</button>
-    </div>
-  )
 }

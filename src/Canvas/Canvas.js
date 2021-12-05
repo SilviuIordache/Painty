@@ -17,7 +17,7 @@ export default class PaintApp extends React.Component {
       ],
       canvasWidth: 800,
       canvasHeight: 600,
-      currentBrushSize: 3
+      currentBrushSize: 1
     };
   }
 
