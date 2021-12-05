@@ -12,6 +12,8 @@ export default class PaintApp extends React.Component {
     this.state = {
       cursorX: 0,
       cursorY: 0,
+      canvasX: 0,
+      canvasY: 0,
       ctx: null,
       isDrawing: false,
       brush: [],
@@ -41,7 +43,7 @@ export default class PaintApp extends React.Component {
 
   setupBrushSizes = () => {
     const brushSizes = require('../brushSizes.json');
-    this.setState({ brush: brushSizes.sizes})
+    this.setState({ brush: brushSizes.sizes});
 
   }
 
@@ -52,12 +54,9 @@ export default class PaintApp extends React.Component {
     this.setState({
       cursorX: e.clientX - rect.left,
       cursorY: e.clientY - rect.top,
+      canvasX: e.clientX,
+      canvasY: e.clientY
     });
-
-    // set brush cursor position
-    const brushCursor = document.getElementById("brush-cursor");
-    brushCursor.style.top = e.clientY + "px";
-    brushCursor.style.left = e.clientX + "px";
 
     // if in drawing state, also draw shape
     if (this.state.isDrawing) {
@@ -154,6 +153,8 @@ export default class PaintApp extends React.Component {
         <BrushCursor 
           size={this.state.currentBrushSize}
           hideBrush={this.state.hideBrush}
+          x={this.state.canvasX}
+          y={this.state.canvasY}
         />
         <Toolbar
           selectBrushSize={this.selectBrushSize}

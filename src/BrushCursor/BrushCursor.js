@@ -1,12 +1,24 @@
 import "./BrushCursor.css";
 
 export default function BrushCursor(props) {
-  let className = `cursor-brush brush-size-${props.size}`
+  const brushSizes = require('../brushSizes.json');
+  const sizes = brushSizes.sizes;
+
+  const brushStyle = {
+    width: `${sizes[props.size]}px`,
+    height: `${sizes[props.size]}px`,
+    position: 'absolute',
+    borderRadius: '50%',
+    backgroundColor: 'black',
+    pointerEvents: 'none',
+    left: `${props.x}px`,
+    top: `${props.y}px`,
+    transform: 'translate(-50%, -50%)'
+  }
 
   if (props.hideBrush) {
-    className += ' hidden'
+    brushStyle.visibility = 'hidden'
   }
-  return (
-    <div id="brush-cursor" className={className} />
-  )
+
+  return <div style={brushStyle}/>
 }
