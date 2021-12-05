@@ -19,13 +19,19 @@ export default class Toolbar extends React.Component {
     return (
       <div className='toolbar-container d-flex justify-content-around align-items-center' style={style}>
         <BrushSizeSelector onBrushSizeSelected={this.selectBrushSize}/>
-          <button 
-            className='btn btn-danger' 
-            onClick={this.eraseCanvas}
-          >
-            Erase
-          </button>
+        <EraseCanvasButton eraseCanvas={this.eraseCanvas}/>
       </div>
     )
   }
+}
+
+function EraseCanvasButton(props) {
+  return (
+    <button 
+      className='btn btn-danger' 
+      onClick={props.eraseCanvas}
+    >
+      Erase
+    </button>
+  )
 }
