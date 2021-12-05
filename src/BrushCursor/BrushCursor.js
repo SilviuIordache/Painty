@@ -1,7 +1,7 @@
 import "./BrushCursor.css";
 
 export default function BrushCursor(props) {
-  const brushSizes = require('../brushSizes.json');
+  const brushSizes = require('../jsons/brushSizes.json');
   const sizes = brushSizes.sizes;
 
   const brushStyle = {

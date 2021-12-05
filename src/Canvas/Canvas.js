@@ -4,7 +4,7 @@ import Coordinates from '../Coordinates/Coordinates.js';
 import BrushCursor from '../BrushCursor/BrushCursor.js';
 
 import "./canvas.css";
-import '../brushSizes.json';
+import '../jsons/brushSizes.json';
 
 export default class PaintApp extends React.Component {
   constructor(props) {
@@ -42,7 +42,7 @@ export default class PaintApp extends React.Component {
   };
 
   setupBrushSizes = () => {
-    const brushSizes = require('../brushSizes.json');
+    const brushSizes = require('../jsons/brushSizes.json');
     this.setState({ brush: brushSizes.sizes});
 
   }

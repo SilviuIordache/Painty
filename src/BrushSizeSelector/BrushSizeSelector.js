@@ -1,7 +1,7 @@
 import "./BrushSizeSelector.css";
 
 export default function BrushSizeSelector(props) {
-  const sizes = require('../brushSizes.json').sizes;
+  const sizes = require('../jsons/brushSizes.json').sizes;
 
   const brushSizes = sizes.map((size, index) => {
 
