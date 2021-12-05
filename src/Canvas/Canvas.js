@@ -142,10 +142,13 @@ export default class PaintApp extends React.Component {
           x={this.state.canvasX}
           y={this.state.canvasY}
         />
-        <Toolbar
-          selectBrushSize={this.selectBrushSize}
-          eraseCanvas={this.eraseCanvas}
-        />
+        <div className="d-flex justify-content-center">
+          <Toolbar
+            selectBrushSize={this.selectBrushSize}
+            eraseCanvas={this.eraseCanvas}
+            toolbarWidth={this.state.canvasWidth}
+          />
+        </div>
       </div>
     );
   }

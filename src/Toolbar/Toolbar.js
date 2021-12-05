@@ -1,5 +1,6 @@
 import React from "react";
-import BrushSizeSelector from './BrushSizeSelector'
+import BrushSizeSelector from './BrushSizeSelector';
+import "./Toolbar.css";
 
 export default class Toolbar extends React.Component {
 
@@ -7,13 +8,16 @@ export default class Toolbar extends React.Component {
     this.props.selectBrushSize(size)
   }
 
-  eraseCanvas = () => {
+  eraseCanvas = (props) => {
     this.props.eraseCanvas();
   }
 
   render() {
+    const style = {
+      width: this.props.toolbarWidth
+    }
     return (
-      <div className='d-flex justify-content-around align-items-center'>
+      <div className='toolbar-container d-flex justify-content-around align-items-center' style={style}>
         <BrushSizeSelector onBrushSizeSelected={this.selectBrushSize}/>
           <button 
             className='btn btn-danger' 
