@@ -1,3 +1,5 @@
+import "./BrushSizeSelector.css";
+
 export default function BrushSizeSelector(props) {
   const sizes = [1, 2, 3];
 

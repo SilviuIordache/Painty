@@ -1,5 +1,7 @@
 import React from "react";
-import Toolbar from '../Toolbar/Toolbar'
+import Toolbar from '../Toolbar/Toolbar.js';
+import Coordinates from '../Coordinates/Coordinates.js';
+import BrushCursor from '../BrushCursor/BrushCursor.js';
 import "./canvas.css";
 
 export default class PaintApp extends React.Component {
@@ -136,7 +138,7 @@ export default class PaintApp extends React.Component {
           onMouseDown={this.startDrawing}
           onMouseUp={this.stopDrawing}
         />
-        <Brush size={this.state.currentBrushSize}/>
+        <BrushCursor size={this.state.currentBrushSize}/>
         <Toolbar
           selectBrushSize={this.selectBrushSize}
           eraseCanvas={this.eraseCanvas}
@@ -146,21 +148,7 @@ export default class PaintApp extends React.Component {
   }
 }
 
-function Brush(props) {
-  const className = `cursor-brush brush-size-${props.size}`
-  return (
-    <div id="brush-cursor" className={className} />
-  )
-}
 
-function Coordinates(props) {
-  return (
-    <div id="coordinates">
-      <p> x: {props.x} </p>
-      <p> y: {props.y} </p>
-    </div>
-  )
-}
 
 
 // need to improve
