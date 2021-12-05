@@ -17,6 +17,7 @@ export default class PaintApp extends React.Component {
         { size: 15 },
         { size: 20 }
       ],
+      hideBrush: false,
       canvasWidth: 800,
       canvasHeight: 600,
       currentBrushSize: 1
@@ -58,6 +59,14 @@ export default class PaintApp extends React.Component {
       this.drawPath();
     }
   };
+
+  handleMouseEnter = () => {
+    this.setState({ hideBrush: false})
+  }
+
+  handleMouseLeave = () => {
+    this.setState({ hideBrush: true})
+  }
 
   selectBrushSize = (size) => {
     this.setState({
@@ -137,7 +146,10 @@ export default class PaintApp extends React.Component {
           onMouseDown={this.startDrawing}
           onMouseUp={this.stopDrawing}
         />
-        <BrushCursor size={this.state.currentBrushSize}/>
+        <BrushCursor 
+          size={this.state.currentBrushSize}
+          hideBrush={this.state.hideBrush}
+        />
         <Toolbar
           selectBrushSize={this.selectBrushSize}
           eraseCanvas={this.eraseCanvas}
