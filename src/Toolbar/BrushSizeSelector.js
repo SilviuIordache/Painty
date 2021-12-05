@@ -6,8 +6,8 @@ export default function BrushSizeSelector(props) {
   const brushSizes = sizes.map((size, index) => {
 
       const brushIconStyle = {
-        width: `${size}px`,
-        height: `${size}px`,
+        width: `${size/1.5}px`,
+        height: `${size/1.5}px`,
         borderRadius: '50%',
         backgroundColor: 'black',
       }
@@ -16,7 +16,7 @@ export default function BrushSizeSelector(props) {
         <button
           key={index}
           onClick={() => props.onBrushSizeSelected(index)}
-          className='d-flex align-items-center justify-content-center brush-size-button btn btn-outline-secondary'
+          className='d-flex align-items-center justify-content-center brush-size-button btn btn-outline-secondary me-1'
         >
           <div style={brushIconStyle}></div>  
         </button>
