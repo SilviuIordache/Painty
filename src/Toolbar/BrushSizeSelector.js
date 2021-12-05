@@ -26,7 +26,6 @@ export default function BrushSizeSelector(props) {
   
   return (
     <div className='d-flex align-items-center'>
-      <span className='me-4'>Brush size:</span>
      {brushSizes}
     </div>
   )
