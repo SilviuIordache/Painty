@@ -8,6 +8,10 @@ export default class ColorPicker extends React.Component {
     };
   }
 
+  selectBrushColor = (color) => {
+    this.props.selectBrushColor(color)
+  }
+
   componentDidMount() {
     const colors = require('../jsons/colors.json').list;
     this.setState({ colors});
@@ -16,7 +20,9 @@ export default class ColorPicker extends React.Component {
   render() {
     return (
       <div>
-        <ColorGrid colors={this.state.colors}/>
+        <ColorGrid 
+          colors={this.state.colors}
+          selectBrushColor={this.selectBrushColor}/>
       </div>
     )
   }
@@ -34,6 +40,7 @@ function ColorGrid(props) {
         style={style}
         key={index}
         className="d-inline-block"
+        onClick={() => {props.selectBrushColor(color)}}
       ></div>
     )
   });

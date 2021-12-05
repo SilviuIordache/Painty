@@ -6,7 +6,7 @@ import BrushCursor from '../BrushCursor/BrushCursor.js';
 import "./canvas.css";
 import '../jsons/brushSizes.json';
 
-export default class PaintApp extends React.Component {
+export default class Canvas extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,7 +20,8 @@ export default class PaintApp extends React.Component {
       hideBrush: false,
       canvasWidth: 800,
       canvasHeight: 600,
-      currentBrushSize: 1
+      currentBrushSize: 1,
+      currentBrushColor: 'black'
     };
   }
 
@@ -78,6 +79,12 @@ export default class PaintApp extends React.Component {
     })
   }
 
+  selectBrushColor = (color) => {
+    this.setState({
+      currentBrushColor: color
+    })
+  }
+
   createRectangleAtCoordinates = (x, y, width, height, color) => {
     const newCTX = this.state.ctx;
     newCTX.fillStyle = color || "black";
@@ -109,7 +116,7 @@ export default class PaintApp extends React.Component {
     const ctx = this.state.ctx;
     ctx.lineWidth = this.state.brush[this.state.currentBrushSize - 1];
     ctx.lineCap = 'round';
-    ctx.strokeStyle = "black";
+    ctx.strokeStyle = this.state.currentBrushColor;
 
     ctx.lineTo(this.state.cursorX, this.state.cursorY);
     ctx.stroke();
@@ -145,6 +152,7 @@ export default class PaintApp extends React.Component {
         <div className="d-flex justify-content-center">
           <Toolbar
             selectBrushSize={this.selectBrushSize}
+            selectBrushColor={this.selectBrushColor}
             eraseCanvas={this.eraseCanvas}
             toolbarWidth={this.state.canvasWidth}
           />

@@ -9,6 +9,10 @@ export default class Toolbar extends React.Component {
     this.props.selectBrushSize(size);
   };
 
+  selectBrushColor = (color) => {
+    this.props.selectBrushColor(color);
+  }
+
   eraseCanvas = (props) => {
     this.props.eraseCanvas();
   };
@@ -22,8 +26,8 @@ export default class Toolbar extends React.Component {
         className="toolbar-container d-flex justify-content-end align-items-center"
         style={style}
       >
-        <ColorPicker />
-        <BrushSizeSelector onBrushSizeSelected={this.selectBrushSize} />
+        <ColorPicker selectBrushColor={this.selectBrushColor}/>
+        <BrushSizeSelector selectBrushSize={this.selectBrushSize}/>
         <div className="ms-3 h-100">
           <EraseCanvasButton eraseCanvas={this.eraseCanvas} />
         </div>
