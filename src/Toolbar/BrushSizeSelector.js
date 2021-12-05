@@ -1,12 +1,12 @@
 import "./BrushSizeSelector.css";
 
 export default function BrushSizeSelector(props) {
-  const sizes = [1, 2, 3];
+  const sizes = require('../brushSizes.json').sizes;
 
   const brushSizes = sizes.map((size, index) =>
     <button
       key={index}
-      onClick={() => props.onBrushSizeSelected(sizes[index])}>
+      onClick={() => props.onBrushSizeSelected(index)}>
       {index + 1}
     </button>
   )

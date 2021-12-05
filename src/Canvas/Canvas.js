@@ -89,20 +89,6 @@ export default class PaintApp extends React.Component {
     });
   };
 
-  pathDrawingTest = () => {
-    const ctx = this.state.ctx;
-    ctx.lineWidth = 16;
-    ctx.strokeStyle = "red";
-
-    ctx.beginPath();
-    ctx.moveTo(25, 25);
-    ctx.lineTo(105, 25);
-    ctx.lineTo(25, 105);
-    ctx.closePath();
-    ctx.stroke();
-    ctx.fill();
-  };
-
   startDrawing = () => {
     this.setState({
       isDrawing: true,
