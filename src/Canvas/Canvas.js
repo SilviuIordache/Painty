@@ -2,7 +2,9 @@ import React from "react";
 import Toolbar from '../Toolbar/Toolbar.js';
 import Coordinates from '../Coordinates/Coordinates.js';
 import BrushCursor from '../BrushCursor/BrushCursor.js';
+
 import "./canvas.css";
+import '../brushSizes.json';
 
 export default class PaintApp extends React.Component {
   constructor(props) {
@@ -12,11 +14,7 @@ export default class PaintApp extends React.Component {
       cursorY: 0,
       ctx: null,
       isDrawing: false,
-      brush: [
-        { size: 10 },
-        { size: 15 },
-        { size: 20 }
-      ],
+      brush: [],
       hideBrush: false,
       canvasWidth: 800,
       canvasHeight: 600,
@@ -26,6 +24,7 @@ export default class PaintApp extends React.Component {
 
   componentDidMount() {
     this.setupCanvas();
+    this.setupBrushSizes();
   }
 
   setupCanvas = () => {
@@ -39,6 +38,12 @@ export default class PaintApp extends React.Component {
       ctx: canvas.getContext("2d"),
     });
   };
+
+  setupBrushSizes = () => {
+    const brushSizes = require('../brushSizes.json');
+    this.setState({ brush: brushSizes.sizes})
+
+  }
 
   handleMouseMove = (e) => {
     const canvas = document.getElementById("canvas");
@@ -117,7 +122,7 @@ export default class PaintApp extends React.Component {
     if (!this.state.isDrawing) return
 
     const ctx = this.state.ctx;
-    ctx.lineWidth = this.state.brush[this.state.currentBrushSize - 1].size;
+    ctx.lineWidth = this.state.brush[this.state.currentBrushSize - 1];
     ctx.lineCap = 'round';
     ctx.strokeStyle = "black";
 
