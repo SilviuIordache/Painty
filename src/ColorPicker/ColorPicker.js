@@ -30,9 +30,13 @@ function ColorGrid(props) {
       height: '2rem'
     }
     return (
-      <div style={style} key={index}></div>
+      <div 
+        style={style}
+        key={index}
+        className="d-inline-block"
+      ></div>
     )
   });
 
-  return <div className="d-flex">{colorGrid}</div>
+  return <div>{colorGrid}</div>
 }
