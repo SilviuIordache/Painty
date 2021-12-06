@@ -45,7 +45,6 @@ export default class Canvas extends React.Component {
   setupBrushSizes = () => {
     const brushSizes = require('../jsons/brushSizes.json');
     this.setState({ brush: brushSizes.sizes});
-
   }
 
   handleMouseMove = (e) => {
