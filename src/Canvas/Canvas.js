@@ -33,7 +33,7 @@ export default class Canvas extends React.Component {
   setupCanvas = () => {
     const canvas = document.getElementById("canvas");
 
-    canvas.style.backgroundColor = "lightgray";
+    canvas.style.backgroundColor = "white";
     canvas.width = this.state.canvasWidth;
     canvas.height = this.state.canvasHeight;
 
