@@ -8,6 +8,7 @@ export default function BrushCursor(props) {
     width: `${sizes[props.size]}px`,
     height: `${sizes[props.size]}px`,
     position: 'absolute',
+    border: '2px solid black',
     borderRadius: '50%',
     backgroundColor: `${props.color}`,
     pointerEvents: 'none',
