@@ -71,8 +71,8 @@ export default class Canvas extends React.Component {
   handleMouseLeave = () => {
     this.setState({ 
       hideBrush: true,
-      isDrawing: false
-    })
+    });
+    this.stopDrawing();
   }
 
   selectBrushSize = (size) => {
