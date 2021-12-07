@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class ColorPicker extends React.Component {
+export default class ColorSelector extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
