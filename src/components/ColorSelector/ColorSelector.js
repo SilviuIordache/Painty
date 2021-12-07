@@ -1,4 +1,5 @@
 import React from "react";
+import "./ColorSelector.css"
 
 export default class ColorSelector extends React.Component {
   constructor(props) {
@@ -29,22 +30,19 @@ export default class ColorSelector extends React.Component {
 }
 
 function ColorGrid(props) {
-  const colorGrid = props.colors.map((color, index) => {
+  const colorSquares = props.colors.map((color, index) => {
     const style = {
       backgroundColor: color,
-      width: '2rem',
-      height: '2rem',
-      cursor: 'pointer'
     }
     return (
-      <div 
+      <div
         style={style}
         key={index}
-        className="d-inline-block"
+        className="color-square d-inline-block"
         onClick={() => {props.selectBrushColor(color)}}
       ></div>
     )
   });
 
-  return <div>{colorGrid}</div>
+  return <div>{colorSquares}</div>
 }
