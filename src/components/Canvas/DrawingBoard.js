@@ -34,6 +34,7 @@ export default class DrawingBoard extends React.Component {
     const canvas = document.getElementById("canvas");
 
     canvas.style.backgroundColor = "white";
+    canvas.style.borderRadius ="0.5rem";
     canvas.width = this.state.canvasWidth;
     canvas.height = this.state.canvasHeight;
 
