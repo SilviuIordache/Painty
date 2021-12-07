@@ -6,6 +6,13 @@
     "green",
     "brown",
     "white",
-    "black"
+    "black",
+    "cyan",
+    "pink",
+    "purple",
+    "orange",
+    "gray",
+    "lightgray",
+    "darkgray"
   ]
 }

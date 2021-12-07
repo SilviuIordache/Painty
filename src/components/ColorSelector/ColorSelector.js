@@ -30,19 +30,49 @@ export default class ColorSelector extends React.Component {
 }
 
 function ColorGrid(props) {
-  const colorSquares = props.colors.map((color, index) => {
-    const style = {
-      backgroundColor: color,
-    }
+
+  const colorsArray1 = props.colors.slice(0, 7);
+  const colorsArray2 = props.colors.slice(7, 14);
+
+
+  const colorsRow1 = colorsArray1.map((color, index) => {
     return (
-      <div
-        style={style}
+      <ColorSquare
+        color={color}
+        onClick={() => { props.selectBrushColor(color) }}
         key={index}
-        className="color-square d-inline-block"
-        onClick={() => {props.selectBrushColor(color)}}
-      ></div>
+      />
     )
   });
 
-  return <div>{colorSquares}</div>
+  const colorsRow2 = colorsArray2.map((color, index) => {
+    return (
+      <ColorSquare
+        color={color}
+        onClick={() => { props.selectBrushColor(color) }}
+        key={index}
+      />
+    )
+  });
+
+  return (
+    <div>
+      <div className="d-flex">{colorsRow1}</div>
+      <div className="d-flex">{colorsRow2}</div>
+    </div>
+  )
+}
+
+function ColorSquare(props) {
+  const style = {
+    backgroundColor: props.color,
+  }
+  return (
+    <div
+      style={style}
+      key={props.index}
+      className="color-square d-inline-block"
+      onClick={props.onClick}
+    ></div>
+  )
 }
