@@ -1,12 +1,10 @@
 import "./BrushCursor.css";
 
 export default function BrushCursor(props) {
-  const brushSizes = require('../jsons/brushSizes.json');
-  const sizes = brushSizes.sizes;
 
   const brushStyle = {
-    width: `${sizes[props.size]}px`,
-    height: `${sizes[props.size]}px`,
+    width: `${props.size}px`,
+    height: `${props.size}px`,
     position: 'absolute',
     border: '2px solid black',
     borderRadius: '50%',

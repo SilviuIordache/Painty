@@ -15,7 +15,7 @@ export default function BrushSizeSelector(props) {
       return (
         <button
           key={index}
-          onClick={() => props.selectBrushSize(index)}
+          onClick={() => props.selectBrushSize(size)}
           className='brush-size-button d-flex align-items-center justify-content-center btn btn-outline-secondary me-1'
         >
           <div style={brushIconStyle}></div>  

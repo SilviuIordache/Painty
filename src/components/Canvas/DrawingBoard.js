@@ -16,12 +16,12 @@ export default class DrawingBoard extends React.Component {
       canvasY: 0,
       ctx: null,
       isDrawing: false,
-      brush: [],
       hideBrush: false,
       canvasWidth: 800,
       canvasHeight: 600,
       currentBrushSize: 1,
-      currentBrushColor: 'black'
+      currentBrushColor: 'black',
+      currentTool: 'brush'
     };
   }
 
@@ -43,8 +43,10 @@ export default class DrawingBoard extends React.Component {
   };
 
   setupBrushSizes = () => {
-    const brushSizes = require('../jsons/brushSizes.json');
-    this.setState({ brush: brushSizes.sizes});
+    const sizes = require('../jsons/brushSizes.json').sizes;
+    this.setState({ 
+      currentBrushSize: sizes[0]
+    });
   }
 
   handleMouseMove = (e) => {
@@ -68,7 +70,7 @@ export default class DrawingBoard extends React.Component {
     if (!this.state.isDrawing) return
 
     const ctx = this.state.ctx;
-    ctx.lineWidth = this.state.brush[this.state.currentBrushSize];
+    ctx.lineWidth = this.state.currentBrushSize;
     ctx.lineCap = 'round';
     ctx.strokeStyle = this.state.currentBrushColor;
 
@@ -114,8 +116,6 @@ export default class DrawingBoard extends React.Component {
     this.state.ctx.beginPath();
   };
 
-  
-
   eraseCanvas = () => {
     this.state.ctx.clearRect(0, 0, this.state.canvasWidth, this.state.canvasHeight);
   }
@@ -130,6 +130,23 @@ export default class DrawingBoard extends React.Component {
       ctx: newCTX,
     });
   };
+
+  changeTool = (tool) => {
+    if (tool === 'brush') {
+
+    }
+    
+    if (tool === 'eraser') {
+      const sizes = require('../jsons/brushSizes.json').sizes;
+
+      console.log(sizes[sizes.length -1])
+      this.setState({
+        currentTool: tool,
+        currentBrushColor: 'white',
+        currentBrushSize: sizes[sizes.length -1]
+      });
+    }
+  }
 
   render() {
     return (
@@ -161,6 +178,7 @@ export default class DrawingBoard extends React.Component {
             selectedColor={this.state.currentBrushColor}
             eraseCanvas={this.eraseCanvas}
             toolbarWidth={this.state.canvasWidth}
+            changeTool={this.changeTool}
           />
         </div>
       </div>

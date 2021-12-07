@@ -34,9 +34,9 @@ export default class Toolbar extends React.Component {
         <div className="me-4">
           <ColorSelector selectBrushColor={this.selectBrushColor}/>
         </div>
-        {/* <div className="me-4">
-          <ToolSelector/>
-        </div> */}
+        <div className="me-4">
+          <ToolSelector changeTool={this.props.changeTool}/>
+        </div>
         <BrushSizeSelector selectBrushSize={this.selectBrushSize}/>
         <div className="ms-3 h-100">
           <EraseCanvasButton eraseCanvas={this.eraseCanvas} />
