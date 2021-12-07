@@ -2,6 +2,7 @@ import React from "react";
 import BrushSizeSelector from "../BrushSizeSelector/BrushSizeSelector.js";
 import ColorPicker from "../ColorPicker/ColorPicker.js";
 import ColorPreview from "../ColorPreview/ColorPreview.js";
+import ToolSelector from "../ToolSelector/ToolSelector.js"
 
 import "./Toolbar.css";
 
@@ -32,6 +33,9 @@ export default class Toolbar extends React.Component {
         </div>
         <div className="me-4">
           <ColorPicker selectBrushColor={this.selectBrushColor}/>
+        </div>
+        <div className="me-4">
+          <ToolSelector/>
         </div>
         <BrushSizeSelector selectBrushSize={this.selectBrushSize}/>
         <div className="ms-3 h-100">
