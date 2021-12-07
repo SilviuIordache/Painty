@@ -64,6 +64,19 @@ export default class Canvas extends React.Component {
     }
   };
 
+  drawPath = (e) => {
+    if (!this.state.isDrawing) return
+
+    const ctx = this.state.ctx;
+    ctx.lineWidth = this.state.brush[this.state.currentBrushSize];
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = this.state.currentBrushColor;
+
+    ctx.lineTo(this.state.cursorX, this.state.cursorY);
+    ctx.stroke();
+    ctx.moveTo(this.state.cursorX, this.state.cursorY);
+  }
+
   handleMouseEnter = () => {
     this.setState({ hideBrush: false})
   }
@@ -87,17 +100,6 @@ export default class Canvas extends React.Component {
     })
   }
 
-  createRectangleAtCoordinates = (x, y, width, height, color) => {
-    const newCTX = this.state.ctx;
-    newCTX.fillStyle = color || "black";
-
-    newCTX.fillRect(x, y, width, height);
-
-    this.setState({
-      ctx: newCTX,
-    });
-  };
-
   startDrawing = () => {
     this.setState({
       isDrawing: true,
@@ -112,22 +114,22 @@ export default class Canvas extends React.Component {
     this.state.ctx.beginPath();
   };
 
-  drawPath = (e) => {
-    if (!this.state.isDrawing) return
-
-    const ctx = this.state.ctx;
-    ctx.lineWidth = this.state.brush[this.state.currentBrushSize - 1];
-    ctx.lineCap = 'round';
-    ctx.strokeStyle = this.state.currentBrushColor;
-
-    ctx.lineTo(this.state.cursorX, this.state.cursorY);
-    ctx.stroke();
-    ctx.moveTo(this.state.cursorX, this.state.cursorY);
-  }
+  
 
   eraseCanvas = () => {
     this.state.ctx.clearRect(0, 0, this.state.canvasWidth, this.state.canvasHeight);
   }
+
+  createRectangleAtCoordinates = (x, y, width, height, color) => {
+    const newCTX = this.state.ctx;
+    newCTX.fillStyle = color || "black";
+
+    newCTX.fillRect(x, y, width, height);
+
+    this.setState({
+      ctx: newCTX,
+    });
+  };
 
   render() {
     return (
