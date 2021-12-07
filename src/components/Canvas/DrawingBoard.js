@@ -183,6 +183,7 @@ export default class DrawingBoard extends React.Component {
             toolbarWidth={this.state.canvasWidth}
             changeTool={this.changeTool}
             currentTool={this.state.currentTool}
+            currentBrushSize={this.state.currentBrushSize}
           />
         </div>
       </div>
