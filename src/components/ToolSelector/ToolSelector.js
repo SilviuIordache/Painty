@@ -39,7 +39,8 @@ function ToolButton(props) {
   let activeStyle;
   if (props.active) {
     activeStyle = {
-      backgroundColor: 'gold'
+      border: '2px solid black',
+      color: 'black'
     } 
   }
   return (
