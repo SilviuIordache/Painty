@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import Canvas from './Canvas/Canvas'
+import Canvas from './components/Canvas/Canvas'
 
 function App() {
   return (
@@ -11,7 +11,5 @@ function App() {
     </div>
   );
 }
-
-
 
 export default App;
