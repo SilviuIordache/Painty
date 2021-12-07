@@ -19,6 +19,7 @@ export default class Toolbar extends React.Component {
     const tools = this.state.tools.map((tool, index) => {
       return (
         <ToolButton
+          active={this.props.currentTool === tool.name}
           icon={tool.icon}
           name={tool.name}
           key={index}
@@ -35,9 +36,16 @@ export default class Toolbar extends React.Component {
 }
 
 function ToolButton(props) {
+  let activeStyle;
+  if (props.active) {
+    activeStyle = {
+      backgroundColor: 'gold'
+    } 
+  }
   return (
     <button 
       className="btn btn-outline-secondary"
+      style={activeStyle}
       onClick={() => {props.changeTool(props.name)}}
       key={props.index}
     >

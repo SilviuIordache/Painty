@@ -35,7 +35,10 @@ export default class Toolbar extends React.Component {
           <ColorSelector selectBrushColor={this.selectBrushColor}/>
         </div>
         <div className="me-4">
-          <ToolSelector changeTool={this.props.changeTool}/>
+          <ToolSelector 
+            changeTool={this.props.changeTool}
+            currentTool={this.props.currentTool}
+          />
         </div>
         <BrushSizeSelector selectBrushSize={this.selectBrushSize}/>
         <div className="ms-3 h-100">

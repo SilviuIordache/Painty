@@ -181,6 +181,7 @@ export default class DrawingBoard extends React.Component {
             eraseCanvas={this.eraseCanvas}
             toolbarWidth={this.state.canvasWidth}
             changeTool={this.changeTool}
+            currentTool={this.state.currentTool}
           />
         </div>
       </div>
