@@ -1,12 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
-import Canvas from './components/Canvas/Canvas'
+import DrawingBoard from './components/Canvas/DrawingBoard'
 
 function App() {
   return (
     <div className="App">
 
-      <Canvas/>
+      <DrawingBoard/>
       
     </div>
   );

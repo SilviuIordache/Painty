@@ -3,10 +3,10 @@ import Toolbar from '../Toolbar/Toolbar.js';
 import Coordinates from '../Coordinates/Coordinates.js';
 import BrushCursor from '../BrushCursor/BrushCursor.js';
 
-import "./canvas.css";
+import "./DrawingBoard.css";
 import '../jsons/brushSizes.json';
 
-export default class Canvas extends React.Component {
+export default class DrawingBoard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
