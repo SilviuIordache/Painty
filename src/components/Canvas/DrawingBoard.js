@@ -132,14 +132,16 @@ export default class DrawingBoard extends React.Component {
   };
 
   changeTool = (tool) => {
+    const sizes = require('../jsons/brushSizes.json').sizes;
     if (tool === 'brush') {
-
+      this.setState({
+        currentTool: tool,
+        currentBrushColor: 'black',
+        currentBrushSize: sizes[1]
+      });
     }
     
-    if (tool === 'eraser') {
-      const sizes = require('../jsons/brushSizes.json').sizes;
-
-      console.log(sizes[sizes.length -1])
+    if (tool === 'eraser') { 
       this.setState({
         currentTool: tool,
         currentBrushColor: 'white',
