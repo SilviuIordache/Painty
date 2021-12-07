@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import DrawingBoard from './components/Canvas/DrawingBoard'
 
