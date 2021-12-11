@@ -19,6 +19,10 @@ export default class Toolbar extends React.Component {
     this.props.eraseCanvas();
   };
 
+  saveCanvas = (props) => {
+    this.props.saveCanvas();
+  }
+
   render() {
     const style = {
       width: this.props.toolbarWidth,
@@ -44,8 +48,9 @@ export default class Toolbar extends React.Component {
           currentBrushSize={this.props.currentBrushSize}
           selectBrushSize={this.selectBrushSize}
         />
-        <div className="ms-3 h-100">
+        <div className="ms-3 d-flex ">
           <EraseCanvasButton eraseCanvas={this.eraseCanvas} />
+          <SaveCanvasButton saveCanvas={this.saveCanvas}/>
         </div>
       </div>
     );
@@ -54,8 +59,16 @@ export default class Toolbar extends React.Component {
 
 function EraseCanvasButton(props) {
   return (
-    <button className="btn btn-danger px-4 h-100" onClick={props.eraseCanvas}>
-      <i className="far fa-trash-alt fa-2x"></i>
+    <button className="btn btn-danger px-2 me-1" onClick={props.eraseCanvas}>
+      <i className="far fa-trash-alt fa-md"></i>
+    </button>
+  );
+}
+
+function SaveCanvasButton(props) {
+  return (
+    <button className="btn btn-primary px-2" onClick={props.saveCanvas}>
+      <i className="far fa-save fa-md"></i>
     </button>
   );
 }

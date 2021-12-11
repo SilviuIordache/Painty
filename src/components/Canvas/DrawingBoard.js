@@ -21,7 +21,8 @@ export default class DrawingBoard extends React.Component {
       canvasHeight: 600,
       currentBrushSize: 1,
       currentBrushColor: 'black',
-      currentTool: 'brush'
+      currentTool: 'brush',
+      dataURL: ''
     };
   }
 
@@ -40,7 +41,11 @@ export default class DrawingBoard extends React.Component {
 
     this.setState({
       ctx: canvas.getContext("2d"),
+    }, () => {
+      // apply white background immediately canvas ctx creation
+      this.drawRectangle(0, 0, this.state.canvasWidth, this.state.canvasHeight, 'white')
     });
+
   };
 
   setupBrushSizes = () => {
@@ -121,14 +126,24 @@ export default class DrawingBoard extends React.Component {
     this.state.ctx.clearRect(0, 0, this.state.canvasWidth, this.state.canvasHeight);
   }
 
-  createRectangleAtCoordinates = (x, y, width, height, color) => {
-    const newCTX = this.state.ctx;
-    newCTX.fillStyle = color || "black";
+  saveCanvas = () => {
+    console.log('saving canvas')
+    const canvas = document.getElementById("canvas");
 
-    newCTX.fillRect(x, y, width, height);
+    const dataURL = canvas.toDataURL();
+    this.setState({
+      dataURL
+    })
+  }
+
+  drawRectangle = (x, y, width, height, color) => {
+    const ctx = this.state.ctx;
+    ctx.fillStyle = color || "black";
+
+    ctx.fillRect(x, y, width, height);
 
     this.setState({
-      ctx: newCTX,
+      ctx
     });
   };
 
@@ -180,11 +195,15 @@ export default class DrawingBoard extends React.Component {
             selectBrushColor={this.selectBrushColor}
             selectedColor={this.state.currentBrushColor}
             eraseCanvas={this.eraseCanvas}
+            saveCanvas={this.saveCanvas}
             toolbarWidth={this.state.canvasWidth}
             changeTool={this.changeTool}
             currentTool={this.state.currentTool}
             currentBrushSize={this.state.currentBrushSize}
           />
+        </div>
+        <div>
+          <img src={this.state.dataURL}/>
         </div>
       </div>
     );
