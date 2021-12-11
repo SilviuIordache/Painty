@@ -1,12 +1,22 @@
-import './App.css';
-import DrawingBoard from './components/Canvas/DrawingBoard'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Navigation from "./components/Navigation/Navigation"
+import DrawingBoard from "./components/DrawingBoard/DrawingBoard";
+import Gallery from "./components/Gallery/Gallery"
+
+
+import "./App.css";
 
 function App() {
   return (
     <div className="App">
-
-      <DrawingBoard/>
-      
+      <BrowserRouter>
+        <Navigation/>
+        <Routes>
+          <Route index path='/' element={<DrawingBoard/>}/>
+          <Route path='/gallery' element={<Gallery/>}/>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
