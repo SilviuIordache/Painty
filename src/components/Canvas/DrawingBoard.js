@@ -154,13 +154,13 @@ export default class DrawingBoard extends React.Component {
   render() {
     return (
       <div>
-        <Coordinates
+        {/* <Coordinates
           x={this.state.cursorX}
           y={this.state.cursorY}
-        />
+        /> */}
         <canvas
           id="canvas"
-          className="no-cursor"
+          className="no-cursor mt-5"
           onMouseEnter={this.handleMouseEnter}
           onMouseLeave={this.handleMouseLeave}
           onMouseMove={this.handleMouseMove}
