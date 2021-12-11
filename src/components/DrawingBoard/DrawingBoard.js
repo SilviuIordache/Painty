@@ -133,13 +133,11 @@ export default class DrawingBoard extends React.Component {
   }
 
   saveCanvas = () => {
-    console.log('saving canvas')
     const canvas = document.getElementById("canvas");
 
     const dataURL = canvas.toDataURL();
-    this.setState({
-      dataURL
-    })
+    
+    localStorage.setItem('img', dataURL);
   }
 
   drawRectangle = (x, y, width, height, color) => {
@@ -208,9 +206,7 @@ export default class DrawingBoard extends React.Component {
             currentBrushSize={this.state.currentBrushSize}
           />
         </div>
-        <div>
-          <img src={this.state.dataURL}/>
-        </div>
+
       </div>
     );
   }
