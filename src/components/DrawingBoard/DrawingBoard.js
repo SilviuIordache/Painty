@@ -114,8 +114,10 @@ export default class DrawingBoard extends React.Component {
   startDrawing = () => {
     this.setState({
       isDrawing: true,
+    },
+    () => {
+      this.drawPath();
     });
-    this.drawPath();
   };
 
   stopDrawing = () => {
