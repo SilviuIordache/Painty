@@ -42,11 +42,14 @@ export default class DrawingBoard extends React.Component {
     this.setState({
       ctx: canvas.getContext("2d"),
     }, () => {
-      // apply white background immediately canvas ctx creation
-      this.drawRectangle(0, 0, this.state.canvasWidth, this.state.canvasHeight, 'white')
+      this.applyWhiteBackground();
     });
 
   };
+
+  applyWhiteBackground = () => {
+    this.drawRectangle(0, 0, this.state.canvasWidth, this.state.canvasHeight, 'white')
+  }
 
   setupBrushSizes = () => {
     const sizes = require('../jsons/brushSizes.json').sizes;
@@ -124,6 +127,7 @@ export default class DrawingBoard extends React.Component {
 
   eraseCanvas = () => {
     this.state.ctx.clearRect(0, 0, this.state.canvasWidth, this.state.canvasHeight);
+    this.applyWhiteBackground();
   }
 
   saveCanvas = () => {
