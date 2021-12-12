@@ -183,41 +183,44 @@ export default class DrawingBoard extends React.Component {
 
   render() {
     return (
-      <div>
-        {/* <Coordinates
-          x={this.state.cursorX}
-          y={this.state.cursorY}
-        /> */}
-        <canvas
-          id="canvas"
-          className="no-cursor mt-5"
-          onMouseEnter={this.handleMouseEnter}
-          onMouseLeave={this.handleMouseLeave}
-          onMouseMove={this.handleMouseMove}
-          onMouseDown={this.startDrawing}
-          onMouseUp={this.stopDrawing}
-        />
-        <BrushCursor 
-          size={this.state.currentBrushSize}
-          color={this.state.currentBrushColor}
-          hideBrush={this.state.hideBrush}
-          x={this.state.canvasX}
-          y={this.state.canvasY}
-        />
-        <div className="d-flex justify-content-center">
-          <Toolbar
-            selectBrushSize={this.selectBrushSize}
-            selectBrushColor={this.selectBrushColor}
-            selectedColor={this.state.currentBrushColor}
-            eraseCanvas={this.eraseCanvas}
-            saveCanvas={this.saveCanvas}
-            toolbarWidth={this.state.canvasWidth}
-            changeTool={this.changeTool}
-            currentTool={this.state.currentTool}
-            currentBrushSize={this.state.currentBrushSize}
+      <div className="container">
+        <div className="row">
+          <div className="col-12 bg-secondary pb-3">
+            {/* <Coordinates
+            x={this.state.cursorX}
+            y={this.state.cursorY}
+          /> */}
+          <canvas
+            id="canvas"
+            className="no-cursor mt-5"
+            onMouseEnter={this.handleMouseEnter}
+            onMouseLeave={this.handleMouseLeave}
+            onMouseMove={this.handleMouseMove}
+            onMouseDown={this.startDrawing}
+            onMouseUp={this.stopDrawing}
           />
+          <BrushCursor 
+            size={this.state.currentBrushSize}
+            color={this.state.currentBrushColor}
+            hideBrush={this.state.hideBrush}
+            x={this.state.canvasX}
+            y={this.state.canvasY}
+          />
+          <div className="d-flex justify-content-center">
+            <Toolbar
+              selectBrushSize={this.selectBrushSize}
+              selectBrushColor={this.selectBrushColor}
+              selectedColor={this.state.currentBrushColor}
+              eraseCanvas={this.eraseCanvas}
+              saveCanvas={this.saveCanvas}
+              toolbarWidth={this.state.canvasWidth}
+              changeTool={this.changeTool}
+              currentTool={this.state.currentTool}
+              currentBrushSize={this.state.currentBrushSize}
+            />
+            </div>  
+          </div>    
         </div>
-
       </div>
     );
   }
