@@ -11,7 +11,9 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Navigation/>
+        <div className="mb-2">
+          <Navigation/>
+        </div>
         <Routes>
           <Route index path='/' element={<DrawingBoard/>}/>
           <Route path='/gallery' element={<Gallery/>}/>

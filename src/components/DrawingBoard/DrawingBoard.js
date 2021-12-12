@@ -185,7 +185,7 @@ export default class DrawingBoard extends React.Component {
     return (
       <div className="container">
         <div className="row">
-          <div className="col-12 bg-secondary pb-3">
+          <div className="col-12 bg-secondary pb-5">
             {/* <Coordinates
             x={this.state.cursorX}
             y={this.state.cursorY}
