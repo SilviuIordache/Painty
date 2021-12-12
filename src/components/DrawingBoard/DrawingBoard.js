@@ -135,20 +135,35 @@ export default class DrawingBoard extends React.Component {
   saveCanvas = () => {
     const canvas = document.getElementById("canvas");
 
-    const dataURL = canvas.toDataURL();
+    const imageName = prompt('Assign a name to this image before saving it');
+    if (imageName) {
+      const dataURL = canvas.toDataURL();
+      
+      
+      // check for stored images
+      const galleryImages = JSON.parse(localStorage.getItem('paintyImages'));
 
-    const galleryImages = JSON.parse(localStorage.getItem('paintyImages'));
+      const imgID = galleryImages ? galleryImages[galleryImages.length - 1].id + 1 : 0
+      
+      // build image object
+      const imgObject = {
+        id: imgID,
+        src: dataURL,
+        name: imageName
+      }
 
-    if (galleryImages) {
-      // add to array and store it back
-      galleryImages.push(dataURL);
-      localStorage.setItem('paintyImages', JSON.stringify(galleryImages));
-    } else {
-      // create an array
-      let arr = [];
-      arr.push(dataURL)
-      localStorage.setItem('paintyImages', JSON.stringify(arr));
+      if (galleryImages) {
+        // add to array and store it back
+        galleryImages.push(imgObject);
+        localStorage.setItem('paintyImages', JSON.stringify(galleryImages));
+      } else {
+        // create an array
+        let arr = [];
+        arr.push(imgObject)
+        localStorage.setItem('paintyImages', JSON.stringify(arr));
+      }
     }
+
   }
 
   drawRectangle = (x, y, width, height, color) => {
@@ -183,44 +198,42 @@ export default class DrawingBoard extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col-12 bg-secondary pb-5">
-            {/* <Coordinates
-            x={this.state.cursorX}
-            y={this.state.cursorY}
-          /> */}
-          <canvas
-            id="canvas"
-            className="no-cursor mt-5"
-            onMouseEnter={this.handleMouseEnter}
-            onMouseLeave={this.handleMouseLeave}
-            onMouseMove={this.handleMouseMove}
-            onMouseDown={this.startDrawing}
-            onMouseUp={this.stopDrawing}
+      <div className="row">
+        <div className="col-12 bg-secondary pb-5">
+          {/* <Coordinates
+          x={this.state.cursorX}
+          y={this.state.cursorY}
+        /> */}
+        <canvas
+          id="canvas"
+          className="no-cursor mt-5"
+          onMouseEnter={this.handleMouseEnter}
+          onMouseLeave={this.handleMouseLeave}
+          onMouseMove={this.handleMouseMove}
+          onMouseDown={this.startDrawing}
+          onMouseUp={this.stopDrawing}
+        />
+        <BrushCursor 
+          size={this.state.currentBrushSize}
+          color={this.state.currentBrushColor}
+          hideBrush={this.state.hideBrush}
+          x={this.state.canvasX}
+          y={this.state.canvasY}
+        />
+        <div className="d-flex justify-content-center">
+          <Toolbar
+            selectBrushSize={this.selectBrushSize}
+            selectBrushColor={this.selectBrushColor}
+            selectedColor={this.state.currentBrushColor}
+            eraseCanvas={this.eraseCanvas}
+            saveCanvas={this.saveCanvas}
+            toolbarWidth={this.state.canvasWidth}
+            changeTool={this.changeTool}
+            currentTool={this.state.currentTool}
+            currentBrushSize={this.state.currentBrushSize}
           />
-          <BrushCursor 
-            size={this.state.currentBrushSize}
-            color={this.state.currentBrushColor}
-            hideBrush={this.state.hideBrush}
-            x={this.state.canvasX}
-            y={this.state.canvasY}
-          />
-          <div className="d-flex justify-content-center">
-            <Toolbar
-              selectBrushSize={this.selectBrushSize}
-              selectBrushColor={this.selectBrushColor}
-              selectedColor={this.state.currentBrushColor}
-              eraseCanvas={this.eraseCanvas}
-              saveCanvas={this.saveCanvas}
-              toolbarWidth={this.state.canvasWidth}
-              changeTool={this.changeTool}
-              currentTool={this.state.currentTool}
-              currentBrushSize={this.state.currentBrushSize}
-            />
-            </div>  
-          </div>    
-        </div>
+          </div>  
+        </div>    
       </div>
     );
   }

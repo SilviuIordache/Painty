@@ -10,15 +10,17 @@ import "./App.css";
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
-        <div className="mb-2">
-          <Navigation/>
-        </div>
-        <Routes>
-          <Route index path='/' element={<DrawingBoard/>}/>
-          <Route path='/gallery' element={<Gallery/>}/>
-        </Routes>
-      </BrowserRouter>
+      <div className="container">
+        <BrowserRouter>
+          <div className="mb-2">
+            <Navigation/>
+          </div>
+          <Routes>
+            <Route index path='/' element={<DrawingBoard/>}/>
+            <Route path='/gallery' element={<Gallery/>}/>
+          </Routes>
+        </BrowserRouter>
+      </div>
     </div>
   );
 }

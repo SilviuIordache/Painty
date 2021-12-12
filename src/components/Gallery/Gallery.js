@@ -20,14 +20,34 @@ export default class DrawingBoard extends React.Component {
     let galleryImages;
     if (this.state.storageImages) {
       galleryImages = this.state.storageImages.map((image, index) =>
-        <img src={image} key={index} width="300" className="me-2"/>
+        <GalleryDrawing
+          src={image.src}
+          alt={image.name}
+          name={image.name}
+          key={index}
+        />
       );
     }
     return (
-      <div className="d-flex">
+      <div className="row bg-secondary p-5">
         {galleryImages}
       </div>
     )
   }
+}
 
+function GalleryDrawing(props) {
+  return (
+    <div className="col-12 col-md-6 col-lg-4 col-xl-3 mb-3">
+      <div className="small position-absolute bg-white border rounded px-3 py-1 ms-1 mt-1">
+        {props.name}
+      </div>
+      <img
+        alt={props.name}
+        src={props.src} 
+        key={props.index}
+        width="100%"
+      />
+    </div>
+  )
 }
