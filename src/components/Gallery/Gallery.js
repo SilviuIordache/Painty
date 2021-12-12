@@ -27,6 +27,8 @@ export default class DrawingBoard extends React.Component {
           key={index}
         />
       );
+    } else {
+      galleryImages = <p className="text-light">Your saved drawings will appear here</p>
     }
     return (
       <div className="row bg-secondary p-5">
