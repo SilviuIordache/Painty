@@ -1,11 +1,11 @@
 import React from "react";
-
+import GalleryDrawing from "../GalleryDrawing/GalleryDrawing.js"
 
 export default class DrawingBoard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      storageImages: []
+      storageImages: [],
     }
   }
 
@@ -34,20 +34,4 @@ export default class DrawingBoard extends React.Component {
       </div>
     )
   }
-}
-
-function GalleryDrawing(props) {
-  return (
-    <div className="col-12 col-md-6 col-lg-4 col-xl-3 mb-3">
-      <div className="small position-absolute bg-white border rounded px-3 py-1 ms-1 mt-1">
-        {props.name}
-      </div>
-      <img
-        alt={props.name}
-        src={props.src} 
-        key={props.index}
-        width="100%"
-      />
-    </div>
-  )
 }
