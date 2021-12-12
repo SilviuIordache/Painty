@@ -136,8 +136,19 @@ export default class DrawingBoard extends React.Component {
     const canvas = document.getElementById("canvas");
 
     const dataURL = canvas.toDataURL();
-    
-    localStorage.setItem('img', dataURL);
+
+    const galleryImages = JSON.parse(localStorage.getItem('paintyImages'));
+
+    if (galleryImages) {
+      // add to array and store it back
+      galleryImages.push(dataURL);
+      localStorage.setItem('paintyImages', JSON.stringify(galleryImages));
+    } else {
+      // create an array
+      let arr = [];
+      arr.push(dataURL)
+      localStorage.setItem('paintyImages', JSON.stringify(arr));
+    }
   }
 
   drawRectangle = (x, y, width, height, color) => {
