@@ -28,29 +28,31 @@ export default class Toolbar extends React.Component {
       width: this.props.toolbarWidth,
     };
     return (
-      <div
-        className="toolbar-container d-flex justify-content-end align-items-center"
-        style={style}
-      >
-        <div className="me-4">
-          <ColorPreview selectedColor={this.props.selectedColor} />
-        </div>
-        <div className="me-4">
-          <ColorSelector selectBrushColor={this.selectBrushColor}/>
-        </div>
-        <div className="me-4">
-          <ToolSelector 
-            changeTool={this.props.changeTool}
-            currentTool={this.props.currentTool}
+      <div className="row">
+        <div
+          className="col-12 toolbar-container d-flex justify-content-end align-items-center"
+          style={style}
+        >
+          <div className="me-4">
+            <ColorPreview selectedColor={this.props.selectedColor} />
+          </div>
+          <div className="me-4">
+            <ColorSelector selectBrushColor={this.selectBrushColor}/>
+          </div>
+          <div className="me-4">
+            <ToolSelector 
+              changeTool={this.props.changeTool}
+              currentTool={this.props.currentTool}
+            />
+          </div>
+          <BrushSizeSelector
+            currentBrushSize={this.props.currentBrushSize}
+            selectBrushSize={this.selectBrushSize}
           />
-        </div>
-        <BrushSizeSelector
-          currentBrushSize={this.props.currentBrushSize}
-          selectBrushSize={this.selectBrushSize}
-        />
-        <div className="ms-3 d-flex ">
-          <EraseCanvasButton eraseCanvas={this.eraseCanvas} />
-          <SaveCanvasButton saveCanvas={this.saveCanvas}/>
+          <div className="ms-3 d-flex ">
+            <EraseCanvasButton eraseCanvas={this.eraseCanvas} />
+            <SaveCanvasButton saveCanvas={this.saveCanvas}/>
+          </div>
         </div>
       </div>
     );
