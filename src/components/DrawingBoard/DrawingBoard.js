@@ -5,6 +5,7 @@ import Debug from "../Debug/Debug.js";
 
 import "./DrawingBoard.css";
 import "../jsons/brushSizes.json";
+import ActionsBar from "../ActionsBar/ActionsBar.js";
 
 export default class DrawingBoard extends React.Component {
   constructor(props) {
@@ -36,6 +37,8 @@ export default class DrawingBoard extends React.Component {
     this.setupBrushSizes();
 
     document.addEventListener("mousemove", this.draw);
+    document.addEventListener("touchstart", this.draw)
+
     document.addEventListener("mousedown", this.handleMouseDown);
     document.addEventListener("mouseup", this.handleMouseUp);
     window.addEventListener('resize', this.handleWindowResize);
@@ -211,7 +214,8 @@ export default class DrawingBoard extends React.Component {
   saveCanvas = () => {
     const canvas = document.getElementById("canvas");
 
-    const imageName = prompt("Assign a name to this image before saving it");
+    
+    const imageName = prompt("Assign a name to this image before saving it", "NewDrawing");
     if (imageName) {
       const dataURL = canvas.toDataURL();
 
@@ -304,11 +308,13 @@ export default class DrawingBoard extends React.Component {
           selectBrushSize={this.selectBrushSize}
           selectBrushColor={this.selectBrushColor}
           selectedColor={this.state.currentBrushColor}
-          eraseCanvas={this.eraseCanvas}
-          saveCanvas={this.saveCanvas}
           changeTool={this.changeTool}
           currentTool={this.state.currentTool}
           currentBrushSize={this.state.currentBrushSize}
+        />
+        <ActionsBar
+          eraseCanvas={this.eraseCanvas}
+          saveCanvas={this.saveCanvas}
         />
       </div>
     );
