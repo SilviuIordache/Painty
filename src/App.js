@@ -12,9 +12,7 @@ function App() {
     <div className="App">
       <div className="container">
         <BrowserRouter>
-          <div className="mb-2">
-            <Navigation/>
-          </div>
+          <Navigation/>
           <Routes>
             <Route index path='/' element={<DrawingBoard/>}/>
             <Route path='/gallery' element={<Gallery/>}/>

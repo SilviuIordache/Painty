@@ -24,36 +24,30 @@ export default class Toolbar extends React.Component {
   }
 
   render() {
-    const style = {
-      width: this.props.toolbarWidth,
-    };
     return (
-      <div className="row">
-        <div
-          className="col-12 toolbar-container d-flex justify-content-end align-items-center"
-          style={style}
-        >
-          <div className="me-4">
+      <div className="row toolbar-container mt-2">
+          <div className="col-3 col-sm-1">
             <ColorPreview selectedColor={this.props.selectedColor} />
           </div>
-          <div className="me-4">
+          <div className="col-9 col-sm-4">
             <ColorSelector selectBrushColor={this.selectBrushColor}/>
           </div>
-          <div className="me-4">
+          <div className="col-12 col-sm-2">
             <ToolSelector 
               changeTool={this.props.changeTool}
               currentTool={this.props.currentTool}
             />
           </div>
-          <BrushSizeSelector
-            currentBrushSize={this.props.currentBrushSize}
-            selectBrushSize={this.selectBrushSize}
-          />
-          <div className="ms-3 d-flex ">
+          <div className="col-12 col-sm-3">
+            <BrushSizeSelector
+              currentBrushSize={this.props.currentBrushSize}
+              selectBrushSize={this.selectBrushSize}
+            />
+          </div>
+          <div className="col-12 col-sm-2 d-flex">
             <EraseCanvasButton eraseCanvas={this.eraseCanvas} />
             <SaveCanvasButton saveCanvas={this.saveCanvas}/>
           </div>
-        </div>
       </div>
     );
   }
