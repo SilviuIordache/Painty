@@ -4,3 +4,10 @@
   bottom: 0.5rem;
   right: 1.3rem;
 }
+
+.name-pill {
+  background-color: lightgray;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  padding: 0.3rem 0.5rem;
+}

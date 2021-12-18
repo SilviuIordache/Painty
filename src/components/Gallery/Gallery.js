@@ -10,9 +10,35 @@ export default class DrawingBoard extends React.Component {
   }
 
   componentDidMount() {
+    this.getDrawingsFromStorage();
+  }
+
+  getDrawingsFromStorage = () => {
     const storageImages = JSON.parse(localStorage.getItem('paintyImages'));
     this.setState({
       storageImages
+    })
+  }
+
+  deleteImage = (id) => {
+    // eslint-disable-next-line no-restricted-globals
+    const confirmDelete = confirm('Are you sure you want to delete this image?');
+
+    if (!confirmDelete)
+      return
+    const galleryImages = JSON.parse(localStorage.getItem("paintyImages"));
+
+    // find index of id
+    const indexToDelete = galleryImages.findIndex((elem) => elem.id === id);
+    
+    // delete elem at that index
+    galleryImages.splice(indexToDelete, 1);
+
+    // update storage
+    localStorage.setItem("paintyImages", JSON.stringify(galleryImages));
+
+    this.setState({
+      storageImages: galleryImages
     })
   }
 
@@ -24,7 +50,9 @@ export default class DrawingBoard extends React.Component {
           src={image.src}
           alt={image.name}
           name={image.name}
+          id={image.id}
           key={index}
+          deleteImage={this.deleteImage}
         />
       );
     } else {

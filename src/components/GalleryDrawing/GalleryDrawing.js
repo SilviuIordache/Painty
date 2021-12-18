@@ -23,19 +23,18 @@ export default class GalleryDrawing extends React.Component {
     document.body.removeChild(link);
   }
 
-  render() {
-    let btnGroupClass = "button-group";
+  deleteImage = () => {
+    this.props.deleteImage(this.props.id)
+  }
 
-    if (this.state.imageHovered) {
-      btnGroupClass += " d-block"
-    }
+  render() {
     return (
       <div 
-        className="col-12 col-md-6 col-lg-4 col-xl-3 mb-3 position-relative"
+        className="col-12 col-md-6 col-lg-4 mb-3 position-relative"
         onMouseEnter={() => { this.setImageHover(true) }}
         onMouseLeave={() => { this.setImageHover(false) }}
       >
-        <div className="small position-absolute bg-white border rounded px-3 py-1 ms-1 mt-1">
+        <div className="name-pill">
           {this.props.name}
         </div>
 
@@ -46,12 +45,31 @@ export default class GalleryDrawing extends React.Component {
           width="100%"
         />
         
-        <div className={btnGroupClass}>
-          <button className="btn btn-primary" onClick={this.downloadImage}>
-            <i className="fas fa-download"></i>
-          </button>
-        </div>
+       <ButtonGroup
+        imageHovered={this.state.imageHovered}
+        downloadImage={this.downloadImage}
+        deleteImage={this.deleteImage}
+       />
       </div>
     )
   }
+}
+
+function ButtonGroup (props) {
+  let btnGroupClass = "button-group";
+
+  if (props.imageHovered) {
+    btnGroupClass += " d-block"
+  }
+
+  return (
+    <div className={btnGroupClass}>
+      <button className="btn btn-primary" onClick={props.downloadImage}>
+        <i className="fas fa-download"></i>
+      </button>
+      <button className="btn btn-danger ms-1" onClick={props.deleteImage}>
+        <i className="fas fa-trash"></i>
+      </button>
+    </div>
+  )
 }
