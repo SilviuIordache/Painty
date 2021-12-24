@@ -11,6 +11,10 @@ export default class Toolbar extends React.Component {
         {
           name: 'eraser',
           icon: 'fas fa-eraser'
+        },
+        {
+          name: 'rectangle',
+          icon: 'fas fa-square'
         }
       ]
     }

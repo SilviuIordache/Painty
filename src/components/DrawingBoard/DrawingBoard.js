@@ -1,6 +1,7 @@
 import React from "react";
 import Toolbar from "../Toolbar/Toolbar.js";
 import BrushCursor from "../BrushCursor/BrushCursor.js";
+import RectanglePreview from "../RectanglePreview/RectanglePreview.js"
 import Debug from "../Debug/Debug.js";
 
 import "./DrawingBoard.css";
@@ -36,18 +37,17 @@ export default class DrawingBoard extends React.Component {
     this.setupCanvas();
     this.setupBrushSizes();
 
-    document.addEventListener("mousemove", this.draw);
-    document.addEventListener("touchstart", this.draw)
-
+    document.addEventListener("mousemove", this.handleMouseMove);
     document.addEventListener("mousedown", this.handleMouseDown);
     document.addEventListener("mouseup", this.handleMouseUp);
     window.addEventListener('resize', this.handleWindowResize);
   }
 
   componentWillUnmount() {
-    document.removeEventListener("mousemove", this.draw);
+    document.removeEventListener("mousemove", this.handleMouseMove);
     document.removeEventListener("mousedown", this.handleMouseDown);
     document.removeEventListener("mouseup", this.handleMouseUp);
+    window.addEventListener('resize', this.handleWindowResize);
   }
 
   setupCanvas = () => {
@@ -84,7 +84,7 @@ export default class DrawingBoard extends React.Component {
     );
   };
 
-  draw = (e) => {
+  handleMouseMove = (e) => {
 
     const canvas = document.getElementById("canvas");
     const rect = canvas.getBoundingClientRect();
@@ -108,23 +108,24 @@ export default class DrawingBoard extends React.Component {
 
     // line below draws
     if (this.state.isDrawing) {
-      this.drawPath();
+      if (this.state.currentTool === "brush") {
+        this.drawPath();
+      }
+      
+      if (this.state.currentTool === "rectangle") {
+        console.log('rectangling')
+
+      }
     }
   };
 
   handleMouseDown = () => {
-    this.setState({
-      mousePressed: true
-    });
-
+    this.setState({ mousePressed: true });
     this.enableDrawing();
   }
 
   handleMouseUp = () => {
-    this.setState({
-      mousePressed: false
-    });
-
+    this.setState({ mousePressed: false });
     this.disableDrawing();
   }
 
@@ -147,10 +148,7 @@ export default class DrawingBoard extends React.Component {
   };
 
   handleMouseEnterCanvas = () => {
-    this.setState(
-      {
-        canvasHovered: false,
-      },
+    this.setState({ canvasHovered: false },
       () => {
         if (this.state.mousePressed) {
           this.enableDrawing();
@@ -196,16 +194,12 @@ export default class DrawingBoard extends React.Component {
   };
 
   enableDrawing = () => {
-    this.setState({ isDrawing: true }
-    );
-
+    this.setState({ isDrawing: true });
     this.drawPath();
   };
 
   disableDrawing = () => {
-    this.setState({
-      isDrawing: false,
-    });
+    this.setState({ isDrawing: false });
     this.state.ctx.beginPath();
   };
 
@@ -216,7 +210,6 @@ export default class DrawingBoard extends React.Component {
   saveCanvas = () => {
     const canvas = document.getElementById("canvas");
 
-    
     const imageName = prompt("Assign a name to this image before saving it", "NewDrawing");
     if (imageName) {
       const dataURL = canvas.toDataURL();
@@ -276,6 +269,12 @@ export default class DrawingBoard extends React.Component {
         currentBrushSize: sizes[sizes.length - 1],
       });
     }
+
+    if (tool === "rectangle") {
+      this.setState({
+        currentTool: tool
+      });
+    }
   };
 
   render() {
@@ -290,13 +289,20 @@ export default class DrawingBoard extends React.Component {
           p6={this.state.canvasRelativeHeight}
         /> */}
         <div className="row canvas-bg">
-          <div className="col-12">
+          <div className="col-12 position-relative">
             <canvas
               id="canvas"
               className="no-cursor my-3"
               onMouseEnter={this.handleMouseEnterCanvas}
               onMouseLeave={this.handleMouseLeaveCanvas}
             />
+          {/* <RectanglePreview
+            show={true}
+            x={this.state.canvasAbsoluteX}
+            y={this.state.canvasAbsoluteY}
+            width={100}
+            height={100}
+          /> */}
           </div>
         </div>
         <BrushCursor
