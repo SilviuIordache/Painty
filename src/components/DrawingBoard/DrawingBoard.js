@@ -107,13 +107,18 @@ export default class DrawingBoard extends React.Component {
 
     // line below draws
     if (this.state.mousePressed) {
-      if (this.state.currentTool === "brush" || this.state.currentTool === "eraser") {
-        this.drawPath();
-      }
-      
-      if (this.state.currentTool === "rectangle") {
-        console.log('rectangling')
-
+      switch(this.state.currentTool) {
+        case "brush":
+          this.drawPath();
+          break;
+        case "eraser":
+          this.drawPath();
+          break;
+        case "rectangle":
+          console.log('rectangling')
+          break;
+        default:
+          console.log('Tool unavailable')
       }
     }
   };
