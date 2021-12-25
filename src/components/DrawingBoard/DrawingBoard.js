@@ -107,7 +107,7 @@ export default class DrawingBoard extends React.Component {
 
     // line below draws
     if (this.state.mousePressed) {
-      if (this.state.currentTool === "brush") {
+      if (this.state.currentTool === "brush" || this.state.currentTool === "eraser") {
         this.drawPath();
       }
       
