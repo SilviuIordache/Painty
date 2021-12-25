@@ -110,20 +110,8 @@ export default class DrawingBoard extends React.Component {
 
     // line below draws
     if (this.state.mousePressed) {
-      switch(this.state.currentTool) {
-        case "Brush Tool":
+      if(this.state.currentTool) {
           this.drawPath();
-          break;
-        case "Eraser Tool":
-          this.drawPath();
-          break;
-        case "Paint Bucket Tool":
-          if (this.state.canvasHovered) {
-            this.floodFill();
-          }
-          break;
-        default:
-          console.log('Tool unavailable')
       }
     }
   };
@@ -152,7 +140,15 @@ export default class DrawingBoard extends React.Component {
 
   handleMouseDown = () => {
     this.setState({ mousePressed: true });
-    this.drawPath();
+
+    if (this.state.currentTool === "Paint Bucket Tool") {
+      if (this.state.canvasHovered) {
+        this.floodFill();
+      }
+    } else {
+      // this line allows for single dots by 1-click
+      this.drawPath();
+    }
   }
 
   handleMouseUp = () => {
