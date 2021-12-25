@@ -128,7 +128,7 @@ export default class DrawingBoard extends React.Component {
 
     // Modify image data
     floodFill.fill(
-      "rgb(0, 0, 0)",
+      this.state.currentBrushColor,
       Math.round(this.state.canvasRelativeX),
       Math.round(this.state.canvasRelativeY),
       100

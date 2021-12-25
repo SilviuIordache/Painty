@@ -1,18 +1,18 @@
 {
   "list": [
-    "red",
-    "yellow",
-    "blue",
-    "green",
-    "brown",
-    "white",
-    "black",
-    "cyan",
-    "pink",
-    "purple",
-    "orange",
-    "gray",
-    "lightgray",
-    "darkgray"
+    "#ff2e2e",
+    "#ff6200",
+    "#ffe600",
+    "#1aff00",
+    "#19752d",
+    "#0048ff",
+    "#00fffb",
+    "#9e4505",
+    "#9d00bd",
+    "#ff80f0",
+    "#ffffff",
+    "#bdbdbd",
+    "#616161",
+    "#000000"
   ]
 }
