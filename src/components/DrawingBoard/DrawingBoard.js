@@ -264,7 +264,7 @@ export default class DrawingBoard extends React.Component {
     if (tool === "Brush Tool") {
       this.setState({
         currentTool: tool,
-        currentBrushColor: "black",
+        currentBrushColor: "#000000",
         currentBrushSize: sizes[1],
       });
     }
@@ -272,14 +272,15 @@ export default class DrawingBoard extends React.Component {
     if (tool === "Eraser Tool") {
       this.setState({
         currentTool: tool,
-        currentBrushColor: "white",
-        currentBrushSize: sizes[sizes.length - 1],
+        currentBrushColor: "#ffffff",
+        currentBrushSize: sizes[3],
       });
     }
 
     if (tool === "Paint Bucket Tool") {
       this.setState({
-        currentTool: tool
+        currentTool: tool,
+        currentBrushSize: sizes[0],
       });
     }
   };
