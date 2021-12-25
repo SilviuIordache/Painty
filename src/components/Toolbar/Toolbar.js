@@ -24,13 +24,13 @@ export default class Toolbar extends React.Component {
         <div className="col-9 col-sm-4">
           <ColorSelector selectBrushColor={this.selectBrushColor}/>
         </div>
-        <div className="col-12 col-sm-2">
+        <div className="col-12 col-sm-3">
           <ToolSelector 
             changeTool={this.props.changeTool}
             currentTool={this.props.currentTool}
           />
         </div>
-        <div className="col-12 col-sm-5">
+        <div className="col-12 col-sm-4">
           <BrushSizeSelector
             currentBrushSize={this.props.currentBrushSize}
             selectBrushSize={this.selectBrushSize}

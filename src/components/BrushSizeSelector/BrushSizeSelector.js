@@ -27,6 +27,7 @@ function BrushSize(props) {
   if (props.active) {
     activeStyle = {
       border: '2px solid black',
+      backgroundColor: "#ebab34",
       color: 'black'
     } 
   }

@@ -29,7 +29,7 @@ export default class DrawingBoard extends React.Component {
       mousePressed: false,
       canvasHovered: false,
       currentBrushSize: 1,
-      currentBrushColor: "black",
+      currentBrushColor: "#000000",
       currentTool: "Brush Tool",
       dataURL: "",
     };
@@ -64,14 +64,11 @@ export default class DrawingBoard extends React.Component {
     canvas.style.height='auto';
 
     this.setState(
-      {
-        ctx: canvas.getContext("2d"),
-      },
+      { ctx: canvas.getContext("2d")},
       () => {
         this.applyWhiteBackground();
       }
     );
-    
     this.calculcateCanvasRelativeSize();
 
   };
@@ -87,7 +84,6 @@ export default class DrawingBoard extends React.Component {
   };
 
   handleMouseMove = (e) => {
-
     const canvas = document.getElementById("canvas");
     const rect = canvas.getBoundingClientRect();
 
@@ -307,19 +303,13 @@ export default class DrawingBoard extends React.Component {
               onMouseEnter={this.handleMouseEnterCanvas}
               onMouseLeave={this.handleMouseLeaveCanvas}
             />
-          {/* <RectanglePreview
-            show={true}
-            x={this.state.rectPreviewX}
-            y={this.state.rectPreviewY}
-            width={this.state.canvasAbsoluteX - this.state.rectPreviewX}
-            height={this.state.canvasAbsoluteY - this.state.rectPreviewY}
-          /> */}
           </div>
         </div>
         <BrushCursor
           size={this.state.currentBrushSize}
           color={this.state.currentBrushColor}
           hideBrush={!this.state.canvasHovered}
+          currentTool={this.state.currentTool}
           x={this.state.cursorX}
           y={this.state.cursorY}
         />
