@@ -264,7 +264,6 @@ export default class DrawingBoard extends React.Component {
     if (tool === "Brush Tool") {
       this.setState({
         currentTool: tool,
-        currentBrushColor: "#000000",
         currentBrushSize: sizes[1],
       });
     }
