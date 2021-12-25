@@ -132,8 +132,8 @@ export default class DrawingBoard extends React.Component {
     const imgData = this.state.ctx.getImageData(
       0, 
       0, 
-      this.state.canvasRelativeWidth,
-      this.state.canvasRelativeHeight)
+      this.state.canvasAbsoluteWidth,
+      this.state.canvasAbsoluteHeight)
 
     // Construct flood fill instance
     const floodFill = new FloodFill(imgData)
@@ -295,14 +295,14 @@ export default class DrawingBoard extends React.Component {
   render() {
     return (
       <div className="drawing-board">
-        <Debug
+        {/* <Debug
           p1={this.state.cursorX}
           p2={this.state.cursorY}
           p3={this.state.canvasAbsoluteX}
           p4={this.state.canvasAbsoluteY}
           p5={this.state.canvasRelativeWidth}
           p6={this.state.canvasRelativeHeight}
-        />
+        /> */}
         <div className="row canvas-bg">
           <div className="col-12 position-relative">
             <canvas
