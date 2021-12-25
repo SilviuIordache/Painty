@@ -3,6 +3,7 @@ import Toolbar from "../Toolbar/Toolbar.js";
 import BrushCursor from "../BrushCursor/BrushCursor.js";
 import RectanglePreview from "../RectanglePreview/RectanglePreview.js"
 import Debug from "../Debug/Debug.js";
+import FloodFill from 'q-floodfill'
 
 import "./DrawingBoard.css";
 import "../jsons/brushSizes.json";
@@ -18,6 +19,8 @@ export default class DrawingBoard extends React.Component {
       canvasAbsoluteY: 0,
       canvasRelativeX: 0,
       canvasRelativeY: 0,
+      rectPreviewX: 0,
+      rectPreviewY: 0,
       canvasAbsoluteWidth: 800,
       canvasAbsoluteHeight: 600,
       canvasRelativeWidth: 0,
@@ -27,7 +30,7 @@ export default class DrawingBoard extends React.Component {
       canvasHovered: false,
       currentBrushSize: 1,
       currentBrushColor: "black",
-      currentTool: "brush",
+      currentTool: "Brush Tool",
       dataURL: "",
     };
   }
@@ -108,20 +111,44 @@ export default class DrawingBoard extends React.Component {
     // line below draws
     if (this.state.mousePressed) {
       switch(this.state.currentTool) {
-        case "brush":
+        case "Brush Tool":
           this.drawPath();
           break;
-        case "eraser":
+        case "Eraser Tool":
           this.drawPath();
           break;
-        case "rectangle":
-          console.log('rectangling')
+        case "Paint Bucket Tool":
+          if (this.state.canvasHovered) {
+            this.floodFill();
+          }
           break;
         default:
           console.log('Tool unavailable')
       }
     }
   };
+  floodFill = () => {
+    // get image data
+    const imgData = this.state.ctx.getImageData(
+      0, 
+      0, 
+      this.state.canvasRelativeWidth,
+      this.state.canvasRelativeHeight)
+
+    // Construct flood fill instance
+    const floodFill = new FloodFill(imgData)
+
+    // Modify image data
+    floodFill.fill(
+      "rgb(0, 0, 0)",
+      Math.round(this.state.canvasRelativeX),
+      Math.round(this.state.canvasRelativeY),
+      100
+    )
+
+    // put the modified data back in context
+    this.state.ctx.putImageData(floodFill.imageData, 0, 0)
+  }
 
   handleMouseDown = () => {
     this.setState({ mousePressed: true });
@@ -134,7 +161,6 @@ export default class DrawingBoard extends React.Component {
   }
 
   drawPath = (e) => {
-    console.log('drawPath called')
     const ctx = this.state.ctx;
     ctx.lineWidth = this.state.currentBrushSize;
     ctx.lineCap = "round";
@@ -243,7 +269,7 @@ export default class DrawingBoard extends React.Component {
 
   changeTool = (tool) => {
     const sizes = require("../jsons/brushSizes.json").sizes;
-    if (tool === "brush") {
+    if (tool === "Brush Tool") {
       this.setState({
         currentTool: tool,
         currentBrushColor: "black",
@@ -251,7 +277,7 @@ export default class DrawingBoard extends React.Component {
       });
     }
 
-    if (tool === "eraser") {
+    if (tool === "Eraser Tool") {
       this.setState({
         currentTool: tool,
         currentBrushColor: "white",
@@ -259,7 +285,7 @@ export default class DrawingBoard extends React.Component {
       });
     }
 
-    if (tool === "rectangle") {
+    if (tool === "Paint Bucket Tool") {
       this.setState({
         currentTool: tool
       });
@@ -269,14 +295,14 @@ export default class DrawingBoard extends React.Component {
   render() {
     return (
       <div className="drawing-board">
-        {/* <Debug
+        <Debug
           p1={this.state.cursorX}
           p2={this.state.cursorY}
           p3={this.state.canvasAbsoluteX}
           p4={this.state.canvasAbsoluteY}
           p5={this.state.canvasRelativeWidth}
           p6={this.state.canvasRelativeHeight}
-        /> */}
+        />
         <div className="row canvas-bg">
           <div className="col-12 position-relative">
             <canvas
@@ -287,10 +313,10 @@ export default class DrawingBoard extends React.Component {
             />
           {/* <RectanglePreview
             show={true}
-            x={this.state.canvasAbsoluteX}
-            y={this.state.canvasAbsoluteY}
-            width={100}
-            height={100}
+            x={this.state.rectPreviewX}
+            y={this.state.rectPreviewY}
+            width={this.state.canvasAbsoluteX - this.state.rectPreviewX}
+            height={this.state.canvasAbsoluteY - this.state.rectPreviewY}
           /> */}
           </div>
         </div>

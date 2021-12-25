@@ -5,16 +5,16 @@ export default class Toolbar extends React.Component {
     this.state = {
       tools: [
         {
-          name: 'brush',
+          name: 'Brush Tool',
           icon: 'fas fa-paint-brush'
         },
         {
-          name: 'eraser',
+          name: 'Eraser Tool',
           icon: 'fas fa-eraser'
         },
         {
-          name: 'rectangle',
-          icon: 'fas fa-square'
+          name: 'Paint Bucket Tool',
+          icon: 'fas fa-fill-drip'
         }
       ]
     }
