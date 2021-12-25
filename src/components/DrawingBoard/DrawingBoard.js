@@ -23,7 +23,6 @@ export default class DrawingBoard extends React.Component {
       canvasRelativeWidth: 0,
       canvasRelativeHeight: 0,
       ctx: null,
-      isDrawing: false,
       mousePressed: false,
       canvasHovered: false,
       currentBrushSize: 1,
@@ -107,7 +106,7 @@ export default class DrawingBoard extends React.Component {
     });
 
     // line below draws
-    if (this.state.isDrawing) {
+    if (this.state.mousePressed) {
       if (this.state.currentTool === "brush") {
         this.drawPath();
       }
@@ -121,15 +120,16 @@ export default class DrawingBoard extends React.Component {
 
   handleMouseDown = () => {
     this.setState({ mousePressed: true });
-    this.enableDrawing();
+    this.drawPath();
   }
 
   handleMouseUp = () => {
     this.setState({ mousePressed: false });
-    this.disableDrawing();
+    this.state.ctx.beginPath();
   }
 
   drawPath = (e) => {
+    console.log('drawPath called')
     const ctx = this.state.ctx;
     ctx.lineWidth = this.state.currentBrushSize;
     ctx.lineCap = "round";
@@ -148,24 +148,17 @@ export default class DrawingBoard extends React.Component {
   };
 
   handleMouseEnterCanvas = () => {
-    this.setState({ canvasHovered: false },
+    this.setState({ canvasHovered: true },
       () => {
         if (this.state.mousePressed) {
-          this.enableDrawing();
+          this.handleMouseDown();
         }
       }
     );
   };
 
   handleMouseLeaveCanvas = () => {
-    this.setState(
-      {
-        canvasHovered: true,
-      },
-      () => {
-        this.disableDrawing();
-      }
-    );
+    this.setState({ canvasHovered: false });
   };
 
   handleWindowResize = () => {
@@ -193,15 +186,6 @@ export default class DrawingBoard extends React.Component {
     });
   };
 
-  enableDrawing = () => {
-    this.setState({ isDrawing: true });
-    this.drawPath();
-  };
-
-  disableDrawing = () => {
-    this.setState({ isDrawing: false });
-    this.state.ctx.beginPath();
-  };
 
   eraseCanvas = () => {
     this.applyWhiteBackground();
@@ -308,7 +292,7 @@ export default class DrawingBoard extends React.Component {
         <BrushCursor
           size={this.state.currentBrushSize}
           color={this.state.currentBrushColor}
-          hideBrush={this.state.canvasHovered}
+          hideBrush={!this.state.canvasHovered}
           x={this.state.cursorX}
           y={this.state.cursorY}
         />
