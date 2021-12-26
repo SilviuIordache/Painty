@@ -2,7 +2,7 @@ import React from "react";
 import BrushSizeSelector from "../BrushSizeSelector/BrushSizeSelector.js";
 import ColorSelector from "../ColorSelector/ColorSelector.js";
 import ColorPreview from "../ColorPreview/ColorPreview.js";
-import ToolSelector from "../ToolSelector/ToolSelector.js"
+import ToolSelector from "../ToolSelector/ToolSelector.js";
 
 import "./Toolbar.css";
 

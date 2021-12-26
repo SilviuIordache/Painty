@@ -1,9 +1,11 @@
 import React from "react";
 import Toolbar from "../Toolbar/Toolbar.js";
 import BrushCursor from "../BrushCursor/BrushCursor.js";
+import ChallengeBar from "../ChallengeBar/ChallengeBar.js";
 import RectanglePreview from "../RectanglePreview/RectanglePreview.js"
+
 import Debug from "../Debug/Debug.js";
-import FloodFill from 'q-floodfill'
+import FloodFill from 'q-floodfill';
 
 import "./DrawingBoard.css";
 import "../jsons/brushSizes.json";
@@ -32,6 +34,8 @@ export default class DrawingBoard extends React.Component {
       currentBrushColor: "#000000",
       currentTool: "Brush Tool",
       dataURL: "",
+      roundCurrent: 0,
+      roundTotal: 5
     };
   }
 
@@ -111,6 +115,7 @@ export default class DrawingBoard extends React.Component {
       }
     }
   };
+
   floodFill = () => {
     // get image data
     const imgData = this.state.ctx.getImageData(
@@ -209,44 +214,52 @@ export default class DrawingBoard extends React.Component {
     });
   };
 
-
   eraseCanvas = () => {
     this.applyWhiteBackground();
   };
 
-  saveCanvas = () => {
+  saveCanvas = (word) => {
     const canvas = document.getElementById("canvas");
 
-    const imageName = prompt("Assign a name to this image before saving it", "NewDrawing");
-    if (imageName) {
-      const dataURL = canvas.toDataURL();
+    let imageName
+    if (!word) {
+      imageName = prompt("Assign a name to this image before saving it", "NewDrawing");
+      if (!imageName)
+        return
+    } 
+    
+    const dataURL = canvas.toDataURL();
 
-      // check for stored images
-      const galleryImages = JSON.parse(localStorage.getItem("paintyImages"));
+    // check for stored images
+    const galleryImages = JSON.parse(localStorage.getItem("paintyImages"));
 
-      const imgID = galleryImages
-        ? galleryImages[galleryImages.length - 1].id + 1
-        : 0;
+    const imgID = galleryImages
+      ? galleryImages[galleryImages.length - 1].id + 1
+      : 0;
 
-      // build image object
-      const imgObject = {
-        id: imgID,
-        src: dataURL,
-        name: imageName,
-      };
+    // build image object
+    const imgObject = {
+      id: imgID,
+      src: dataURL,
+      name: imageName,
+    };
 
-      if (galleryImages) {
-        // add to array and store it back
-        galleryImages.push(imgObject);
-        localStorage.setItem("paintyImages", JSON.stringify(galleryImages));
-      } else {
-        // create an array
-        let arr = [];
-        arr.push(imgObject);
-        localStorage.setItem("paintyImages", JSON.stringify(arr));
-      }
+    if (galleryImages) {
+      // add to array and store it back
+      galleryImages.push(imgObject);
+      localStorage.setItem("paintyImages", JSON.stringify(galleryImages));
+    } else {
+      // create an array
+      let arr = [];
+      arr.push(imgObject);
+      localStorage.setItem("paintyImages", JSON.stringify(arr));
     }
   };
+
+  saveChallengeDrawing = (word) => {
+    this.saveCanvas(word);
+    // advanced rounds
+  }
 
   drawRectangle = (x, y, width, height, color) => {
     const ctx = this.state.ctx;
@@ -295,6 +308,11 @@ export default class DrawingBoard extends React.Component {
           p5={this.state.canvasRelativeWidth}
           p6={this.state.canvasRelativeHeight}
         /> */}
+        <ChallengeBar
+          saveChallengeDrawing={this.saveCanvas}
+          roundCurrent={this.state.roundCurrent}
+          roundTotal={this.state.roundTotal}
+        />
         <div className="row canvas-bg">
           <div className="col-12 position-relative">
             <canvas
