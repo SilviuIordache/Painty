@@ -44,8 +44,8 @@ class DrawingBoard extends React.Component {
   }
 
   componentDidMount() {
-    const { url } = this.props.match.params;
-    console.log(url);
+    const { mode } = this.props.match.params;
+    console.log(mode);
 
     this.setupCanvas();
     this.setupBrushSizes();
