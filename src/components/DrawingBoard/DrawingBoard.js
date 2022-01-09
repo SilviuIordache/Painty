@@ -31,22 +31,21 @@ class DrawingBoard extends React.Component {
       canvasRelativeHeight: 0,
       ctx: null,
       mousePressed: false,
-      canvasHovered: false,
-      currentBrushSize: 1,
+      canvasHovered: true,
+      currentBrushSize: 4,
       currentBrushColor: "#000000",
       currentTool: "Brush Tool",
       dataURL: "",
       roundCurrent: 1,
       roundTotal: 5,
       roundTimeInitial: 10,
-      roundTime: 10
+      roundTime: 10,
+      mode: ''
     };
   }
 
   componentDidMount() {
-    const { mode } = this.props.match.params;
-    console.log(mode);
-
+    this.setDrawMode();
     this.setupCanvas();
     this.setupBrushSizes();
 
@@ -83,6 +82,13 @@ class DrawingBoard extends React.Component {
     this.calculcateCanvasRelativeSize();
 
   };
+
+  setDrawMode = () => {
+    const { mode } = this.props.match.params;
+    this.setState({
+      gameMode: mode
+    })
+  }
 
   applyWhiteBackground = () => {
     this.drawRectangle(
@@ -178,7 +184,7 @@ class DrawingBoard extends React.Component {
   setupBrushSizes = () => {
     const sizes = require("../jsons/brushSizes.json").sizes;
     this.setState({
-      currentBrushSize: sizes[0],
+      currentBrushSize: sizes[1],
     });
   };
 
@@ -316,20 +322,14 @@ class DrawingBoard extends React.Component {
   render() {
     return (
       <div className="drawing-board">
-        {/* <DebugComponent
-          p1={this.state.cursorX}
-          p2={this.state.cursorY}
-          p3={this.state.canvasAbsoluteX}
-          p4={this.state.canvasAbsoluteY}
-          p5={this.state.canvasRelativeWidth}
-          p6={this.state.canvasRelativeHeight}
-        /> */}
-        <ChallengeBar
-          saveChallengeDrawing={this.saveChallengeDrawing}
-          roundCurrent={this.state.roundCurrent}
-          roundTotal={this.state.roundTotal}
-          roundTime={this.state.roundTime}
-        />
+        { this.state.gameMode === 'challenge' && 
+          <ChallengeBar
+            saveChallengeDrawing={this.saveChallengeDrawing}
+            roundCurrent={this.state.roundCurrent}
+            roundTotal={this.state.roundTotal}
+            roundTime={this.state.roundTime}
+          />
+        }
         <div className="row canvas-bg">
           <div className="col-12 position-relative">
             <canvas
