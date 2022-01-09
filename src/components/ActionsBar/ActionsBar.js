@@ -1,27 +1,23 @@
-import React from "react";
+export default function ActionsBar(props) {
 
-export default class ActionsBar extends React.Component {
-
-  eraseCanvas = (props) => {
-    this.props.eraseCanvas();
+  function eraseCanvas() {
+    props.eraseCanvas();
   };
 
-  saveCanvas = (props) => {
-    this.props.saveCanvas();
+  function saveCanvas() {
+    props.saveCanvas();
   }
 
-  render() {
-    return (
-      <div className="row py-2">
-        <div className="col-12 d-flex justify-content-start">
-          <div className="d-flex">
-            <EraseCanvasButton eraseCanvas={this.eraseCanvas} />
-            <SaveCanvasButton saveCanvas={this.saveCanvas}/>
-          </div>
+  return (
+    <div className="row py-2">
+      <div className="col-12 d-flex justify-content-start">
+        <div className="d-flex">
+          <EraseCanvasButton eraseCanvas={eraseCanvas} />
+          <SaveCanvasButton saveCanvas={saveCanvas}/>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 function EraseCanvasButton(props) {
