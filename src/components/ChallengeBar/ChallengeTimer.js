@@ -11,13 +11,13 @@ export default class ChallengeTimer extends React.Component {
 
   componentDidMount() {
     this.setState({
-      timer: this.props.time,
+      timer: this.props.roundTime,
       timerInterval: setInterval(() => this.tick(), 1000)
     });
   }
 
   componentWillUnmount() {
-    clearInterval(this.state.timerInterval)
+    clearInterval(this.state.timerInterval);
   }
 
   tick = () => {

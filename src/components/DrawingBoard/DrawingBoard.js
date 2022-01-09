@@ -231,16 +231,16 @@ class DrawingBoard extends React.Component {
     this.applyWhiteBackground();
   };
 
-  saveCanvas = (word) => {
+  saveCanvas = (drawingTitle) => {
     const canvas = document.getElementById("canvas");
 
     let imageName
-    if (!word) {
+    if (!drawingTitle) {
       imageName = prompt("Assign a name to this image before saving it", "NewDrawing");
       if (!imageName)
         return
     } else {
-      imageName = word
+      imageName = drawingTitle
     }
     
     const dataURL = canvas.toDataURL();

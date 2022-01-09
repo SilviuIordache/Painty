@@ -38,7 +38,7 @@ export default class ChallengeBar extends React.Component {
         </div>
         <div className="col-2">
           <ChallengeTimer 
-            time={this.props.roundTime}
+            roundTime={this.props.roundTime}
             saveChallengeDrawing={this.saveChallengeDrawing}
           />
         </div>
