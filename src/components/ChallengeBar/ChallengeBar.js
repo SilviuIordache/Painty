@@ -7,7 +7,6 @@ export default class ChallengeBar extends React.Component {
     this.state = {
       words: [],
       currentWord: '',
-      roundTime: 9999
     }
   }
   componentDidMount() {
@@ -39,7 +38,7 @@ export default class ChallengeBar extends React.Component {
         </div>
         <div className="col-2">
           <ChallengeTimer 
-            time={this.state.roundTime}
+            time={this.props.roundTime}
             saveChallengeDrawing={this.saveChallengeDrawing}
           />
         </div>

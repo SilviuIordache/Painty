@@ -16,6 +16,10 @@ export default class ChallengeTimer extends React.Component {
     });
   }
 
+  componentWillUnmount() {
+    clearInterval(this.state.timerInterval)
+  }
+
   tick = () => {
     if (this.state.timer > 0) {
       this.setState({

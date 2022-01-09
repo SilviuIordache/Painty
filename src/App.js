@@ -1,9 +1,13 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { 
+  Switch, 
+  Route, 
+  BrowserRouter as Router 
+} from "react-router-dom";
 
-import Navigation from "./components/Navigation/Navigation"
+import Navigation from "./components/Navigation/Navigation";
+import MainMenu from "./components/MainMenu/MainMenu";
 import DrawingBoard from "./components/DrawingBoard/DrawingBoard";
-import Gallery from "./components/Gallery/Gallery"
-
+import Gallery from "./components/Gallery/Gallery";
 
 import "./App.css";
 
@@ -11,13 +15,20 @@ function App() {
   return (
     <div className="App">
       <div className="container">
-        <BrowserRouter>
-          <Navigation/>
-          <Routes>
-            <Route index path='/' element={<DrawingBoard/>}/>
-            <Route path='/gallery' element={<Gallery/>}/>
-          </Routes>
-        </BrowserRouter>
+        <Router>
+          <Navigation />
+          <Switch>
+            <Route exact path="/">
+              <MainMenu />
+            </Route>
+            <Route path="/draw/:mode">
+              <DrawingBoard />
+            </Route>
+            <Route path="/gallery">
+              <Gallery />
+            </Route>
+          </Switch>
+        </Router>
       </div>
     </div>
   );

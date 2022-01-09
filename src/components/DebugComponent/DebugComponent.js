@@ -1,4 +1,4 @@
-export default function Debug(props) {
+export default function DebugComponent(props) {
   return (
     <div id="debug">
       <div className="d-flex justify-content-between">

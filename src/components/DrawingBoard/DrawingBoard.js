@@ -2,16 +2,18 @@ import React from "react";
 import Toolbar from "../Toolbar/Toolbar.js";
 import BrushCursor from "../BrushCursor/BrushCursor.js";
 import ChallengeBar from "../ChallengeBar/ChallengeBar.js";
-import RectanglePreview from "../RectanglePreview/RectanglePreview.js"
-
-import Debug from "../Debug/Debug.js";
 import FloodFill from 'q-floodfill';
+
+// import RectanglePreview from "../RectanglePreview/RectanglePreview.js"
+// import DebugComponent from "../DebugComponent/DebugComponent.js";
+
+import { withRouter } from "react-router-dom";
 
 import "./DrawingBoard.css";
 import "../jsons/brushSizes.json";
 import ActionsBar from "../ActionsBar/ActionsBar.js";
 
-export default class DrawingBoard extends React.Component {
+class DrawingBoard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -34,12 +36,17 @@ export default class DrawingBoard extends React.Component {
       currentBrushColor: "#000000",
       currentTool: "Brush Tool",
       dataURL: "",
-      roundCurrent: 0,
-      roundTotal: 5
+      roundCurrent: 1,
+      roundTotal: 5,
+      roundTimeInitial: 10,
+      roundTime: 10
     };
   }
 
   componentDidMount() {
+    const { url } = this.props.match.params;
+    console.log(url);
+
     this.setupCanvas();
     this.setupBrushSizes();
 
@@ -53,7 +60,7 @@ export default class DrawingBoard extends React.Component {
     document.removeEventListener("mousemove", this.handleMouseMove);
     document.removeEventListener("mousedown", this.handleMouseDown);
     document.removeEventListener("mouseup", this.handleMouseUp);
-    window.addEventListener('resize', this.handleWindowResize);
+    window.removeEventListener('resize', this.handleWindowResize);
   }
 
   setupCanvas = () => {
@@ -226,7 +233,9 @@ export default class DrawingBoard extends React.Component {
       imageName = prompt("Assign a name to this image before saving it", "NewDrawing");
       if (!imageName)
         return
-    } 
+    } else {
+      imageName = word
+    }
     
     const dataURL = canvas.toDataURL();
 
@@ -258,7 +267,14 @@ export default class DrawingBoard extends React.Component {
 
   saveChallengeDrawing = (word) => {
     this.saveCanvas(word);
+    
     // advanced rounds
+    if (this.state.roundCurrent < this.state.roundTotal) {
+      this.setState({
+        roundCurrent: this.state.roundCurrent + 1,
+        roundTime: this.state.roundTimeInitial 
+      });
+    }
   }
 
   drawRectangle = (x, y, width, height, color) => {
@@ -300,7 +316,7 @@ export default class DrawingBoard extends React.Component {
   render() {
     return (
       <div className="drawing-board">
-        {/* <Debug
+        {/* <DebugComponent
           p1={this.state.cursorX}
           p2={this.state.cursorY}
           p3={this.state.canvasAbsoluteX}
@@ -309,9 +325,10 @@ export default class DrawingBoard extends React.Component {
           p6={this.state.canvasRelativeHeight}
         /> */}
         <ChallengeBar
-          saveChallengeDrawing={this.saveCanvas}
+          saveChallengeDrawing={this.saveChallengeDrawing}
           roundCurrent={this.state.roundCurrent}
           roundTotal={this.state.roundTotal}
+          roundTime={this.state.roundTime}
         />
         <div className="row canvas-bg">
           <div className="col-12 position-relative">
@@ -347,6 +364,8 @@ export default class DrawingBoard extends React.Component {
     );
   }
 }
+
+export default withRouter(DrawingBoard);
 
 // need to improve
 // https://www.youtube.com/watch?v=3GqUM4mEYKA&t=351s
