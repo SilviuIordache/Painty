@@ -1,58 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import "./GalleryDrawing.css";
 
-export default class GalleryDrawing extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      imageHovered: false,
-    }
-  }
-  setImageHover = (cond) => {
-    this.setState({
-      imageHovered: cond
-    })
-  }
+export default function GalleryDrawing (props) {
+  const [imageHovered, setImageHover] = useState(false);
 
-  downloadImage = () => {
+  function downloadImage () {
     const link = document.createElement("a");
-    link.download = this.props.name;
-    link.href = this.props.src;
+    link.download = props.name;
+    link.href = props.src;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   }
 
-  deleteImage = () => {
-    this.props.deleteImage(this.props.id)
+  function deleteImage () {
+    props.deleteImage(props.id)
   }
 
-  render() {
-    return (
-      <div 
-        className="col-12 col-md-6 col-lg-4 mb-3 position-relative"
-        onMouseEnter={() => { this.setImageHover(true) }}
-        onMouseLeave={() => { this.setImageHover(false) }}
-      >
-        <div className="name-pill">
-          {this.props.name}
-        </div>
-
-        <img
-          alt={this.props.name}
-          src={this.props.src} 
-          key={this.props.index}
-          width="100%"
-        />
-        
-       <ButtonGroup
-        imageHovered={this.state.imageHovered}
-        downloadImage={this.downloadImage}
-        deleteImage={this.deleteImage}
-       />
+  return (
+    <div 
+      className="col-12 col-md-6 col-lg-4 mb-3 position-relative"
+      onMouseEnter={() => { setImageHover(true) }}
+      onMouseLeave={() => { setImageHover(false) }}
+    >
+      <div className="name-pill">
+        {props.name}
       </div>
-    )
-  }
+
+      <img
+        alt={props.name}
+        src={props.src} 
+        key={props.index}
+        width="100%"
+      />
+      
+      <ButtonGroup
+        imageHovered={imageHovered}
+        downloadImage={downloadImage}
+        deleteImage={deleteImage}
+      />
+    </div>
+  )
 }
 
 function ButtonGroup (props) {
