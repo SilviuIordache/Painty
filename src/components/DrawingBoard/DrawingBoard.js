@@ -10,7 +10,7 @@ import FloodFill from 'q-floodfill';
 import { withRouter } from "react-router-dom";
 
 import "./DrawingBoard.css";
-import "../jsons/brushSizes.json";
+import "../../jsons/brushSizes.json";
 import ActionsBar from "../ActionsBar/ActionsBar.js";
 
 class DrawingBoard extends React.Component {
@@ -182,7 +182,7 @@ class DrawingBoard extends React.Component {
   };
 
   setupBrushSizes = () => {
-    const sizes = require("../jsons/brushSizes.json").sizes;
+    const sizes = require("../../jsons/brushSizes.json").sizes;
     this.setState({
       currentBrushSize: sizes[1],
     });
@@ -295,7 +295,7 @@ class DrawingBoard extends React.Component {
   };
 
   changeTool = (tool) => {
-    const sizes = require("../jsons/brushSizes.json").sizes;
+    const sizes = require("../../jsons/brushSizes.json").sizes;
     if (tool === "Brush Tool") {
       this.setState({
         currentTool: tool,

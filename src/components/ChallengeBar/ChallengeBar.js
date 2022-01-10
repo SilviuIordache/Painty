@@ -18,7 +18,7 @@ export default class ChallengeBar extends React.Component {
   }
 
   chooseWord = () => {
-    const words = require('../jsons/words.json').list;
+    const words = require('../../jsons/words.json').list;
     this.setState({ words });
 
     // generate random number
