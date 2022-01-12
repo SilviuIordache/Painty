@@ -6,37 +6,35 @@ import ToolSelector from "../ToolSelector/ToolSelector.js";
 
 import "./Toolbar.css";
 
-export default class Toolbar extends React.Component {
-  selectBrushSize = (size) => {
-    this.props.selectBrushSize(size);
-  };
-
-  selectBrushColor = (color) => {
-    this.props.selectBrushColor(color);
+export default function Toolbar(props) {
+  function selectBrushSize(size) {
+    props.selectBrushSize(size);
   }
 
-  render() {
-    return (
-      <div className="row toolbar-container mt-2">
-        <div className="col-3 col-sm-1">
-          <ColorPreview selectedColor={this.props.selectedColor} />
-        </div>
-        <div className="col-9 col-sm-4">
-          <ColorSelector selectBrushColor={this.selectBrushColor}/>
-        </div>
-        <div className="col-12 col-sm-3">
-          <ToolSelector 
-            changeTool={this.props.changeTool}
-            currentTool={this.props.currentTool}
-          />
-        </div>
-        <div className="col-12 col-sm-4">
-          <BrushSizeSelector
-            currentBrushSize={this.props.currentBrushSize}
-            selectBrushSize={this.selectBrushSize}
-          />
-        </div>
+  function selectBrushColor(color) {
+    props.selectBrushColor(color);
+  }
+
+  return (
+    <div className="row toolbar-container mt-2">
+      <div className="col-3 col-sm-1">
+        <ColorPreview selectedColor={props.selectedColor} />
       </div>
-    );
-  }
+      <div className="col-9 col-sm-4">
+        <ColorSelector selectBrushColor={selectBrushColor} />
+      </div>
+      <div className="col-12 col-sm-3">
+        <ToolSelector
+          changeTool={props.changeTool}
+          currentTool={props.currentTool}
+        />
+      </div>
+      <div className="col-12 col-sm-4">
+        <BrushSizeSelector
+          currentBrushSize={props.currentBrushSize}
+          selectBrushSize={selectBrushSize}
+        />
+      </div>
+    </div>
+  );
 }
