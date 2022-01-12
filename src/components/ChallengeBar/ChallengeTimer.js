@@ -5,14 +5,14 @@ export default class ChallengeTimer extends React.Component {
     super(props);
     this.state = {
       timer: 0,
-      timerInterval: 0
-    }
+      timerInterval: 0,
+    };
   }
 
   componentDidMount() {
     this.setState({
       timer: this.props.roundTime,
-      timerInterval: setInterval(() => this.tick(), 1000)
+      timerInterval: setInterval(() => this.tick(), 1000),
     });
   }
 
@@ -23,13 +23,13 @@ export default class ChallengeTimer extends React.Component {
   tick = () => {
     if (this.state.timer > 0) {
       this.setState({
-        timer: this.state.timer - 1
-      })
+        timer: this.state.timer - 1,
+      });
     } else {
       clearInterval(this.state.timerInterval);
       this.props.saveChallengeDrawing();
     }
-  }
+  };
 
   render() {
     return (
@@ -37,6 +37,6 @@ export default class ChallengeTimer extends React.Component {
         <i className="fas fa-stopwatch me-2"></i>
         {this.state.timer}
       </div>
-    )
+    );
   }
 }
