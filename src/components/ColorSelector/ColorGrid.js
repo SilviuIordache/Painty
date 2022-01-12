@@ -1,4 +1,4 @@
-import ColorSquare from './ColorSquare';
+import ColorSquare from "./ColorSquare";
 
 export default function ColorGrid(props) {
   const colorsArray1 = props.colors.slice(0, 7);
