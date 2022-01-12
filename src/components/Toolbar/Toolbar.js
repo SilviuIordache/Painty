@@ -1,4 +1,3 @@
-import React from "react";
 import BrushSizeSelector from "../BrushSizeSelector/BrushSizeSelector.js";
 import ColorSelector from "../ColorSelector/ColorSelector.js";
 import ColorPreview from "../ColorPreview/ColorPreview.js";
