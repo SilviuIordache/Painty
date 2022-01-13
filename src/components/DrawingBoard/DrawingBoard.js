@@ -1,37 +1,14 @@
 import React from "react";
 import Toolbar from "../Toolbar/Toolbar.js";
-import BrushCursor from "../BrushCursor/BrushCursor.js";
+import Canvas from "./Canvas.js";
 import ChallengeBar from "../ChallengeBar/ChallengeBar.js";
-import FloodFill from 'q-floodfill';
-
-// import RectanglePreview from "../RectanglePreview/RectanglePreview.js"
-// import DebugComponent from "../DebugComponent/DebugComponent.js";
-
-import { withRouter } from "react-router-dom";
-
-import "./DrawingBoard.css";
-import "../../jsons/brushSizes.json";
 import ActionsBar from "../ActionsBar/ActionsBar.js";
 
+import { withRouter } from "react-router-dom";
 class DrawingBoard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      cursorX: 0,
-      cursorY: 0,
-      canvasAbsoluteX: 0,
-      canvasAbsoluteY: 0,
-      canvasRelativeX: 0,
-      canvasRelativeY: 0,
-      rectPreviewX: 0,
-      rectPreviewY: 0,
-      canvasAbsoluteWidth: 800,
-      canvasAbsoluteHeight: 600,
-      canvasRelativeWidth: 0,
-      canvasRelativeHeight: 0,
-      ctx: null,
-      mousePressed: false,
-      canvasHovered: true,
       currentBrushSize: 4,
       currentBrushColor: "#000000",
       currentTool: "Brush Tool",
@@ -46,42 +23,8 @@ class DrawingBoard extends React.Component {
 
   componentDidMount() {
     this.setDrawMode();
-    this.setupCanvas();
     this.setupBrushSizes();
-
-    document.addEventListener("mousemove", this.handleMouseMove);
-    document.addEventListener("mousedown", this.handleMouseDown);
-    document.addEventListener("mouseup", this.handleMouseUp);
-    window.addEventListener('resize', this.handleWindowResize);
   }
-
-  componentWillUnmount() {
-    document.removeEventListener("mousemove", this.handleMouseMove);
-    document.removeEventListener("mousedown", this.handleMouseDown);
-    document.removeEventListener("mouseup", this.handleMouseUp);
-    window.removeEventListener('resize', this.handleWindowResize);
-  }
-
-  setupCanvas = () => {
-    const canvas = document.getElementById("canvas");
-
-    canvas.style.backgroundColor = "white";
-    // canvas.style.borderRadius = "0.5rem";
-    canvas.width = this.state.canvasAbsoluteWidth;
-    canvas.height = this.state.canvasAbsoluteHeight;
-
-    canvas.style.width ='90%';
-    canvas.style.height='auto';
-
-    this.setState(
-      { ctx: canvas.getContext("2d")},
-      () => {
-        this.applyWhiteBackground();
-      }
-    );
-    this.calculcateCanvasRelativeSize();
-
-  };
 
   setDrawMode = () => {
     const { mode } = this.props.match.params;
@@ -90,97 +33,6 @@ class DrawingBoard extends React.Component {
     })
   }
 
-  applyWhiteBackground = () => {
-    this.drawRectangle(
-      0,
-      0,
-      this.state.canvasAbsoluteWidth,
-      this.state.canvasAbsoluteHeight,
-      "white"
-    );
-  };
-
-  handleMouseMove = (e) => {
-    const canvas = document.getElementById("canvas");
-    const rect = canvas.getBoundingClientRect();
-
-    const cursorX = e.clientX + window.pageXOffset;
-    const cursorY = e.clientY + window.pageYOffset;
-    const canvasAbsoluteX = e.clientX - rect.left;
-    const canvasAbsoluteY =  e.clientY - rect.top;
-    const canvasRelativeX = (canvasAbsoluteX * this.state.canvasAbsoluteWidth)/ this.state.canvasRelativeWidth;
-    const canvasRelativeY = (canvasAbsoluteY * this.state.canvasAbsoluteHeight)/ this.state.canvasRelativeHeight;
-
-
-    this.setState({
-      cursorX,
-      cursorY,
-      canvasAbsoluteX,
-      canvasAbsoluteY,
-      canvasRelativeX,
-      canvasRelativeY
-    });
-
-    // line below draws
-    if (this.state.mousePressed) {
-      if(this.state.currentTool) {
-          this.drawPath();
-      }
-    }
-  };
-
-  floodFill = () => {
-    // get image data
-    const imgData = this.state.ctx.getImageData(
-      0, 
-      0, 
-      this.state.canvasAbsoluteWidth,
-      this.state.canvasAbsoluteHeight)
-
-    // Construct flood fill instance
-    const floodFill = new FloodFill(imgData)
-
-    // Modify image data
-    floodFill.fill(
-      this.state.currentBrushColor,
-      Math.round(this.state.canvasRelativeX),
-      Math.round(this.state.canvasRelativeY),
-      100
-    )
-
-    // put the modified data back in context
-    this.state.ctx.putImageData(floodFill.imageData, 0, 0)
-  }
-
-  handleMouseDown = () => {
-    this.setState({ mousePressed: true });
-
-    if (this.state.currentTool === "Paint Bucket Tool") {
-      if (this.state.canvasHovered) {
-        this.floodFill();
-      }
-    } else {
-      // this line allows for single dots by 1-click
-      this.drawPath();
-    }
-  }
-
-  handleMouseUp = () => {
-    this.setState({ mousePressed: false });
-    this.state.ctx.beginPath();
-  }
-
-  drawPath = (e) => {
-    const ctx = this.state.ctx;
-    ctx.lineWidth = this.state.currentBrushSize;
-    ctx.lineCap = "round";
-    ctx.strokeStyle = this.state.currentBrushColor;
-
-    ctx.lineTo(this.state.canvasRelativeX, this.state.canvasRelativeY);
-    ctx.stroke();
-    ctx.moveTo(this.state.canvasRelativeX, this.state.canvasRelativeY);
-  };
-
   setupBrushSizes = () => {
     const sizes = require("../../jsons/brushSizes.json").sizes;
     this.setState({
@@ -188,32 +40,6 @@ class DrawingBoard extends React.Component {
     });
   };
 
-  handleMouseEnterCanvas = () => {
-    this.setState({ canvasHovered: true },
-      () => {
-        if (this.state.mousePressed) {
-          this.handleMouseDown();
-        }
-      }
-    );
-  };
-
-  handleMouseLeaveCanvas = () => {
-    this.setState({ canvasHovered: false });
-  };
-
-  handleWindowResize = () => {
-    this.calculcateCanvasRelativeSize();
-  }
-
-  calculcateCanvasRelativeSize = () => {
-    const canvas = document.getElementById('canvas').getBoundingClientRect()
-
-    this.setState({
-      canvasRelativeWidth: canvas.width,
-      canvasRelativeHeight: canvas.height
-    })
-  }
 
   selectBrushSize = (size) => {
     this.setState({
@@ -227,9 +53,6 @@ class DrawingBoard extends React.Component {
     });
   };
 
-  eraseCanvas = () => {
-    this.applyWhiteBackground();
-  };
 
   saveCanvas = (drawingTitle) => {
     const canvas = document.getElementById("canvas");
@@ -283,16 +106,11 @@ class DrawingBoard extends React.Component {
     }
   }
 
-  drawRectangle = (x, y, width, height, color) => {
-    const ctx = this.state.ctx;
-    ctx.fillStyle = color || "black";
-
-    ctx.fillRect(x, y, width, height);
-
-    this.setState({
-      ctx,
-    });
-  };
+  eraseCanvas = () => {
+    const canvas = document.getElementById("canvas");
+    const context = canvas.getContext('2d');
+    context.clearRect(0, 0, canvas.width, canvas.height);
+  }
 
   changeTool = (tool) => {
     const sizes = require("../../jsons/brushSizes.json").sizes;
@@ -330,31 +148,18 @@ class DrawingBoard extends React.Component {
             roundTime={this.state.roundTime}
           />
         }
-        <div className="row canvas-bg">
-          <div className="col-12 position-relative">
-            <canvas
-              id="canvas"
-              className="no-cursor my-3"
-              onMouseEnter={this.handleMouseEnterCanvas}
-              onMouseLeave={this.handleMouseLeaveCanvas}
-            />
-          </div>
-        </div>
-        <BrushCursor
-          size={this.state.currentBrushSize}
-          color={this.state.currentBrushColor}
-          hideBrush={!this.state.canvasHovered}
-          currentTool={this.state.currentTool}
-          x={this.state.cursorX}
-          y={this.state.cursorY}
-        />
-        <Toolbar
-          selectBrushSize={this.selectBrushSize}
-          selectBrushColor={this.selectBrushColor}
-          selectedColor={this.state.currentBrushColor}
-          changeTool={this.changeTool}
+        <Canvas
           currentTool={this.state.currentTool}
           currentBrushSize={this.state.currentBrushSize}
+          currentBrushColor={this.state.currentBrushColor}
+        />
+        <Toolbar
+          selectedColor={this.state.currentBrushColor}
+          currentTool={this.state.currentTool}
+          currentBrushSize={this.state.currentBrushSize}
+          selectBrushSize={this.selectBrushSize}
+          selectBrushColor={this.selectBrushColor}
+          changeTool={this.changeTool}
         />
         <ActionsBar
           eraseCanvas={this.eraseCanvas}
