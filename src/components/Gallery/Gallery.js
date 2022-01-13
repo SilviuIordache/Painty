@@ -31,7 +31,7 @@ export default function DrawingBoard() {
     <p className="text-light">Your saved drawings will appear here</p>
   );
   if (images) {
-    imageElements = images.map((image, index) => (
+    imageElements = images.reverse().map((image, index) => (
       <GalleryDrawing
         src={image.src}
         alt={image.name}
