@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
-import FloodFill from 'q-floodfill';
+import FloodFill from "q-floodfill";
 import BrushCursor from "../BrushCursor/BrushCursor.js";
 import useEventListener from "../../hooks/useEventListener";
 
 import "./DrawingBoard.css";
 
-export default function Canvas (props) {
-
+export default function Canvas(props) {
   useEventListener("mousemove", handleMouseMove);
   useEventListener("mousedown", handleMouseDown);
   useEventListener("mouseup", handleMouseUp);
@@ -18,16 +17,16 @@ export default function Canvas (props) {
   // initialize canvas
   useEffect(() => {
     setupCanvas();
-  }, [])
+  }, []);
 
-  function setupCanvas () {
+  function setupCanvas() {
     const canvas = canvasRef.current;
 
     canvas.style.backgroundColor = "white";
     canvas.width = canvasAbsoluteWidth;
     canvas.height = canvasAbsoluteHeight;
-    canvas.style.width ='90%';
-    canvas.style.height='auto';
+    canvas.style.width = "90%";
+    canvas.style.height = "auto";
 
     const newCTX = canvas.getContext("2d");
 
@@ -37,7 +36,6 @@ export default function Canvas (props) {
     setCtx(newCTX);
     calculcateCanvasRelativeSize();
   }
-
 
   const [mousePressed, setMousePressed] = useState(false);
   let [canvasHovered, setCanvasHovered] = useState(true);
@@ -54,39 +52,40 @@ export default function Canvas (props) {
   const [canvasRelativeWidth, setCanvasRelativeWidth] = useState(0);
   const [canvasRelativeHeight, setCanvasRelativeHeight] = useState(0);
 
-  function handleMouseMove (e) {
+  function handleMouseMove(e) {
     const rect = canvasRef.current.getBoundingClientRect();
 
     setCursorX(e.clientX + window.pageXOffset);
     setCursorY(e.clientY + window.pageYOffset);
-    
-    // THESE CONST CAN BE DIRECTLY CALLED IN THE UPDATES BELOW?
-    const canvasAbsoluteX = e.clientX - rect.left;
-    const canvasAbsoluteY =  e.clientY - rect.top;
-    const canvasRelativeX = (canvasAbsoluteX * canvasAbsoluteWidth)/ canvasRelativeWidth;
-    const canvasRelativeY = (canvasAbsoluteY * canvasAbsoluteHeight)/ canvasRelativeHeight;
 
+    const canvasAbsoluteX = e.clientX - rect.left;
+    const canvasAbsoluteY = e.clientY - rect.top;
+    const canvasRelativeX =
+      (canvasAbsoluteX * canvasAbsoluteWidth) / canvasRelativeWidth;
+    const canvasRelativeY =
+      (canvasAbsoluteY * canvasAbsoluteHeight) / canvasRelativeHeight;
     setCanvasRelativeX(canvasRelativeX);
-    setCanvasRelativeY(canvasRelativeY)
+    setCanvasRelativeY(canvasRelativeY);
 
     // line below draws
     if (mousePressed) {
-      if(props.currentTool) {
+      if (props.currentTool) {
         drawPath();
       }
     }
-  };
+  }
 
-  function floodFill () {
+  function floodFill() {
     // get image data
     const imgData = ctx.getImageData(
-      0, 
-      0, 
+      0,
+      0,
       canvasAbsoluteWidth,
-      canvasAbsoluteHeight)
+      canvasAbsoluteHeight
+    );
 
     // Construct flood fill instance
-    const floodFill = new FloodFill(imgData)
+    const floodFill = new FloodFill(imgData);
 
     // Modify image data
     floodFill.fill(
@@ -97,10 +96,10 @@ export default function Canvas (props) {
     );
 
     // put the modified data back in context
-    ctx.putImageData(floodFill.imageData, 0, 0)
+    ctx.putImageData(floodFill.imageData, 0, 0);
   }
 
-  function handleMouseDown () {
+  function handleMouseDown() {
     setMousePressed(true);
 
     if (props.currentTool === "Paint Bucket Tool") {
@@ -113,12 +112,12 @@ export default function Canvas (props) {
     }
   }
 
-  function handleMouseUp () {
+  function handleMouseUp() {
     setMousePressed(false);
     ctx.beginPath();
   }
 
-  function drawPath (e) {
+  function drawPath(e) {
     ctx.lineWidth = props.currentBrushSize;
     ctx.lineCap = "round";
     ctx.strokeStyle = props.currentBrushColor;
@@ -126,33 +125,33 @@ export default function Canvas (props) {
     ctx.lineTo(canvasRelativeX, canvasRelativeY);
     ctx.stroke();
     ctx.moveTo(canvasRelativeX, canvasRelativeY);
-  };
+  }
 
-  function handleMouseEnterCanvas () {
+  function handleMouseEnterCanvas() {
     setCanvasHovered(true);
     if (mousePressed) {
       handleMouseDown();
     }
-  };
+  }
 
   function handleMouseLeaveCanvas() {
     setCanvasHovered(false);
-  };
+  }
 
-  function handleWindowResize () {
+  function handleWindowResize() {
     calculcateCanvasRelativeSize();
   }
 
-  function calculcateCanvasRelativeSize () {
+  function calculcateCanvasRelativeSize() {
     const canvasRect = canvasRef.current.getBoundingClientRect();
     setCanvasRelativeWidth(canvasRect.width);
     setCanvasRelativeHeight(canvasRect.height);
   }
-  
-  function drawRectangle (x, y, width, height, color, ctx) {
+
+  function drawRectangle(x, y, width, height, color, ctx) {
     ctx.fillStyle = color || "black";
     ctx.fillRect(x, y, width, height);
-  };
+  }
 
   return (
     <div>
