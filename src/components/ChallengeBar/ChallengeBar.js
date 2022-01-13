@@ -1,56 +1,40 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import ChallengeTimer from "./ChallengeTimer";
 
-export default class ChallengeBar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      words: [],
-      currentWord: '',
-    }
-  }
-  componentDidMount() {
-    this.chooseWord();
-  }
+export default function ChallengeBar (props) {
 
-  saveChallengeDrawing = () => {
-    this.props.saveChallengeDrawing(this.state.currentWord);
-  }
-
-  chooseWord = () => {
-    const words = require('../../jsons/words.json').list;
-    this.setState({ words });
-
-    // generate random number
+  const [words] = useState(require("../../jsons/words.json").list);
+  let [currentWord, setCurrentWord] = useState('');
+  useEffect(() => {
     const randomWordIndex = Math.floor(Math.random() * words.length);
+    setCurrentWord(words[randomWordIndex]);
+  }, [words]);
 
-    // assign that value to the current word
-    this.setState({
-      currentWord: words[randomWordIndex]
-    })
-  }
+  function timerEnded () {
+    // this.props.timerEnded(this.state.currentWord);
+    console.log("i am here");
+  };
 
-  render() {
-    return (
-      <div className="row bg-secondary rounded py-3 d-flex justify-content-center">
-        <div className="col-2 bg-white rounded py-2">
-          ROUND: {this.props.roundCurrent} / {this.props.roundTotal}
-        </div>
-        <div className="col-2">
-          <ChallengeTimer 
-            roundTime={this.props.roundTime}
-            saveChallengeDrawing={this.saveChallengeDrawing}
-          />
-        </div>
-        <div className="col-6">
-          <div className="bg-white rounded py-2">
-            <span className="text-muted">Draw this: </span>
-            <span className="font-weight-bold">
-              {this.state.currentWord.toUpperCase()}
-            </span>
-          </div>
+  return (
+    <div className="row bg-secondary rounded py-3 d-flex justify-content-center">
+      <div className="col-2 bg-white rounded py-2">
+        ROUND: {props.roundCurrent} / {props.roundTotal}
+      </div>
+      <div className="col-2">
+        <ChallengeTimer
+          roundTime={props.roundTime}
+          timerEnded={timerEnded}
+        />
+      </div>
+      <div className="col-6">
+        <div className="bg-white rounded py-2">
+          <span className="text-muted">Draw this: </span>
+          <span className="font-weight-bold">
+            {currentWord.toUpperCase()}
+          </span>
         </div>
       </div>
-    )
-  }
+    </div>
+  );
+
 }

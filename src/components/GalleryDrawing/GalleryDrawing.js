@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./GalleryDrawing.css";
 
 export default function GalleryDrawing (props) {

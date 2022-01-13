@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import useInterval from "../../hooks/useInterval";
 
 export default function ChallengeTimer(props) {
   let [timer, setTimer] = useState(props.roundTime);
-
   useInterval(() => {
     if (timer === 0) {
-      console.log("timer reached 0");
+      props.timerEnded();
     } else {
       setTimer(timer - 1);
     }
