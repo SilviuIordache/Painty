@@ -12,7 +12,6 @@ export default function ChallengeBar (props) {
 
   function timerEnded () {
     // this.props.timerEnded(this.state.currentWord);
-    console.log("i am here");
   };
 
   return (
