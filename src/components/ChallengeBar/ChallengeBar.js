@@ -1,18 +1,4 @@
-import { useState, useEffect } from "react";
-import ChallengeTimer from "./ChallengeTimer";
-
 export default function ChallengeBar (props) {
-
-  const [words] = useState(require("../../jsons/words.json").list);
-  let [currentWord, setCurrentWord] = useState('');
-  useEffect(() => {
-    const randomWordIndex = Math.floor(Math.random() * words.length);
-    setCurrentWord(words[randomWordIndex]);
-  }, [words]);
-
-  function timerEnded () {
-    // this.props.timerEnded(this.state.currentWord);
-  };
 
   return (
     <div className="row bg-secondary rounded py-3 d-flex justify-content-center">
@@ -20,16 +6,16 @@ export default function ChallengeBar (props) {
         ROUND: {props.roundCurrent} / {props.roundTotal}
       </div>
       <div className="col-2">
-        <ChallengeTimer
-          roundTime={props.roundTime}
-          timerEnded={timerEnded}
-        />
+        <div className="bg-white rounded py-2">
+          <i className="fas fa-stopwatch me-2"></i>
+          {props.timer}
+        </div>
       </div>
       <div className="col-6">
         <div className="bg-white rounded py-2">
           <span className="text-muted">Draw this: </span>
           <span className="font-weight-bold">
-            {currentWord.toUpperCase()}
+            {props.currentWord.toUpperCase()}
           </span>
         </div>
       </div>

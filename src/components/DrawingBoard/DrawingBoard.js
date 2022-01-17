@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
+import useInterval from "../../hooks/useInterval";
 import { useParams } from "react-router-dom";
+
 import Toolbar from "../Toolbar/Toolbar.js";
 import Canvas from "./Canvas.js";
 import ChallengeBar from "../ChallengeBar/ChallengeBar.js";
@@ -7,15 +9,44 @@ import ActionsBar from "../ActionsBar/ActionsBar.js";
 
 export default function DrawingBoard () {
 
+  // tools state
   const [currentTool, setTool] = useState("Brush Tool")
   const [currentBrushColor, setBrushColor] = useState("#000000");
   const [currentBrushSize, setBrushSize] = useState( require("../../jsons/brushSizes.json").sizes[0]);
   
-  const [roundCurrent, setRoundCurrent] = useState(1);
-  const [roundTotal, setRoundTotal] = useState(5);
-  const [roundTimeInitial, setRoundTimeInitial] = useState(10);
-  const [roundTime, setRoundTime] = useState(10);
+  // game logic state
   const [gameMode, setGameMode] = useState();
+  const [roundCurrent, setRoundCurrent] = useState(1);
+  const [roundTotal] = useState(5);
+  const [roundTime] = useState(3)
+  let [timer, setTimer] = useState(roundTime);
+  useInterval(() => {
+    if (timer === 0) {
+      roundEndLogic();
+    } else {
+      setTimer(timer - 1);
+    }
+  }, 1000);
+
+  function roundEndLogic() {
+     if (roundCurrent < roundTotal) {
+      saveCanvas(currentWord);
+      eraseCanvas();
+      setRoundCurrent(roundCurrent + 1);
+      setTimer(roundTime);
+      setCurrentWord(getNewRoundWord());
+    } else {
+      // go to challenge mode gallery
+    }
+  }
+
+  const [words] = useState(require("../../jsons/words.json").list);
+  let [currentWord, setCurrentWord] = useState(getNewRoundWord());
+
+  function getNewRoundWord() {
+    const randomWordIndex = Math.floor(Math.random() * words.length);
+    return words[randomWordIndex];
+  }
   
   const urlParams = useParams();
   useEffect(() => {
@@ -48,6 +79,7 @@ export default function DrawingBoard () {
       id: imgID,
       src: dataURL,
       name: imageName,
+      mode: gameMode
     };
 
     if (galleryImages) {
@@ -64,18 +96,15 @@ export default function DrawingBoard () {
 
   function saveChallengeDrawing (word) {
     saveCanvas(word);
-    
-    // advanced rounds
-    if (roundCurrent < roundTotal) {
-      setRoundCurrent(roundCurrent + 1);
-      setRoundTime(roundTimeInitial);
-    }
   }
 
   function eraseCanvas () {
     const canvas = document.getElementById("canvas");
     const context = canvas.getContext('2d');
     context.clearRect(0, 0, canvas.width, canvas.height);
+
+    // context.fillStyle = "#ffffff";
+    // context.fillRect(0, 0, canvasAbsoluteWidth, canvasAbsoluteHeight);
   }
 
   function changeTool (tool) {
@@ -101,10 +130,11 @@ export default function DrawingBoard () {
     <div className="drawing-board">
       { gameMode === 'challenge' && 
         <ChallengeBar
-          saveChallengeDrawing={saveChallengeDrawing}
+          // saveChallengeDrawing={saveChallengeDrawing}
+          currentWord={currentWord}
           roundCurrent={roundCurrent}
           roundTotal={roundTotal}
-          roundTime={roundTime}
+          timer={timer}
         />
       }
       <Canvas
