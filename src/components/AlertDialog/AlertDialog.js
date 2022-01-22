@@ -1,3 +1,5 @@
+// https://codesandbox.io/s/react-router-6-use-prompt-use-blocker-kce6k?file=/example.js:3164-3217
+
 import React, { useState, useEffect, useCallback } from "react";
 import {
   useBlocker,
