@@ -21,5 +21,4 @@ export default function ChallengeBar (props) {
       </div>
     </div>
   );
-
 }
