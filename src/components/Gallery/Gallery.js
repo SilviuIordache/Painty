@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import GalleryDrawing from "../GalleryDrawing/GalleryDrawing.js";
 
-export default function DrawingBoard() {
+export default function Gallery() {
   const [images, setImages] = useState(
     JSON.parse(localStorage.getItem("paintyImages"))
   );
@@ -13,6 +13,7 @@ export default function DrawingBoard() {
     );
 
     if (!confirmDelete) return;
+
     const updatedImages = JSON.parse(localStorage.getItem("paintyImages"));
 
     // find index of id
@@ -20,11 +21,11 @@ export default function DrawingBoard() {
 
     // delete elem at that index
     updatedImages.splice(indexToDelete, 1);
-
+    
     // update storage
     localStorage.setItem("paintyImages", JSON.stringify(updatedImages));
 
-    setImages(updatedImages);
+    setImages(updatedImages.reverse());
   }
 
   let imageElements = (
