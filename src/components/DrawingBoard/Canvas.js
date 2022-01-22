@@ -6,10 +6,10 @@ import useEventListener from "../../hooks/useEventListener";
 import "./DrawingBoard.css";
 
 export default function Canvas(props) {
-  useEventListener("mousemove", handleMouseMove);
-  useEventListener("mousedown", handleMouseDown);
-  useEventListener("mouseup", handleMouseUp);
-  useEventListener("resize", handleWindowResize);
+  useEventListener("mousemove", handleMouseMove, document);
+  useEventListener("mousedown", handleMouseDown, document);
+  useEventListener("mouseup", handleMouseUp, document);
+  useEventListener("resize", handleWindowResize, document);
 
   const canvasRef = useRef();
   const [ctx, setCtx] = useState(0);
@@ -53,6 +53,8 @@ export default function Canvas(props) {
   const [canvasRelativeHeight, setCanvasRelativeHeight] = useState(0);
 
   function handleMouseMove(e) {
+    if (!canvasRef.current) return
+
     const rect = canvasRef.current.getBoundingClientRect();
 
     setCursorX(e.clientX + window.pageXOffset);
