@@ -7,6 +7,8 @@ import Canvas from "./Canvas.js";
 import ChallengeBar from "../ChallengeBar/ChallengeBar.js";
 import ActionsBar from "../ActionsBar/ActionsBar.js";
 
+import AlertDialog from "../AlertDialog/AlertDialog.js";
+
 export default function DrawingBoard() {
   let navigate = useNavigate();
 
@@ -51,7 +53,11 @@ export default function DrawingBoard() {
       setDelay(null);
 
       // go to the gallery to show what the user has drawn
-      navigate('/gallery')
+      setIsBlocking(false);
+
+      setTimeout(() => {
+        navigate('/gallery')
+      }, 0)
     }
   }
 
@@ -139,8 +145,17 @@ export default function DrawingBoard() {
     }
   }
 
+  let [isBlocking, setIsBlocking] = useState(true);
+
   return (
     <div className="drawing-board">
+      <AlertDialog
+        title={'Unsaved Changes'}
+        text={'If you leave now, your drawing will be lost. Are you sure?'}
+        confirmButtonText={'OK'}
+        cancelButtonText={'CANCEL'}
+        isBlocking={isBlocking}
+      />
       {gameMode === "challenge" && (
         <ChallengeBar
           currentWord={currentWord}
