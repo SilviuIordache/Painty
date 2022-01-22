@@ -24,7 +24,7 @@ export default function GalleryDrawing (props) {
       onMouseLeave={() => { setImageHover(false) }}
     >
       <div className="name-pill">
-        {props.name}
+        {props.mode === 'challenge' && '⏳'} {props.name}
       </div>
 
       <img

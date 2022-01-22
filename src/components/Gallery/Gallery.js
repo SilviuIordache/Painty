@@ -37,6 +37,7 @@ export default function Gallery() {
         src={image.src}
         alt={image.name}
         name={image.name}
+        mode={image.mode}
         id={image.id}
         key={index}
         deleteImage={deleteImage}
