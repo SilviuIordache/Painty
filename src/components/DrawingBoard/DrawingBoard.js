@@ -23,7 +23,7 @@ export default function DrawingBoard() {
   const [gameMode, setGameMode] = useState();
   const [roundCurrent, setRoundCurrent] = useState(1);
   const [roundTotal] = useState(3);
-  const [roundTime] = useState(3);
+  const [roundTime] = useState(30);
 
   const [delay, setDelay] = useState(1000);
   useEffect(() => {

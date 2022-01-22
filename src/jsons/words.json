@@ -1,12 +1,103 @@
 {
   "list": [
-    "banana",
-    "mango",
-    "earth",
+    
     "snowman",
+
     "Michael Jackson",
     "Donald Trump",
-    "swim",
-    "ocean"
+    "2Pac",
+    "George Bush",
+    "Vladimir Putin",
+    "Kim Jong Un",
+
+    "swimming",
+    "walking",
+    "running",
+    "sleeping",
+    "cooking",
+
+    "volcano",
+    "ocean",
+    "underground",
+    "city",
+    "village",
+
+    "summer",
+    "autumn",
+    "spring",
+    "winter",
+
+    "USA",
+    "China",
+    "France",
+    "Germany",
+    "India",
+    "Russia",
+    "United Kingdom",
+    "Brazil",
+
+    "hammer",
+    "toothbrush",
+    "nail",
+    "scissors",
+    "computer",
+
+    "electricity",
+    "gas",
+    "steam",
+    "coal",
+
+    "doctor",
+    "president",
+    "engineer",
+    "politician",
+    "lawyer",
+    "judge",
+    "policeman",
+    "assistant",
+    "football player",
+
+    "football",
+    "basketball",
+    "hockey",
+    "american football",
+    "rugby",
+    "baseball",
+    "tennis",
+
+    "man",
+    "woman",
+    "boy",
+    "girl",
+    "human",
+
+    "dog",
+    "cat",
+    "elephant",
+    "zebra",
+    "lion",
+    "cheetah",
+    "deer",
+    "hippo",
+    "lizard",
+    "ant",
+    "snake",
+    "beetle",
+
+    "car",
+    "helicopter",
+    "submarine",
+    "zeppelin",
+    "train",
+    "boat",
+    "race car",
+    "bike",
+    "motorcycle",
+
+    "apple",
+    "banana",
+    "cherry",
+    "watermelon"
+
   ]
 }
