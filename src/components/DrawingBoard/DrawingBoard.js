@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useInterval from "../../hooks/useInterval";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Prompt } from "react-router-dom";
 
 import Toolbar from "../Toolbar/Toolbar.js";
 import Canvas from "./Canvas.js";
@@ -149,12 +149,17 @@ export default function DrawingBoard() {
 
   return (
     <div className="drawing-board">
-      <AlertDialog
+      {/* <AlertDialog
         title={'Unsaved Changes'}
         text={'If you leave now, your drawing will be lost. Are you sure?'}
         confirmButtonText={'OK'}
         cancelButtonText={'CANCEL'}
         isBlocking={isBlocking}
+      /> */}
+
+      <Prompt
+        when={isBlocking}
+        message={`Are you sure you want to leave this page?`}
       />
       {gameMode === "challenge" && (
         <ChallengeBar
