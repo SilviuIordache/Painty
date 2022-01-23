@@ -47,7 +47,7 @@ export default function DrawingBoard() {
     if (roundCurrent < roundTotal) {
       setRoundCurrent(roundCurrent + 1);
       setTimer(roundTime);
-      setCurrentWord(getNewRoundWord());
+      setCurrentWord(challengeWords[roundCurrent]);
     } else {
       // pause timer
       setDelay(null);
@@ -61,18 +61,44 @@ export default function DrawingBoard() {
     }
   }
 
-  const [words] = useState(require("../../jsons/words.json").list);
-  let [currentWord, setCurrentWord] = useState(getNewRoundWord());
-
-  function getNewRoundWord() {
-    const randomWordIndex = Math.floor(Math.random() * words.length);
-    return words[randomWordIndex];
-  }
-
+ 
   const urlParams = useParams();
   useEffect(() => {
-    setGameMode(urlParams.mode);
+    const mode = urlParams.mode;
+    setGameMode(mode);
+    if (mode === 'challenge') {
+      setChallengeWords(generateChallengeWords())
+    }
+    
+    function generateChallengeWords () {
+      console.log('generation call')
+      const words = require("../../jsons/words.json").list;
+      
+      // generate unique random index numbers
+      const randomNumbers = [];
+      while(randomNumbers.length < roundTotal) {
+        const randomNumber = Math.floor(Math.random() * words.length) + 1;
+        if(randomNumbers.indexOf(randomNumber) === -1) {
+          randomNumbers.push(randomNumber);
+        }
+      }
+      
+      // populate words array with words found at above indexes
+      let wordsArray = []
+      randomNumbers.forEach((num) => {
+        wordsArray.push(words[num]);
+      })
+  
+      setCurrentWord(wordsArray[roundCurrent - 1]);
+      
+      return wordsArray
+    }
+
   }, [urlParams.mode]);
+
+
+  let [currentWord, setCurrentWord] = useState();
+  const [challengeWords, setChallengeWords] = useState([]);
 
   function saveCanvas(drawingTitle) {
     const canvas = document.getElementById("canvas");
