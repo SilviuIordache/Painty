@@ -4,6 +4,8 @@ import Navigation from "./components/Navigation/Navigation";
 import MainMenu from "./components/MainMenu/MainMenu";
 import DrawingBoard from "./components/DrawingBoard/DrawingBoard";
 import Gallery from "./components/Gallery/Gallery";
+import DrawingDetails from "./components/DrawingDetails/DrawingDetails";
+
 
 import "./App.css";
 
@@ -17,6 +19,7 @@ function App() {
             <Route exact path="/" element={<MainMenu />} />
             <Route path="/draw/:mode" element={<DrawingBoard />} />
             <Route path="/gallery" element={<Gallery />} />
+            <Route path="/drawing/:id" element={<DrawingDetails/>} />
           </Routes>
         </BrowserRouter>
       </div>

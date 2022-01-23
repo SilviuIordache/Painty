@@ -1,10 +1,14 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import "./GalleryDrawing.css";
 
 export default function GalleryDrawing (props) {
+  const navigate = useNavigate();
   const [imageHovered, setImageHover] = useState(false);
 
-  function downloadImage () {
+  function downloadImage (e) {
+    e.stopPropagation();
     const link = document.createElement("a");
     link.download = props.name;
     link.href = props.src;
@@ -13,15 +17,26 @@ export default function GalleryDrawing (props) {
     document.body.removeChild(link);
   }
 
-  function deleteImage () {
+  function deleteImage (e) {
+    e.stopPropagation();
     props.deleteImage(props.id)
   }
 
+  function goToDrawingDetails () {
+    navigate(`/drawing/${props.id}`)
+  }
+
+  let className="col-12 col-md-6 col-lg-4 mb-3 position-relative image-container";
+  if (imageHovered) {
+    className += " hovered-image"
+  }
   return (
-    <div 
-      className="col-12 col-md-6 col-lg-4 mb-3 position-relative"
+    <div
+      className={className}
       onMouseEnter={() => { setImageHover(true) }}
       onMouseLeave={() => { setImageHover(false) }}
+      onClick={goToDrawingDetails}
+      
     >
       <div className="name-pill">
         {props.mode === 'challenge' && '⏳'} {props.name}

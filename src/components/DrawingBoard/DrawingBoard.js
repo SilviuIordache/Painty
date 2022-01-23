@@ -126,6 +126,7 @@ export default function DrawingBoard() {
       src: dataURL,
       name: imageName,
       mode: gameMode,
+      date: new Date().toISOString()
     };
 
     if (galleryImages) {
