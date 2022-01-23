@@ -1,26 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import "./GalleryDrawing.css";
+
+import DrawingButtons from "../DrawingButtons/DrawingButtons.js";
 
 export default function GalleryDrawing (props) {
   const navigate = useNavigate();
   const [imageHovered, setImageHover] = useState(false);
-
-  function downloadImage (e) {
-    e.stopPropagation();
-    const link = document.createElement("a");
-    link.download = props.name;
-    link.href = props.src;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  }
-
-  function deleteImage (e) {
-    e.stopPropagation();
-    props.deleteImage(props.id)
-  }
 
   function goToDrawingDetails () {
     navigate(`/drawing/${props.id}`)
@@ -49,30 +35,12 @@ export default function GalleryDrawing (props) {
         width="100%"
       />
       
-      <ButtonGroup
+      <DrawingButtons
+        id={props.id}
+        deleteCallback={props.deleteCallback}
         imageHovered={imageHovered}
-        downloadImage={downloadImage}
-        deleteImage={deleteImage}
+        dynamic={true}
       />
-    </div>
-  )
-}
-
-function ButtonGroup (props) {
-  let btnGroupClass = "button-group";
-
-  if (props.imageHovered) {
-    btnGroupClass += " d-block"
-  }
-
-  return (
-    <div className={btnGroupClass}>
-      <button className="btn btn-primary" onClick={props.downloadImage}>
-        <i className="fas fa-download"></i>
-      </button>
-      <button className="btn btn-danger ms-1" onClick={props.deleteImage}>
-        <i className="fas fa-trash"></i>
-      </button>
     </div>
   )
 }

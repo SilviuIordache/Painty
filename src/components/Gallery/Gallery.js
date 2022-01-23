@@ -6,41 +6,24 @@ export default function Gallery() {
     JSON.parse(localStorage.getItem("paintyImages"))
   );
 
-  function deleteImage(id) {
-    // eslint-disable-next-line no-restricted-globals
-    const confirmDelete = confirm(
-      "Are you sure you want to delete this image?"
-    );
-
-    if (!confirmDelete) return;
-
+  function deleteCallback() {
     const updatedImages = JSON.parse(localStorage.getItem("paintyImages"));
-
-    // find index of id
-    const indexToDelete = updatedImages.findIndex((elem) => elem.id === id);
-
-    // delete elem at that index
-    updatedImages.splice(indexToDelete, 1);
-    
-    // update storage
-    localStorage.setItem("paintyImages", JSON.stringify(updatedImages));
-
     setImages(updatedImages.reverse());
   }
 
   let imageElements = (
     <p className="text-light">Your saved drawings will appear here</p>
   );
-  if (images) {
-    imageElements = images.reverse().map((image, index) => (
+  if (images.length > 0) {
+    imageElements = images.reverse().map((image) => (
       <GalleryDrawing
         src={image.src}
         alt={image.name}
         name={image.name}
         mode={image.mode}
         id={image.id}
-        key={index}
-        deleteImage={deleteImage}
+        key={image.id}
+        deleteCallback={deleteCallback}
       />
     ));
   }

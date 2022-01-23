@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import DrawingButtons from "../DrawingButtons/DrawingButtons.js";
 
 export default function DrawingDetails() {
+  const navigate = useNavigate();
   const urlParams = useParams();
   const [drawing, setDrawing] = useState({
-    name: ''
+    name: 'default'
   });
   useEffect(() => {
     const images = JSON.parse(localStorage.getItem("paintyImages"));
-    const image = images[urlParams.id];
+    const image = images.find(img => img.id === parseInt(urlParams.id, 10));
     setDrawing(image);
   }, [urlParams.id]);
+
+  function deleteCallback () {
+    navigate('/gallery')
+  }
 
   return (
     <div className="row mt-1 p-5 bg-secondary">
@@ -28,6 +34,13 @@ export default function DrawingDetails() {
           Created in <span className="text-info">{drawing.mode}</span> mode
         </p>
         <p>{drawing.date}</p>
+
+        <DrawingButtons
+          id={drawing.id}
+          deleteCallback={deleteCallback}
+          imageHovered={true}
+          dynamic={false}
+        />
       </div>
     </div>
   );

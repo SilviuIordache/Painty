@@ -116,7 +116,8 @@ export default function DrawingBoard() {
     // check for stored images
     const galleryImages = JSON.parse(localStorage.getItem("paintyImages"));
 
-    const imgID = galleryImages
+
+    const imgID = (galleryImages.length !== 0)
       ? galleryImages[galleryImages.length - 1].id + 1
       : 0;
 
