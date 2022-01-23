@@ -37,7 +37,7 @@ export default function AlertDialog(props) {
         }
         return true;
       },
-      [confirmedNavigation]
+      [confirmedNavigation, location.pathname]
     );
 
     const confirmNavigation = useCallback(() => {
@@ -49,7 +49,7 @@ export default function AlertDialog(props) {
       if (confirmedNavigation && lastLocation) {
         navigate(lastLocation.location.pathname);
       }
-    }, [confirmedNavigation, lastLocation]);
+    }, [confirmedNavigation, lastLocation, navigate]);
 
     useBlocker(handleBlockedNavigation, when);
 

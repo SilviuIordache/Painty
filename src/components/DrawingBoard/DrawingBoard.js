@@ -7,8 +7,6 @@ import Canvas from "./Canvas.js";
 import ChallengeBar from "../ChallengeBar/ChallengeBar.js";
 import ActionsBar from "../ActionsBar/ActionsBar.js";
 
-import AlertDialog from "../AlertDialog/AlertDialog.js";
-
 export default function DrawingBoard() {
   let navigate = useNavigate();
 
@@ -23,7 +21,7 @@ export default function DrawingBoard() {
   const [gameMode, setGameMode] = useState();
   const [roundCurrent, setRoundCurrent] = useState(1);
   const [roundTotal] = useState(3);
-  const [roundTime] = useState(30);
+  const [roundTime] = useState(3);
 
   const [delay, setDelay] = useState(1000);
   useEffect(() => {
@@ -71,7 +69,6 @@ export default function DrawingBoard() {
     }
     
     function generateChallengeWords () {
-      console.log('generation call')
       const words = require("../../jsons/words.json").list;
       
       // generate unique random index numbers
@@ -88,13 +85,13 @@ export default function DrawingBoard() {
       randomNumbers.forEach((num) => {
         wordsArray.push(words[num]);
       })
-  
-      setCurrentWord(wordsArray[roundCurrent - 1]);
       
+      setCurrentWord(wordsArray[roundCurrent - 1]);
       return wordsArray
     }
 
-  }, [urlParams.mode]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
 
   let [currentWord, setCurrentWord] = useState();
@@ -175,14 +172,6 @@ export default function DrawingBoard() {
 
   return (
     <div className="drawing-board">
-      {/* <AlertDialog
-        title={'Unsaved Changes'}
-        text={'If you leave now, your drawing will be lost. Are you sure?'}
-        confirmButtonText={'OK'}
-        cancelButtonText={'CANCEL'}
-        isBlocking={isBlocking}
-      /> */}
-
       <Prompt
         when={isBlocking}
         message={`Are you sure you want to leave this page?`}

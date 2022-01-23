@@ -17,6 +17,7 @@ export default function Canvas(props) {
   // initialize canvas
   useEffect(() => {
     setupCanvas();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function setupCanvas() {
@@ -150,6 +151,7 @@ export default function Canvas(props) {
     setCanvasRelativeHeight(canvasRect.height);
   }
 
+  // eslint-disable-next-line no-unused-vars
   function drawRectangle(x, y, width, height, color, ctx) {
     ctx.fillStyle = color || "black";
     ctx.fillRect(x, y, width, height);
