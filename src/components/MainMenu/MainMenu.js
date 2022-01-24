@@ -4,7 +4,7 @@ export default function MainMenu() {
   return (
     <div>
       <div className="mb-5 mt-5">
-        <h1>Welcome to Painty 🎨</h1>
+        <h1>Painty 🎨</h1>
         <p>Painty is a drawing game in which you draw agaisnt the clock</p>
       </div>
         <Link to="/draw/challenge" className="me-5">Start ⏳</Link>
