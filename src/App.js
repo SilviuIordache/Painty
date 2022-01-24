@@ -1,4 +1,6 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom";
+import React, { useEffect } from "react";
+import { hotjar } from 'react-hotjar';
 
 import Navigation from "./components/Navigation/Navigation";
 import MainMenu from "./components/MainMenu/MainMenu";
@@ -10,6 +12,11 @@ import DrawingDetails from "./components/DrawingDetails/DrawingDetails";
 import "./App.css";
 
 function App() {
+
+  useEffect(() => {
+    hotjar.initialize('2797800', 6);
+  }, [])
+
   return (
     <div className="App">
       <div className="container">
