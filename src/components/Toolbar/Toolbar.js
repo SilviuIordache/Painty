@@ -35,12 +35,20 @@ export default function Toolbar(props) {
         />
       </div>
       <div className="col-12 col-sm-1">
-        {props.gameMode === "practice" && (
-          <div>
-            <EraseCanvasButton eraseCanvas={() =>{ props.eraseCanvas()}}/>
-            <SaveCanvasButton saveCanvas={() =>{ props.saveCanvas()}}/>
-          </div>
-        )}
+        <div>
+          <EraseCanvasButton
+            eraseCanvas={() => {
+              props.eraseCanvas();
+            }}
+          />
+          {props.gameMode === "practice" && (
+            <SaveCanvasButton
+              saveCanvas={() => {
+                props.saveCanvas();
+              }}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
