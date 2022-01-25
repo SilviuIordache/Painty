@@ -3,7 +3,7 @@ import FloodFill from "q-floodfill";
 import BrushCursor from "../BrushCursor/BrushCursor.js";
 import useEventListener from "../../hooks/useEventListener";
 
-import "./DrawingBoard.css";
+import "./Canvas.css";
 
 export default function Canvas(props) {
   useEventListener("mousemove", handleMouseMove);
@@ -26,7 +26,7 @@ export default function Canvas(props) {
     canvas.style.backgroundColor = "white";
     canvas.width = canvasAbsoluteWidth;
     canvas.height = canvasAbsoluteHeight;
-    canvas.style.width = "90%";
+    canvas.style.width = "100%";
     canvas.style.height = "auto";
 
     const newCTX = canvas.getContext("2d");
@@ -160,11 +160,11 @@ export default function Canvas(props) {
   return (
     <div>
       <div className="row canvas-bg">
-        <div className="col-12 position-relative">
+        <div className="col-12">
           <canvas
             id="canvas"
             ref={canvasRef}
-            className="no-cursor my-3"
+            className="no-cursor"
             onMouseEnter={handleMouseEnterCanvas}
             onMouseLeave={handleMouseLeaveCanvas}
           />
