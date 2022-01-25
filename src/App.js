@@ -9,7 +9,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 let theme = createTheme({
   palette: {
-    mode: 'dark'
+    mode: 'light'
   }
 });
 function App() {

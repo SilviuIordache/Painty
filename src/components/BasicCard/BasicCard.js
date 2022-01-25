@@ -25,7 +25,7 @@ export default function BasicCard(props) {
         <Typography variant="body2">{props.description}</Typography>
       </CardContent>
       <CardActions>
-        <Button size="large" onClick={props.buttonCallback} variant="contained">
+        <Button size="large" onClick={props.buttonCallback} variant="outlined">
           {props.buttonText}
         </Button>
       </CardActions>
