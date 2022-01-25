@@ -13,8 +13,7 @@ export default function GalleryDrawingButtons(props) {
 
   function deleteImage(e) {
     e.stopPropagation();
-    // eslint-disable-next-line no-restricted-globals
-    const confirmDelete = confirm(
+    const confirmDelete = window.confirm(
       "Are you sure you want to delete this image?"
     );
 
