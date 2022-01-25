@@ -140,9 +140,12 @@ export default function DrawingBoard() {
     }
   }
 
-  function eraseCanvas() {
-    const confirmErase = window.confirm("Erase current canvas?")
-    if (!confirmErase) return
+  function eraseCanvas(manualErase) {
+    if (manualErase) {
+      const confirmErase = window.confirm("Erase current canvas?")
+      if (!confirmErase) return
+    }
+
     const canvas = document.getElementById("canvas");
     const context = canvas.getContext("2d");
     context.clearRect(0, 0, canvas.width, canvas.height);

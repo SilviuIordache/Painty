@@ -38,7 +38,7 @@ export default function Toolbar(props) {
         <div>
           <EraseCanvasButton
             eraseCanvas={() => {
-              props.eraseCanvas();
+              props.eraseCanvas(true);
             }}
           />
           {props.gameMode === "practice" && (
