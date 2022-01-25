@@ -22,7 +22,7 @@ export default function Toolbar(props) {
       <div className="col-9 col-sm-4">
         <ColorSelector selectBrushColor={selectBrushColor} />
       </div>
-      <div className="col-12 col-sm-3">
+      <div className="col-12 col-sm-2">
         <ToolSelector
           changeTool={props.changeTool}
           currentTool={props.currentTool}
@@ -34,6 +34,30 @@ export default function Toolbar(props) {
           selectBrushSize={selectBrushSize}
         />
       </div>
+      <div className="col-12 col-sm-1">
+        {props.gameMode === "practice" && (
+          <div>
+            <EraseCanvasButton eraseCanvas={() =>{ props.eraseCanvas()}}/>
+            <SaveCanvasButton saveCanvas={() =>{ props.saveCanvas()}}/>
+          </div>
+        )}
+      </div>
     </div>
+  );
+}
+
+function EraseCanvasButton(props) {
+  return (
+    <button className="btn btn-danger px-3 mb-1 " onClick={props.eraseCanvas}>
+      <i className="far fa-trash-alt fa-md"></i>
+    </button>
+  );
+}
+
+function SaveCanvasButton(props) {
+  return (
+    <button className="btn btn-primary px-3" onClick={props.saveCanvas}>
+      <i className="far fa-save fa-md"></i>
+    </button>
   );
 }

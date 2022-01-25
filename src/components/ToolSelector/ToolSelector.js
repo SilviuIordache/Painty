@@ -42,6 +42,7 @@ function ToolButton(props) {
     <button
       className="btn btn-outline-secondary"
       style={activeStyle}
+      title={props.name}
       onClick={() => props.changeTool(props.name)}
     >
       <i className={props.icon}></i>

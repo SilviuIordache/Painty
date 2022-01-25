@@ -5,7 +5,6 @@ import { useParams, useNavigate, Prompt } from "react-router-dom";
 import Toolbar from "../Toolbar/Toolbar.js";
 import Canvas from "./Canvas.js";
 import ChallengeBar from "../ChallengeBar/ChallengeBar.js";
-import ActionsBar from "../ActionsBar/ActionsBar.js";
 
 export default function DrawingBoard() {
   let navigate = useNavigate();
@@ -14,7 +13,7 @@ export default function DrawingBoard() {
   const [currentTool, setTool] = useState("Brush Tool");
   const [currentBrushColor, setBrushColor] = useState("#000000");
   const [currentBrushSize, setBrushSize] = useState(
-    require("../../jsons/brushSizes.json").sizes[0]
+    require("../../jsons/brushSizes.json").sizes[1]
   );
 
   // game logic state
@@ -197,10 +196,10 @@ export default function DrawingBoard() {
         selectBrushSize={setBrushSize}
         selectBrushColor={setBrushColor}
         changeTool={changeTool}
+        gameMode={gameMode}
+        eraseCanvas={eraseCanvas}
+        saveCanvas={saveCanvas}
       />
-      {gameMode === "practice" && (
-        <ActionsBar eraseCanvas={eraseCanvas} saveCanvas={saveCanvas} />
-      )}
     </div>
   );
 }

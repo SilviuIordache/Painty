@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+}
+
+html, body, main {
   background-color: lightgray;
 }
 
