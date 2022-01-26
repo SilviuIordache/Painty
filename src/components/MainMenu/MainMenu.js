@@ -17,7 +17,7 @@ export default function MainMenu() {
             <BasicCard
               title={"CHALLENGE ⏳"}
               subTitle={"game mode"}
-              description={"A time-constraint game mode where you have to paint drawings in less than 30 seconds."}
+              description={"A time-constrained game mode where you have to paint drawings in less than 30 seconds."}
               buttonCallback={() => {navigate('/draw/challenge')}}
               buttonText={"START"}
             />
