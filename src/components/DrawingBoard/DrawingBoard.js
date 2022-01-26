@@ -139,8 +139,9 @@ export default function DrawingBoard() {
       arr.push(imgObject);
       localStorage.setItem("paintyImages", JSON.stringify(arr));
     }
-
-    setSavedFeedback(true);
+    if (gameMode === 'practice') {
+      setSavedFeedback(true);
+    }
   }
 
   function eraseCanvas(manualErase) {
@@ -191,6 +192,7 @@ export default function DrawingBoard() {
           roundCurrent={roundCurrent}
           roundTotal={roundTotal}
           timer={timer}
+          endRound={roundEndLogic}
         />
       )}
       <Canvas
