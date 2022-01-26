@@ -37,6 +37,8 @@ export default function DrawingDetails() {
 
         <DrawingButtons
           id={drawing.id}
+          name={drawing.name}
+          src={drawing.src}
           deleteCallback={deleteCallback}
           imageHovered={true}
           dynamic={false}

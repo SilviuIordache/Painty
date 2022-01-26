@@ -1,6 +1,6 @@
 import "./DrawingButtons.css";
 
-export default function GalleryDrawingButtons(props) {
+export default function DrawingButtons(props) {
   function downloadImage(e) {
     e.stopPropagation();
     const link = document.createElement("a");
