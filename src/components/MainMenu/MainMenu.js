@@ -18,7 +18,7 @@ export default function MainMenu() {
     <div className="row bg-secondary rounded pt-4 pb-5">
       <div className="col-12 mb-5">
         <h1>Painty 🎨</h1>
-        <p>Painty is a drawing game in which you try to make drawings of various random words.</p>
+        <p>A painting app where you draw the word</p>
       </div>
       <div className="container">
         <div className="row">
@@ -26,7 +26,7 @@ export default function MainMenu() {
             <BasicCard
               title={"CHALLENGE ⏳"}
               subTitle={"game mode"}
-              description={"A time-constrained game mode where you have to paint drawings in less than 30 seconds."}
+              description={"Draw against the clock."}
               buttonCallback={() => {navigate('/draw/challenge')}}
               buttonText={"START"}
             />
@@ -35,7 +35,7 @@ export default function MainMenu() {
             <BasicCard
               title={"PRACTICE 🖌"}
               subTitle={"game mode"}
-              description={"Train your painting skills in this unlimited-time game mode."}
+              description={"Draw freely with unlimited time."}
               buttonCallback={() => {navigate('/draw/practice')}}
               buttonText={"START"}
             />
@@ -44,7 +44,7 @@ export default function MainMenu() {
             <BasicCard
               title={"GALLERY 🖼️"}
               subTitle={getDrawingsNumber() + ' drawing(s)'}
-              description={"View the drawings you painted so far."}
+              description={"A collection of your drawings"}
               buttonCallback={() => {navigate('/gallery')}}
               buttonText={"VIEW"}
             />
