@@ -5,6 +5,15 @@ import BasicCard from "../BasicCard/BasicCard";
 export default function MainMenu() {
   const navigate = useNavigate();
 
+  function getDrawingsNumber() {
+    const galleryImages = JSON.parse(localStorage.getItem("paintyImages"));
+
+    if (galleryImages?.length) {
+      return galleryImages.length
+    }
+    return 0;
+  }
+
   return (
     <div className="row bg-secondary rounded pt-4 pb-5">
       <div className="col-12 mb-5">
@@ -34,8 +43,8 @@ export default function MainMenu() {
           <div className="col-4">
             <BasicCard
               title={"GALLERY 🖼️"}
-              subTitle={"drawing collection"}
-              description={"View the drawings you paint so far."}
+              subTitle={getDrawingsNumber() + ' drawing(s)'}
+              description={"View the drawings you painted so far."}
               buttonCallback={() => {navigate('/gallery')}}
               buttonText={"VIEW"}
             />

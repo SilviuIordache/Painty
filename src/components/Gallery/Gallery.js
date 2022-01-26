@@ -12,7 +12,7 @@ export default function Gallery() {
   }
 
   let imageElements = (
-    <p className="text-light">Your saved drawings will appear here</p>
+    <p className="text-light">Your saved drawings will appear here.</p>
   );
   if (images?.length > 0) {
     imageElements = images.reverse().map((image) => (
