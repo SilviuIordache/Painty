@@ -22,7 +22,7 @@ export default function MainMenu() {
       </div>
       <div className="container">
         <div className="row">
-          <div className="col-4">
+          <div className="col-12 col-lg-4 mb-2">
             <BasicCard
               title={"CHALLENGE ⏳"}
               subTitle={"game mode"}
@@ -31,7 +31,7 @@ export default function MainMenu() {
               buttonText={"START"}
             />
           </div>
-          <div className="col-4">
+          <div className="col-12 col-lg-4 mb-2">
             <BasicCard
               title={"PRACTICE 🖌"}
               subTitle={"game mode"}
@@ -40,7 +40,7 @@ export default function MainMenu() {
               buttonText={"START"}
             />
           </div>
-          <div className="col-4">
+          <div className="col-12 col-lg-4 mb-2">
             <BasicCard
               title={"GALLERY 🖼️"}
               subTitle={getDrawingsNumber() + ' drawing(s)'}
