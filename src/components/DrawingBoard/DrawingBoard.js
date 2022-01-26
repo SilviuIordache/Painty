@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import useInterval from "../../hooks/useInterval";
-import { useParams, useNavigate, Prompt } from "react-router-dom";
+import { useParams, useNavigate, Prompt, Link } from "react-router-dom";
 
 import Toolbar from "../Toolbar/Toolbar.js";
 import Canvas from "./Canvas.js";
 import ChallengeBar from "../ChallengeBar/ChallengeBar.js";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 
 export default function DrawingBoard() {
   let navigate = useNavigate();
@@ -53,45 +55,43 @@ export default function DrawingBoard() {
       setIsBlocking(false);
 
       setTimeout(() => {
-        navigate('/gallery')
-      }, 0)
+        navigate("/gallery");
+      }, 0);
     }
   }
 
- 
   const urlParams = useParams();
   useEffect(() => {
     const mode = urlParams.mode;
     setGameMode(mode);
-    if (mode === 'challenge') {
-      setChallengeWords(generateChallengeWords())
+    if (mode === "challenge") {
+      setChallengeWords(generateChallengeWords());
     }
-    
-    function generateChallengeWords () {
+
+    function generateChallengeWords() {
       const words = require("../../jsons/words.json").list;
-      
+
       // generate unique random index numbers
       const randomNumbers = [];
-      while(randomNumbers.length < roundTotal) {
+      while (randomNumbers.length < roundTotal) {
         const randomNumber = Math.floor(Math.random() * words.length) + 1;
-        if(randomNumbers.indexOf(randomNumber) === -1) {
+        if (randomNumbers.indexOf(randomNumber) === -1) {
           randomNumbers.push(randomNumber);
         }
       }
-      
+
       // populate words array with words found at above indexes
-      let wordsArray = []
+      let wordsArray = [];
       randomNumbers.forEach((num) => {
         wordsArray.push(words[num]);
-      })
-      
+      });
+
       setCurrentWord(wordsArray[roundCurrent - 1]);
-      return wordsArray
+      return wordsArray;
     }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
 
   let [currentWord, setCurrentWord] = useState();
   const [challengeWords, setChallengeWords] = useState([]);
@@ -115,9 +115,10 @@ export default function DrawingBoard() {
     // check for stored images
     const galleryImages = JSON.parse(localStorage.getItem("paintyImages"));
 
-    const imgID = (galleryImages?.length > 0)
-    ? galleryImages[galleryImages.length - 1].id + 1
-    : 0;
+    const imgID =
+      galleryImages?.length > 0
+        ? galleryImages[galleryImages.length - 1].id + 1
+        : 0;
 
     // build image object
     const imgObject = {
@@ -125,7 +126,7 @@ export default function DrawingBoard() {
       src: dataURL,
       name: imageName,
       mode: gameMode,
-      date: new Date().toISOString()
+      date: new Date().toISOString(),
     };
 
     if (galleryImages) {
@@ -138,12 +139,14 @@ export default function DrawingBoard() {
       arr.push(imgObject);
       localStorage.setItem("paintyImages", JSON.stringify(arr));
     }
+
+    setSavedFeedback(true);
   }
 
   function eraseCanvas(manualErase) {
     if (manualErase) {
-      const confirmErase = window.confirm("Erase current canvas?")
-      if (!confirmErase) return
+      const confirmErase = window.confirm("Erase current canvas?");
+      if (!confirmErase) return;
     }
 
     const canvas = document.getElementById("canvas");
@@ -174,6 +177,7 @@ export default function DrawingBoard() {
   }
 
   let [isBlocking, setIsBlocking] = useState(true);
+  const [savedFeedback, setSavedFeedback] = useState(false);
 
   return (
     <div className="drawing-board">
@@ -205,6 +209,29 @@ export default function DrawingBoard() {
         eraseCanvas={eraseCanvas}
         saveCanvas={saveCanvas}
       />
+      <Snackbar
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        open={savedFeedback}
+        autoHideDuration={6000000}
+        onClose={() => {
+          setSavedFeedback(false);
+        }}
+      >
+        <Alert
+          onClose={() => {
+            setSavedFeedback(false);
+          }}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          <div className="d-flex">
+            <p>Drawing saved in the&nbsp;</p>
+            <Link to="/gallery" className="me-5">
+              Gallery
+            </Link>
+          </div>
+        </Alert>
+      </Snackbar>
     </div>
   );
 }
