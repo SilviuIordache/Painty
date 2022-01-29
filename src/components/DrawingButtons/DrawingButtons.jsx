@@ -1,5 +1,3 @@
-import "./DrawingButtons.css";
-
 export default function DrawingButtons(props) {
   function downloadImage(e) {
     e.stopPropagation();
@@ -33,17 +31,22 @@ export default function DrawingButtons(props) {
     props.deleteCallback();
   }
 
-  let btnGroupClass = ""
+  let btnGroupStyle = {};
   if (props.dynamic) {
-    btnGroupClass = "button-group";
+    btnGroupStyle = {
+      display: "none",
+      position: "absolute",
+      bottom: "0.5rem",
+      right: "1.3rem"
+    }
   
     if (props.imageHovered) {
-      btnGroupClass += " d-block"
+      btnGroupStyle.display = "block"
     }
   }
 
   return (
-    <div className={btnGroupClass}>
+    <div style={btnGroupStyle}>
       <button className="btn btn-primary" onClick={downloadImage}>
         <i className="fas fa-download"></i>
       </button>

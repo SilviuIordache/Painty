@@ -3,8 +3,6 @@ import FloodFill from "q-floodfill";
 import BrushCursor from "../BrushCursor/BrushCursor";
 import useEventListener from "../../hooks/useEventListener";
 
-import "./Canvas.css";
-
 export default function Canvas(props) {
   useEventListener("mousemove", handleMouseMove);
   useEventListener("mousedown", handleMouseDown);
@@ -157,14 +155,20 @@ export default function Canvas(props) {
     ctx.fillRect(x, y, width, height);
   }
 
+  const canvasBackgroundStyle = {
+    backgroundColor: "darkgray",
+    padding: "2rem",
+    borderRadius: "0.5rem"
+  }
+
   return (
     <div>
-      <div className="row canvas-bg">
+      <div style={canvasBackgroundStyle} className="row">
         <div className="col-12">
           <canvas
             id="canvas"
             ref={canvasRef}
-            className="no-cursor"
+            style={{cursor: "none"}}
             onMouseEnter={handleMouseEnterCanvas}
             onMouseLeave={handleMouseLeaveCanvas}
           />

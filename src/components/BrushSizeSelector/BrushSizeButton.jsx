@@ -1,13 +1,18 @@
-import "./BrushSizeButton.css";
-
 export default function BrushSizeButton(props) {
-  let activeStyle;
+  let brushSizeButtonStyle = {
+    width: "4rem",
+    height: "4rem",
+    padding: "0"
+  }
+
   if (props.active) {
-    activeStyle = {
+    const activeButtonStyle = {
       border: "2px solid black",
       backgroundColor: "#ebab34",
       color: "black",
     };
+
+    brushSizeButtonStyle = {...brushSizeButtonStyle, ...activeButtonStyle}
   }
 
   const brushIconStyle = {
@@ -19,7 +24,7 @@ export default function BrushSizeButton(props) {
 
   return (
     <button
-      style={activeStyle}
+      style={brushSizeButtonStyle}
       onClick={() => props.selectBrushSize(props.size)}
       className="brush-size-button d-flex align-items-center justify-content-center btn btn-outline-secondary me-1"
     >

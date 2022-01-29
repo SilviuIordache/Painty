@@ -1,5 +1,3 @@
-import "./BrushCursor.css";
-
 export default function BrushCursor(props) {
 
   const brushStyle = {
