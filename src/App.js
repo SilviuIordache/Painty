@@ -1,9 +1,9 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import Navigation from "./components/Navigation/Navigation";
-import MainMenu from "./components/MainMenu/MainMenu";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import "./App.css";
 
+import Navigation from "./components/Navigation/Navigation";
+import MainMenu from "./views/MainMenu";
 import DrawingBoard from "./views/DrawingBoard";
 import Gallery from "./views/Gallery";
 import DrawingDetails from "./views/DrawingDetails";

@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import BasicCard from "../BasicCard/BasicCard";
-
+import BasicCard from "../components/BasicCard/BasicCard";
 
 export default function MainMenu() {
   const navigate = useNavigate();
