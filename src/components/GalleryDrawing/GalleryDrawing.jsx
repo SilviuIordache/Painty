@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./GalleryDrawing.css";
 
-import DrawingButtons from "../DrawingButtons/DrawingButtons.js";
+import DrawingButtons from "../DrawingButtons/DrawingButtons";
 
 export default function GalleryDrawing (props) {
   const navigate = useNavigate();

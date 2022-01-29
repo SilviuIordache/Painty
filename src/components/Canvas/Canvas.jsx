@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import FloodFill from "q-floodfill";
-import BrushCursor from "../BrushCursor/BrushCursor.js";
+import BrushCursor from "../BrushCursor/BrushCursor";
 import useEventListener from "../../hooks/useEventListener";
 
 import "./Canvas.css";

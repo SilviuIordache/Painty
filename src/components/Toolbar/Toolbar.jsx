@@ -1,7 +1,7 @@
-import BrushSizeSelector from "../BrushSizeSelector/BrushSizeSelector.js";
-import ColorSelector from "../ColorSelector/ColorSelector.js";
-import ColorPreview from "../ColorPreview/ColorPreview.js";
-import ToolSelector from "../ToolSelector/ToolSelector.js";
+import BrushSizeSelector from "../BrushSizeSelector/BrushSizeSelector";
+import ColorSelector from "../ColorSelector/ColorSelector";
+import ColorPreview from "../ColorPreview/ColorPreview";
+import ToolSelector from "../ToolSelector/ToolSelector";
 
 import "./Toolbar.css";
 

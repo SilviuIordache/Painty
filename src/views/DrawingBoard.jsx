@@ -4,9 +4,9 @@ import { useParams, useNavigate, Prompt, Link } from "react-router-dom";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
-import Toolbar from "../components/Toolbar/Toolbar.js";
-import Canvas from "../components/Canvas/Canvas.js";
-import ChallengeBar from "../components/ChallengeBar/ChallengeBar.js";
+import Toolbar from "../components/Toolbar/Toolbar";
+import Canvas from "../components/Canvas/Canvas";
+import ChallengeBar from "../components/ChallengeBar/ChallengeBar";
 
 export default function DrawingBoard() {
   let navigate = useNavigate();

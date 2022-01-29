@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import DrawingButtons from "../components/DrawingButtons/DrawingButtons.js";
+import DrawingButtons from "../components/DrawingButtons/DrawingButtons";
 
 export default function DrawingDetails() {
   const navigate = useNavigate();

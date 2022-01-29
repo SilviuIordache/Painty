@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import GalleryDrawing from "../components/GalleryDrawing/GalleryDrawing.js";
+import GalleryDrawing from "../components/GalleryDrawing/GalleryDrawing";
 
 export default function Gallery() {
   const [images, setImages] = useState(
