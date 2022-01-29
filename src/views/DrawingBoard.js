@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import useInterval from "../../hooks/useInterval";
+import useInterval from "../hooks/useInterval";
 import { useParams, useNavigate, Prompt, Link } from "react-router-dom";
-
-import Toolbar from "../Toolbar/Toolbar.js";
-import Canvas from "./Canvas.js";
-import ChallengeBar from "../ChallengeBar/ChallengeBar.js";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+
+import Toolbar from "../components/Toolbar/Toolbar.js";
+import Canvas from "../components/Canvas/Canvas.js";
+import ChallengeBar from "../components/ChallengeBar/ChallengeBar.js";
 
 export default function DrawingBoard() {
   let navigate = useNavigate();
@@ -15,7 +15,7 @@ export default function DrawingBoard() {
   const [currentTool, setTool] = useState("Brush Tool");
   const [currentBrushColor, setBrushColor] = useState("#000000");
   const [currentBrushSize, setBrushSize] = useState(
-    require("../../jsons/brushSizes.json").sizes[1]
+    require("../jsons/brushSizes.json").sizes[1]
   );
 
   // game logic state
@@ -69,7 +69,7 @@ export default function DrawingBoard() {
     }
 
     function generateChallengeWords() {
-      const words = require("../../jsons/words.json").list;
+      const words = require("../jsons/words.json").list;
 
       // generate unique random index numbers
       const randomNumbers = [];
@@ -159,7 +159,7 @@ export default function DrawingBoard() {
   }
 
   function changeTool(tool) {
-    const sizes = require("../../jsons/brushSizes.json").sizes;
+    const sizes = require("../jsons/brushSizes.json").sizes;
     if (tool === "Brush Tool") {
       setTool(tool);
       setBrushSize(sizes[1]);

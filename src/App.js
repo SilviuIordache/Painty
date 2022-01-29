@@ -1,11 +1,12 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Navigation from "./components/Navigation/Navigation";
 import MainMenu from "./components/MainMenu/MainMenu";
-import DrawingBoard from "./components/DrawingBoard/DrawingBoard";
-import Gallery from "./components/Gallery/Gallery";
-import DrawingDetails from "./components/DrawingDetails/DrawingDetails";
-import "./App.css";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import "./App.css";
+
+import DrawingBoard from "./views/DrawingBoard";
+import Gallery from "./views/Gallery";
+import DrawingDetails from "./views/DrawingDetails";
 
 let theme = createTheme({
   palette: {
