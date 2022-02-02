@@ -14,7 +14,7 @@ export default function DrawingDetails() {
     setDrawing(image);
   }, [urlParams.id]);
 
-  function deleteCallback () {
+  function deleteCallback() {
     navigate('/gallery')
   }
 
@@ -29,20 +29,24 @@ export default function DrawingDetails() {
         />
       </div>
       <div className="col-4 text-light text-start">
-        <h1>{drawing.name.toUpperCase()}</h1>
-        <p>
-          Created in <span className="text-info">{drawing.mode}</span> mode
-        </p>
-        <p>{drawing.date}</p>
+        <div>
+          <h1>{drawing.name.toUpperCase()}</h1>
+          <p>
+            Created in <span className="text-info">{drawing.mode}</span> mode
+          </p>
+          <p>{drawing.date}</p>
+        </div>
+        <div>
+          <DrawingButtons
+            id={drawing.id}
+            name={drawing.name}
+            src={drawing.src}
+            deleteCallback={deleteCallback}
+            imageHovered={true}
+            dynamic={false}
+          />
+        </div>
 
-        <DrawingButtons
-          id={drawing.id}
-          name={drawing.name}
-          src={drawing.src}
-          deleteCallback={deleteCallback}
-          imageHovered={true}
-          dynamic={false}
-        />
       </div>
     </div>
   );
