@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import GalleryDrawing from "../components/GalleryDrawing/GalleryDrawing";
+import GalleryBar from "../components/GalleryBar/GalleryBar";
 
 export default function Gallery() {
   const [images, setImages] = useState(
@@ -30,5 +31,14 @@ export default function Gallery() {
         />
       ));
   }
-  return <div className="row bg-secondary p-5">{imageElements}</div>;
+  return (
+    <div className="row bg-secondary p-5">
+      <div className="row mb-3">
+        <div className="col-12">
+          <GalleryBar />
+        </div>
+      </div>
+      <div className="row">{imageElements}</div>
+    </div>
+  );
 }

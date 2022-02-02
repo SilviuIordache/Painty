@@ -30,11 +30,12 @@ export default function DrawingDetails() {
           width="100%"
         />
       </div>
-      <div className="col-4 text-light text-start d-flex flex-column justify-content-between">
+      <div className="col-4 text-light text-start d-flex flex-column justify-content-between bg-light rounded text-dark p-4">
         <div>
-          <h1>{drawing.name.toUpperCase()}</h1>
+          <h1 className="mb-4">{drawing.name.toUpperCase()}</h1>
           <p>
-            Created in <span className="text-info">{drawing.mode}</span> mode
+            <b>Game mode: </b>
+            <span className="text-info">{drawing.mode}</span>
           </p>
           <DrawingDate date={drawing.date}/>
           <DrawingSize src={drawing.src}/>
@@ -61,7 +62,7 @@ function DrawingSize(props) {
     size = getImageURLSize(props.src);
   }
   return (
-    <p>Size: {size} KB</p>
+    <p><b>Size: </b>{size} KB</p>
   )
 }
 
@@ -75,6 +76,6 @@ function DrawingDate(props) {
   }
 
   return (
-    <p>Created on: {formattedDate}</p>
+    <p><b>Date:</b> {formattedDate}</p>
   )
 }
