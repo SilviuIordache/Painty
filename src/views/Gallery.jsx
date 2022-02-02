@@ -35,7 +35,7 @@ export default function Gallery() {
     <div className="row bg-secondary p-5">
       <div className="row mb-3">
         <div className="col-12">
-          <GalleryBar />
+          <GalleryBar images={images}/>
         </div>
       </div>
       <div className="row">{imageElements}</div>

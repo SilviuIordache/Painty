@@ -62,7 +62,7 @@ function DrawingSize(props) {
     size = getImageURLSize(props.src);
   }
   return (
-    <p><b>Size: </b>{size} KB</p>
+    <p><b>Size: </b>{size.toFixed(2)} KB</p>
   )
 }
 
