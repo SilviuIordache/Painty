@@ -13,8 +13,11 @@ export default function MainMenu() {
     return 0;
   }
 
+  const style = {
+    backgroundColor: "#c0d1cd"
+  }
   return (
-    <div className="row bg-secondary rounded pt-4 pb-5">
+    <div className="row rounded pt-4 pb-5" style={style}>
       <div className="col-12 mb-5">
         <h1>Painty 🎨</h1>
         <p>A painting app where you draw the word</p>
