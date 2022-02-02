@@ -14,18 +14,21 @@ export default function Gallery() {
   let imageElements = (
     <p className="text-light">Your saved drawings will appear here.</p>
   );
+
   if (images?.length > 0) {
-    imageElements = images.reverse().map((image) => (
-      <GalleryDrawing
-        src={image.src}
-        alt={image.name}
-        name={image.name}
-        mode={image.mode}
-        id={image.id}
-        key={image.id}
-        deleteCallback={deleteCallback}
-      />
-    ));
+    imageElements = images
+      .reverse()
+      .map((image) => (
+        <GalleryDrawing
+          src={image.src}
+          alt={image.name}
+          name={image.name}
+          mode={image.mode}
+          id={image.id}
+          key={image.id}
+          deleteCallback={deleteCallback}
+        />
+      ));
   }
   return <div className="row bg-secondary p-5">{imageElements}</div>;
 }
