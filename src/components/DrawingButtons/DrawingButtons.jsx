@@ -12,10 +12,10 @@ export default function DrawingButtons(props) {
   function deleteImage(e) {
     e.stopPropagation();
 
-    // const confirmDelete = window.confirm(
-    //   "Are you sure you want to delete this image?"
-    // );
-    // if (!confirmDelete) return;
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this image?"
+    );
+    if (!confirmDelete) return;
 
     const updatedImages = JSON.parse(localStorage.getItem("paintyImages"));
 
