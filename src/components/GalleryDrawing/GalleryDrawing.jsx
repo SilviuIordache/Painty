@@ -31,7 +31,7 @@ export default function GalleryDrawing(props) {
       onClick={goToDrawingDetails}
     >
 
-      <DrawingTitle mode={props.mode} name={props.name} />
+      <DrawingTitle  mode={props.mode} name={props.name} />
 
       <img
         alt={props.name}
@@ -60,7 +60,7 @@ function DrawingTitle(props) {
     padding: "0.3rem 0.5rem"
   }
   return (
-    <div style={style}>
+    <div style={style} className="text-truncate">
       {props.mode === 'challenge' && '⏳'} {props.name}
     </div>
   )

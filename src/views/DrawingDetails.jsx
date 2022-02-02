@@ -32,7 +32,7 @@ export default function DrawingDetails() {
       </div>
       <div className="col-4 text-light text-start d-flex flex-column justify-content-between bg-light rounded text-dark p-4">
         <div>
-          <h1 className="mb-4">{drawing.name.toUpperCase()}</h1>
+          <h1 className="mb-4 text-truncate">{drawing.name.toUpperCase()}</h1>
           <p>
             <b>Game mode: </b>
             <span className="text-info">{drawing.mode}</span>
