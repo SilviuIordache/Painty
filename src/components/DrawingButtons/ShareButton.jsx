@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import ShareModal from "../Modal/ShareModal";
+import Alert from "@mui/material/Alert";
 
 export default function ShareButton(props) {
   function shareImage(e) {
     e.stopPropagation();
-    
+
     if (navigator.share) {
       navigator.share({
-        title: 'Image',
-        text: 'Something is texty here'
-      })
+        title: "Image",
+        text: "Something is texty here",
+      });
     } else {
-      setOpen(true);
+      // setOpen(true);
+      // copy image + text to clipboard
     }
   }
 
@@ -28,10 +30,11 @@ export default function ShareButton(props) {
         <i className="fas fa-share"></i>
       </button>
 
-      <ShareModal 
+      {/* <ShareModal 
         handleClose={handleClose}
         open={open} 
-      />
+      /> */}
+
     </span>
   );
 }
