@@ -21,8 +21,8 @@ export default function DrawingDetails() {
   }
 
   return (
-    <div className="row mt-1 p-5 bg-secondary">
-      <div className="col-8">
+    <div className="row mt-1 px-2 py-3 p-lg-5 bg-secondary">
+      <div className="col-12 col-lg-8">
         <img
           alt={drawing.name}
           src={drawing.src}
@@ -30,25 +30,27 @@ export default function DrawingDetails() {
           width="100%"
         />
       </div>
-      <div className="col-4 text-light text-start d-flex flex-column justify-content-between bg-light rounded text-dark p-4">
-        <div>
-          <h1 className="mb-4 text-truncate">{drawing.name.toUpperCase()}</h1>
-          <p>
-            <b>Game mode: </b>
-            <span className="text-info">{drawing.mode}</span>
-          </p>
-          <DrawingDate date={drawing.date}/>
-          <DrawingSize src={drawing.src}/>
-        </div>
-        <div>
-          <DrawingButtons
-            id={drawing.id}
-            name={drawing.name}
-            src={drawing.src}
-            deleteCallback={deleteCallback}
-            imageHovered={true}
-            dynamic={false}
-          />
+      <div className="col-12 col-lg-4 mt-3 mt-lg-0">
+        <div className="bg-light text-dark text-start d-flex flex-column justify-content-between  p-4 h-100">
+          <div>
+            <h5 className="mb-4 text-break">{drawing.name.toUpperCase()}</h5>
+            <p>
+              <b>Game mode: </b>
+              <span className="text-info">{drawing.mode}</span>
+            </p>
+            <DrawingDate date={drawing.date}/>
+            <DrawingSize src={drawing.src}/>
+          </div>
+          <div>
+            <DrawingButtons
+              id={drawing.id}
+              name={drawing.name}
+              src={drawing.src}
+              deleteCallback={deleteCallback}
+              imageHovered={true}
+              dynamic={false}
+            />
+          </div>
         </div>
       </div>
     </div>
