@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useInterval from "../hooks/useInterval";
 import { useParams, useNavigate, Prompt, Link } from "react-router-dom";
 import Snackbar from "@mui/material/Snackbar";
