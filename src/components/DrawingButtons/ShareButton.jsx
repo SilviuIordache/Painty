@@ -13,7 +13,14 @@ export default function ShareButton(props) {
       const blob = dataURLtoBlob(props.src);
       const imageFile = new File([blob], props.name, { type: blob.type });
 
-      const shareText = `Created with https://painty-app.herokuapp.com/ \n Checkout my daily Drawdle: https://ibb.co/10s8bM6`
+      const website = 'https://painty-app.herokuapp.com/';
+      const fileLink = 'https://ibb.co/10s8bM6';
+      const shareText = `
+        Created on ${website}.\n
+        Checkout my daily Drawdle for the word "${props.name}":\n
+        ${fileLink}
+      `;
+
       navigator.share({
         title: `${props.name}`,
         text: shareText,
