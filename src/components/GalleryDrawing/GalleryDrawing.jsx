@@ -31,7 +31,7 @@ export default function GalleryDrawing(props) {
       onClick={goToDrawingDetails}
     >
 
-      <DrawingTitle  mode={props.mode} name={props.name} />
+      <DrawingTitle mode={props.mode} name={props.name} />
 
       <img
         alt={props.name}

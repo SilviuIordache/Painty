@@ -27,9 +27,11 @@ export default function DrawingButtons(props) {
         id={props.id}
         deleteCallback={props.deleteCallback}
       />
-      <ShareButton 
+      {!props.dynamic &&
+        <ShareButton 
         name={props.name} 
         src={props.src} />
+      }
     </div>
   );
 }

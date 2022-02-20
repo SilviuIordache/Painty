@@ -15,10 +15,9 @@ export default function ShareButton(props) {
       navigator.share({
         title: `Created with painty: ${props.name}`,
         text: 'Something is texty here',
-        file: [props.src], // dataURL might have to be converted to FILE to work
-        /// CONTINUE HERE <----- find a way to get the dataURL string here (above)
+        file: [props.src], 
       });
-    } else {
+    } else { // SPLIT THESE 2 INTO 2 BUTTONS: SHARE for mobile and COPY TO CLIPBOARD FOR OTHER
       const blob = dataURLtoBlob(props.src);
       await copyBlobToClipboard(blob);
       setClipboardCopyFeedback(true);
