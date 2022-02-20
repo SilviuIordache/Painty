@@ -27,7 +27,9 @@ export default function DrawingButtons(props) {
         id={props.id}
         deleteCallback={props.deleteCallback}
       />
-      <ShareButton name={props.name} src={props.src} />
+      <ShareButton 
+        name={props.name} 
+        src={props.src} />
     </div>
   );
 }

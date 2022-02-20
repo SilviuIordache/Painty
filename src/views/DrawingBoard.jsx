@@ -214,7 +214,7 @@ export default function DrawingBoard() {
       <Snackbar
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
         open={savedFeedback}
-        autoHideDuration={6000000}
+        autoHideDuration={parseInt(process.env.REACT_APP_SNACKBAR_LIFE, 10)}
         onClose={() => {
           setSavedFeedback(false);
         }}
