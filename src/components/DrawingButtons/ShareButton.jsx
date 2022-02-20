@@ -10,17 +10,16 @@ export default function ShareButton(props) {
     e.stopPropagation();
 
     if (navigator.share) {
-
-
       const blob = dataURLtoBlob(props.src);
-      const imageFile = new File([blob], props.name)
+      const imageFile = new File([blob], props.name, { type: blob.type });
 
       navigator.share({
         title: `${props.name}`,
         text: 'Created with PAINTY',
-        file: [imageFile], 
+        file: [imageFile],
       });
-    } else { // SPLIT THESE 2 INTO 2 BUTTONS: SHARE for mobile and COPY TO CLIPBOARD FOR OTHER
+    } else {
+      // SPLIT THESE 2 INTO 2 BUTTONS: SHARE for mobile and COPY TO CLIPBOARD FOR OTHER
       const blob = dataURLtoBlob(props.src);
       await copyBlobToClipboard(blob);
       setClipboardCopyFeedback(true);
