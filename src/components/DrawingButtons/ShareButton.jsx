@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ShareModal from "../Modal/ShareModal";
 import Alert from "@mui/material/Alert";
 
@@ -8,8 +8,9 @@ export default function ShareButton(props) {
 
     if (navigator.share) {
       navigator.share({
-        title: "Image",
+        title: `Created with painty: ${props.name}`,
         text: "Something is texty here",
+        file: {} /// CONTINUE HERE <----- find a way to get the dataURL string here
       });
     } else {
       // setOpen(true);
