@@ -10,14 +10,15 @@ export default function ShareButton(props) {
     e.stopPropagation();
 
     if (navigator.share) {
-      // WORK PART 1: add image here
-      // https://stackoverflow.com/questions/6850276/how-to-convert-dataurl-to-file-object-in-javascript
 
-      const blobFile = dataURLtoBlob(props.src);
+
+      const blob = dataURLtoBlob(props.src);
+      const imageFile = new File([blob], props.name)
+
       navigator.share({
         title: `${props.name}`,
         text: 'Created with PAINTY',
-        file: [blobFile], 
+        file: [imageFile], 
       });
     } else { // SPLIT THESE 2 INTO 2 BUTTONS: SHARE for mobile and COPY TO CLIPBOARD FOR OTHER
       const blob = dataURLtoBlob(props.src);
