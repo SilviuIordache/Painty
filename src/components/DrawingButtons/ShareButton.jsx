@@ -12,10 +12,12 @@ export default function ShareButton(props) {
     if (navigator.share) {
       // WORK PART 1: add image here
       // https://stackoverflow.com/questions/6850276/how-to-convert-dataurl-to-file-object-in-javascript
+
+      const blobFile = dataURLtoBlob(props.src);
       navigator.share({
-        title: `Created with painty: ${props.name}`,
-        text: 'Something is texty here',
-        file: [props.src], 
+        title: `${props.name}`,
+        text: 'Created with PAINTY',
+        file: [blobFile], 
       });
     } else { // SPLIT THESE 2 INTO 2 BUTTONS: SHARE for mobile and COPY TO CLIPBOARD FOR OTHER
       const blob = dataURLtoBlob(props.src);
