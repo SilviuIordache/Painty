@@ -7,7 +7,7 @@ const initialState = {
 }
 
 export const toolSlice = createSlice({
-  name: 'currentTool',
+  name: 'tool',
   initialState,
   reducers: {
     changeTool: (state, action) => {
