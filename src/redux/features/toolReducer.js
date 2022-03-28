@@ -1,24 +1,21 @@
-export const toolReducer = (state, action) => {
-  switch(action.type) {
-    case 'SET BRUSH ACTIVE':
-      return {
-        ...state,
-        name: 'Brush Tool'
-      }
-    case 'SET ERASER ACTIVE': 
-      return {
-      ...state,
-      name: 'Eraser Tool'
-      }
-    case 'SET BUCKET ACTIVE':
-      return {
-        ...state,
-        name: 'Paint Bucket Tool'
-      }
-    default:
-      return {
-        ...state,
-        name: 'Brush Tool'
-      }
-  }
+import { createSlice } from '@reduxjs/toolkit'
+
+const initialState = {
+  tool: 'brush',
+  size: require("../../jsons/brushSizes.json").sizes[1],
+  color: '#000000'
 }
+
+export const toolSlice = createSlice({
+  name: 'currentTool',
+  initialState,
+  reducers: {
+    changeTool: (state, action) => {
+      state.tool = action.payload;
+    }
+  }
+});
+
+export const { changeTool } = toolSlice.actions
+
+export default toolSlice.reducer
