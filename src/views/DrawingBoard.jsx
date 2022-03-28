@@ -151,25 +151,6 @@ export default function DrawingBoard() {
     context.fillRect(0, 0, canvas.width, canvas.height);
   }
 
-  // function changeTool(tool) {
-  //   const sizes = require("../jsons/brushSizes.json").sizes;
-  //   if (tool === "Brush Tool") {
-  //     setTool(tool);
-  //     setBrushSize(sizes[1]);
-  //   }
-
-  //   if (tool === "Eraser Tool") {
-  //     setTool(tool);
-  //     setBrushColor("#ffffff");
-  //     setBrushSize(sizes[3]);
-  //   }
-
-  //   if (tool === "Paint Bucket Tool") {
-  //     setTool(tool);
-  //     setBrushSize(sizes[0]); // ???? <--- not really needed ??
-  //   }
-  // }
-
   let [isBlocking, setIsBlocking] = useState(true);
   const [savedFeedback, setSavedFeedback] = useState(false);
 
