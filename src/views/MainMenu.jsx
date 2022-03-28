@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import BasicCard from "../components/BasicCard/BasicCard";
-import TestCounter from "../components/TestCounter/TestCounter"
 
 export default function MainMenu() {
   const navigate = useNavigate();
@@ -51,9 +50,6 @@ export default function MainMenu() {
               buttonCallback={() => {navigate('/gallery')}}
               buttonText={"VIEW"}
             />
-          </div>
-          <div className="col-12">
-            <TestCounter/>
           </div>
         </div>
       </div>
