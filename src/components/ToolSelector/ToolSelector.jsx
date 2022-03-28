@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { changeTool, changeColor} from "../../redux/features/toolReducer"
+import { changeTool, changeColor, changeBrushSize} from "../../redux/features/toolReducer"
 
 export default function Toolbar(props) {
   const dispatch = useDispatch();
@@ -16,8 +16,9 @@ export default function Toolbar(props) {
       name: "eraser",
       icon: "fas fa-eraser",
       cb: () => {
-        dispatch(changeTool("eraser"))
-        dispatch(changeColor("#FFFFFF"))
+        dispatch(changeTool("eraser"));
+        dispatch(changeColor("#FFFFFF"));
+        dispatch(changeBrushSize(require("../../jsons/brushSizes.json").sizes[3]));
       }
     },
     {

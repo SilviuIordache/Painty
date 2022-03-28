@@ -89,7 +89,7 @@ export default function Canvas(props) {
 
     // Modify image data
     floodFill.fill(
-      props.currentBrushColor,
+      currentBrushColor,
       Math.round(canvasRelativeX),
       Math.round(canvasRelativeY),
       100
