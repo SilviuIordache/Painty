@@ -11,13 +11,6 @@ import ChallengeBar from "../components/ChallengeBar/ChallengeBar";
 export default function DrawingBoard() {
   let navigate = useNavigate();
 
-  // tools state
-  const [currentTool, setTool] = useState("Brush Tool");
-  const [currentBrushColor, setBrushColor] = useState("#000000");
-  const [currentBrushSize, setBrushSize] = useState(
-    require("../jsons/brushSizes.json").sizes[1]
-  );
-
   // game logic state
   const [gameMode, setGameMode] = useState();
   const [roundCurrent, setRoundCurrent] = useState(1);
@@ -158,24 +151,24 @@ export default function DrawingBoard() {
     context.fillRect(0, 0, canvas.width, canvas.height);
   }
 
-  function changeTool(tool) {
-    const sizes = require("../jsons/brushSizes.json").sizes;
-    if (tool === "Brush Tool") {
-      setTool(tool);
-      setBrushSize(sizes[1]);
-    }
+  // function changeTool(tool) {
+  //   const sizes = require("../jsons/brushSizes.json").sizes;
+  //   if (tool === "Brush Tool") {
+  //     setTool(tool);
+  //     setBrushSize(sizes[1]);
+  //   }
 
-    if (tool === "Eraser Tool") {
-      setTool(tool);
-      setBrushColor("#ffffff");
-      setBrushSize(sizes[3]);
-    }
+  //   if (tool === "Eraser Tool") {
+  //     setTool(tool);
+  //     setBrushColor("#ffffff");
+  //     setBrushSize(sizes[3]);
+  //   }
 
-    if (tool === "Paint Bucket Tool") {
-      setTool(tool);
-      setBrushSize(sizes[0]); // ???? <--- not really needed ??
-    }
-  }
+  //   if (tool === "Paint Bucket Tool") {
+  //     setTool(tool);
+  //     setBrushSize(sizes[0]); // ???? <--- not really needed ??
+  //   }
+  // }
 
   let [isBlocking, setIsBlocking] = useState(true);
   const [savedFeedback, setSavedFeedback] = useState(false);
@@ -195,18 +188,8 @@ export default function DrawingBoard() {
           endRound={roundEndLogic}
         />
       )}
-      <Canvas
-        currentTool={currentTool}
-        currentBrushSize={currentBrushSize}
-        currentBrushColor={currentBrushColor}
-      />
+      <Canvas/>
       <Toolbar
-        selectedColor={currentBrushColor}
-        currentTool={currentTool}
-        currentBrushSize={currentBrushSize}
-        selectBrushSize={setBrushSize}
-        selectBrushColor={setBrushColor}
-        changeTool={changeTool}
         gameMode={gameMode}
         eraseCanvas={eraseCanvas}
         saveCanvas={saveCanvas}

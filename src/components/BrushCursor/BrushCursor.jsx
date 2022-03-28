@@ -1,12 +1,15 @@
-export default function BrushCursor(props) {
+import { useSelector } from 'react-redux';
 
+export default function BrushCursor(props) {
+  const currentColor = useSelector(state => state.tool.color);
+  const currentBrushSize = useSelector(state => state.tool.size);
   const brushStyle = {
-    width: `${props.size}px`,
-    height: `${props.size}px`,
+    width: `${currentBrushSize}px`,
+    height: `${currentBrushSize}px`,
     position: 'absolute',
     border: '2px solid black',
     borderRadius: '50%',
-    backgroundColor: `${props.color}`,
+    backgroundColor: `${currentColor}`,
     pointerEvents: 'none',
     left: `${props.x}px`,
     top: `${props.y}px`,

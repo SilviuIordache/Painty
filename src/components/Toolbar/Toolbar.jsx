@@ -4,14 +4,6 @@ import ColorPreview from "../ColorPreview/ColorPreview";
 import ToolSelector from "../ToolSelector/ToolSelector";
 
 export default function Toolbar(props) {
-  function selectBrushSize(size) {
-    props.selectBrushSize(size);
-  }
-
-  function selectBrushColor(color) {
-    props.selectBrushColor(color);
-  }
-
   const style = {
     backgroundColor: "#f0f0f0",
     padding: "1rem 2rem",
@@ -20,22 +12,16 @@ export default function Toolbar(props) {
   return (
     <div style={style} className="row mt-2">
       <div className="col-3 col-sm-1">
-        <ColorPreview selectedColor={props.selectedColor} />
+        <ColorPreview/>
       </div>
       <div className="col-9 col-sm-4">
-        <ColorSelector selectBrushColor={selectBrushColor} />
+        <ColorSelector/>
       </div>
       <div className="col-12 col-sm-2">
-        <ToolSelector
-          changeTool={props.changeTool}
-          currentTool={props.currentTool}
-        />
+        <ToolSelector/>
       </div>
       <div className="col-12 col-sm-4">
-        <BrushSizeSelector
-          currentBrushSize={props.currentBrushSize}
-          selectBrushSize={selectBrushSize}
-        />
+        <BrushSizeSelector/>
       </div>
       <div className="col-12 col-sm-1">
         <div>

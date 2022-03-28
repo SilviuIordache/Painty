@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useSelector } from 'react-redux';
 import FloodFill from "q-floodfill";
 import BrushCursor from "../BrushCursor/BrushCursor";
 import useEventListener from "../../hooks/useEventListener";
@@ -70,9 +71,7 @@ export default function Canvas(props) {
 
     // line below draws
     if (mousePressed) {
-      if (props.currentTool) {
-        drawPath();
-      }
+      drawPath();
     }
   }
 
@@ -100,16 +99,22 @@ export default function Canvas(props) {
     ctx.putImageData(floodFill.imageData, 0, 0);
   }
 
+  const currentToolType = useSelector(state => state.tool.type);
   function handleMouseDown() {
     setMousePressed(true);
 
-    if (props.currentTool === "Paint Bucket Tool") {
-      if (canvasHovered) {
-        floodFill();
-      }
-    } else {
-      // this line allows for single dots by 1-click
-      drawPath();
+    switch (currentToolType) {
+      case "bucket":
+        if (canvasHovered) {
+          floodFill();
+        }
+        break;
+      case "brush":
+        drawPath();
+        break;
+      default:
+        drawPath();
+        break;;
     }
   }
 
@@ -118,10 +123,13 @@ export default function Canvas(props) {
     ctx.beginPath();
   }
 
+  const currentBrushColor = useSelector(state => state.tool.color);
+  const currentBrushSize = useSelector(state => state.tool.size);
+
   function drawPath(e) {
-    ctx.lineWidth = props.currentBrushSize;
     ctx.lineCap = "round";
-    ctx.strokeStyle = props.currentBrushColor;
+    ctx.lineWidth = currentBrushSize;
+    ctx.strokeStyle = currentBrushColor;
 
     ctx.lineTo(canvasRelativeX, canvasRelativeY);
     ctx.stroke();
@@ -177,9 +185,6 @@ export default function Canvas(props) {
 
       <BrushCursor
         hideBrush={!canvasHovered}
-        size={props.currentBrushSize}
-        color={props.currentBrushColor}
-        currentTool={props.currentTool}
         x={cursorX}
         y={cursorY}
       />

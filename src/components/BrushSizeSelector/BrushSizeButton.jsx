@@ -1,10 +1,15 @@
+import { useDispatch } from 'react-redux';
+import { changeBrushSize } from "../../redux/features/toolReducer";
+
 export default function BrushSizeButton(props) {
+  const dispatch = useDispatch();
+
   let brushSizeButtonStyle = {
     width: "4rem",
     height: "4rem",
     padding: "0"
   }
-
+  
   if (props.active) {
     const activeButtonStyle = {
       border: "2px solid black",
@@ -12,7 +17,10 @@ export default function BrushSizeButton(props) {
       color: "black",
     };
 
-    brushSizeButtonStyle = {...brushSizeButtonStyle, ...activeButtonStyle}
+    brushSizeButtonStyle = {
+      ...brushSizeButtonStyle, 
+      ...activeButtonStyle
+    }
   }
 
   const brushIconStyle = {
@@ -25,7 +33,7 @@ export default function BrushSizeButton(props) {
   return (
     <button
       style={brushSizeButtonStyle}
-      onClick={() => props.selectBrushSize(props.size)}
+      onClick={() => { dispatch(changeBrushSize(props.size))}}
       className="brush-size-button d-flex align-items-center justify-content-center btn btn-outline-secondary me-1"
     >
       <div style={brushIconStyle}></div>

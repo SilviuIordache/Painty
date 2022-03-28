@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  tool: 'brush',
+  type: 'brush',
   size: require("../../jsons/brushSizes.json").sizes[1],
   color: '#000000'
 }
@@ -11,11 +11,16 @@ export const toolSlice = createSlice({
   initialState,
   reducers: {
     changeTool: (state, action) => {
-      state.tool = action.payload;
+      state.type = action.payload;
+    },
+    changeColor: (state, action) => {
+      state.color = action.payload;
+    },
+    changeBrushSize: (state, action) => {
+      state.size = action.payload;
     }
   }
 });
 
-export const { changeTool } = toolSlice.actions
-
+export const { changeTool, changeColor, changeBrushSize } = toolSlice.actions
 export default toolSlice.reducer

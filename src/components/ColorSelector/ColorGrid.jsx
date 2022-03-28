@@ -8,9 +8,6 @@ export default function ColorGrid(props) {
     return (
       <ColorSquare
         color={color}
-        onClick={() => {
-          props.selectBrushColor(color);
-        }}
         key={index}
       />
     );
@@ -20,9 +17,6 @@ export default function ColorGrid(props) {
     return (
       <ColorSquare
         color={color}
-        onClick={() => {
-          props.selectBrushColor(color);
-        }}
         key={index}
       />
     );

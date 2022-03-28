@@ -1,28 +1,41 @@
 import React from "react";
+import { useSelector, useDispatch } from 'react-redux';
+import { changeTool, changeColor} from "../../redux/features/toolReducer"
+
 export default function Toolbar(props) {
+  const dispatch = useDispatch();
   const tools = [
     {
-      name: "Brush Tool",
+      name: "brush",
       icon: "fas fa-paint-brush",
+      cb: () => {
+        dispatch(changeTool("brush"))
+      }
     },
     {
-      name: "Eraser Tool",
+      name: "eraser",
       icon: "fas fa-eraser",
+      cb: () => {
+        dispatch(changeTool("eraser"))
+        dispatch(changeColor("#FFFFFF"))
+      }
     },
     {
-      name: "Paint Bucket Tool",
+      name: "bucket",
       icon: "fas fa-fill-drip",
+      cb: () => {
+        dispatch(changeTool("bucket"))
+      }
     },
   ];
 
   const toolButtons = tools.map((tool, index) => {
     return (
       <ToolButton
-        active={props.currentTool === tool.name}
         icon={tool.icon}
         name={tool.name}
+        cb={tool.cb}
         key={index}
-        changeTool={props.changeTool}
       />
     );
   });
@@ -30,8 +43,11 @@ export default function Toolbar(props) {
 }
 
 function ToolButton(props) {
+  const currentToolType = useSelector(state => state.tool.type);
+
+  let active = (currentToolType === props.name)
   let activeStyle;
-  if (props.active) {
+  if (active) {
     activeStyle = {
       border: "2px solid black",
       color: "black",
@@ -43,7 +59,7 @@ function ToolButton(props) {
       className="btn btn-outline-secondary"
       style={activeStyle}
       title={props.name}
-      onClick={() => props.changeTool(props.name)}
+      onClick={props.cb}
     >
       <i className={props.icon}></i>
     </button>

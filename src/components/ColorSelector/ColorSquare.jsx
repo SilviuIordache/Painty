@@ -1,6 +1,11 @@
 import "./ColorSquare.css";
+import { useDispatch } from 'react-redux';
+import { changeColor } from "../../redux/features/toolReducer";
 
 export default function ColorSquare(props) {
+
+  const dispatch = useDispatch();
+
   const style = {
     backgroundColor: props.color,
   };
@@ -9,7 +14,7 @@ export default function ColorSquare(props) {
       style={style}
       key={props.index}
       className="color-square d-inline-block"
-      onClick={props.onClick}
+      onClick={() => { dispatch(changeColor(props.color))}}
     />
   );
 }

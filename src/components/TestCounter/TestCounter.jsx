@@ -4,7 +4,7 @@ import { changeTool } from "../../redux/features/toolReducer"
 
 export default function TestCounter() {
   const counter = useSelector(state => state.counter.value);
-  const tool = useSelector(state => state.tool.tool)
+  const tool = useSelector(state => state.tool.type)
   const dispatch = useDispatch();
 
   return (

@@ -1,8 +1,12 @@
-export default function ColorPreview(props) {
+import { useSelector } from 'react-redux';
+
+export default function ColorPreview() {
+  const selectedColor = useSelector(state => state.tool.color);
+
   const style = {
     width: "3rem",
     height: "3rem",
-    backgroundColor: props.selectedColor,
+    backgroundColor: selectedColor,
     border: "3px solid black",
     borderRadius: "5px",
   };
