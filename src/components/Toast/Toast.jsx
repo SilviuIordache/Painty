@@ -4,7 +4,7 @@ import Alert from "@mui/material/Alert";
 
 export default function Toast(props) {
   return (
-    <div className="drawing-board">
+    <div>
       <Snackbar
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
         open={props.show}
