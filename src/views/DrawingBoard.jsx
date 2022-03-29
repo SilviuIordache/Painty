@@ -16,7 +16,6 @@ export default function DrawingBoard() {
   const [roundTotal] = useState(3);
   const [roundTime] = useState(30);
 
-
   // countdown timer -----------------------------
   const [delay, setDelay] = useState(1000);
   useEffect(() => {
