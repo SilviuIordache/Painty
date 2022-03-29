@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import useInterval from "../hooks/useInterval";
 import { useParams, useNavigate, Prompt, Link } from "react-router-dom";
-import Snackbar from "@mui/material/Snackbar";
-import Alert from "@mui/material/Alert";
 
+import Toast from "../components/Toast/Toast";
 import Toolbar from "../components/Toolbar/Toolbar";
 import Canvas from "../components/Canvas/Canvas";
 import ChallengeBar from "../components/ChallengeBar/ChallengeBar";
@@ -17,6 +16,8 @@ export default function DrawingBoard() {
   const [roundTotal] = useState(3);
   const [roundTime] = useState(30);
 
+
+  // countdown timer -----------------------------
   const [delay, setDelay] = useState(1000);
   useEffect(() => {
     if (gameMode === "practice") {
@@ -32,6 +33,7 @@ export default function DrawingBoard() {
       setTimer(timer - 1);
     }
   }, delay);
+  // ---------------------------------------------
 
   function roundEndLogic() {
     saveCanvas(currentWord);
@@ -175,29 +177,18 @@ export default function DrawingBoard() {
         eraseCanvas={eraseCanvas}
         saveCanvas={saveCanvas}
       />
-      <Snackbar
-        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-        open={savedFeedback}
-        autoHideDuration={parseInt(process.env.REACT_APP_SNACKBAR_LIFE, 10)}
-        onClose={() => {
-          setSavedFeedback(false);
-        }}
-      >
-        <Alert
-          onClose={() => {
-            setSavedFeedback(false);
-          }}
-          severity="success"
-          sx={{ width: "100%" }}
-        >
+      <Toast 
+        show={savedFeedback}
+        showCb={setSavedFeedback}
+        message={
           <div className="d-flex">
             <p>Drawing saved in the&nbsp;</p>
             <Link to="/gallery" className="me-5">
               Gallery
             </Link>
           </div>
-        </Alert>
-      </Snackbar>
+        }
+      />
     </div>
   );
 }
