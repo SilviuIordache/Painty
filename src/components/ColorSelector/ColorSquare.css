@@ -1,9 +1,25 @@
 .color-square {
-  width: 2rem;
-  height: 2rem;
+  width: 1.8rem;
+  height: 1.8rem;
   cursor: pointer;
 }
 
 .color-square:hover {
-  border: 3px solid black
+  border: 3px solid black;
+}
+
+.color-square-top:first-child {
+  border-radius: 3px 0 0 
+}
+
+.color-square-top:last-child {
+  border-radius: 0 3px 0 0
+}
+
+.color-square-bottom:first-child {
+  border-radius: 0 0 0 3px
+}
+
+.color-square-bottom:last-child {
+  border-radius: 0 0 3px 0
 }

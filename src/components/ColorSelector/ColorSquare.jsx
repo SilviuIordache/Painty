@@ -9,11 +9,19 @@ export default function ColorSquare(props) {
   const style = {
     backgroundColor: props.color,
   };
+
+  let className = "color-square d-inline-block"
+  if (props.pos === 'top') {
+    className += " color-square-top"
+  } else {
+    className += " color-square-bottom"
+  }
+
   return (
     <div
       style={style}
       key={props.index}
-      className="color-square d-inline-block"
+      className={className}
       onClick={() => { dispatch(changeColor(props.color))}}
     />
   );

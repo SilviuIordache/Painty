@@ -18,7 +18,7 @@ export default function Toolbar(props) {
       cb: () => {
         dispatch(changeTool("eraser"));
         dispatch(changeColor("#FFFFFF"));
-        dispatch(changeBrushSize(require("../../jsons/brushSizes.json").sizes[3]));
+        dispatch(changeBrushSize(require("../../jsons/brushSizes.json").sizes[2]));
       }
     },
     {
@@ -47,9 +47,16 @@ function ToolButton(props) {
   const currentToolType = useSelector(state => state.tool.type);
 
   let active = (currentToolType === props.name)
-  let activeStyle;
+  let activeStyle = {
+    width: '3.6rem',
+    height: '3.6rem',
+    fontSize: "1.3rem",
+    marginRight: "0.2rem"
+  }
+
   if (active) {
     activeStyle = {
+      ...activeStyle,
       border: "2px solid black",
       color: "black",
       backgroundColor: "#ebab34",

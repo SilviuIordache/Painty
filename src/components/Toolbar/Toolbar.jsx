@@ -11,50 +11,53 @@ export default function Toolbar(props) {
   }
   return (
     <div style={style} className="row mt-2">
-      <div className="col-3 col-sm-1">
-        <ColorPreview/>
-      </div>
-      <div className="col-9 col-sm-4">
+      <div className="col-9 col-sm-4 d-flex">
+        <div className="me-2">
+          <ColorPreview/>
+        </div>
         <ColorSelector/>
       </div>
-      <div className="col-12 col-sm-2">
+      <div className="col-12 col-sm-3">
         <ToolSelector/>
       </div>
-      <div className="col-12 col-sm-4">
+      <div className="col-12 col-sm-3">
         <BrushSizeSelector/>
       </div>
-      <div className="col-12 col-sm-1">
-        <div>
-          <EraseCanvasButton
-            eraseCanvas={() => {
-              props.eraseCanvas(true);
+      <div className="col-12 col-sm-2 d-flex justify-content-end">
+        <EraseCanvasButton
+          eraseCanvas={() => {
+            props.eraseCanvas(true);
+          }}
+        />
+        {props.gameMode === "practice" && (
+          <SaveCanvasButton
+            saveCanvas={() => {
+              props.saveCanvas();
             }}
           />
-          {props.gameMode === "practice" && (
-            <SaveCanvasButton
-              saveCanvas={() => {
-                props.saveCanvas();
-              }}
-            />
-          )}
-        </div>
+        )}
       </div>
     </div>
   );
 }
 
+const actionButtonStyle = {
+  width: '3.6rem',
+  height: '3.6rem',
+  fontSize: '1.3rem'
+}
 function EraseCanvasButton(props) {
   return (
-    <button className="btn btn-danger px-3 mb-1 " onClick={props.eraseCanvas}>
-      <i className="far fa-trash-alt fa-md"></i>
+    <button style={actionButtonStyle} className="btn btn-danger px-3 me-1 " onClick={props.eraseCanvas}>
+      <i className="far fa-trash-alt"></i>
     </button>
   );
 }
 
 function SaveCanvasButton(props) {
   return (
-    <button className="btn btn-primary px-3" onClick={props.saveCanvas}>
-      <i className="far fa-save fa-md"></i>
+    <button style={actionButtonStyle} className="btn btn-primary px-3" onClick={props.saveCanvas}>
+      <i className="far fa-save"></i>
     </button>
   );
 }
