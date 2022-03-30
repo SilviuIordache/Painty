@@ -4,11 +4,79 @@ import FloodFill from "q-floodfill";
 import BrushCursor from "../BrushCursor/BrushCursor";
 import useEventListener from "../../hooks/useEventListener";
 
-export default function Canvas(props) {
+export default function Canvas() {
   useEventListener("mousemove", handleMouseMove);
   useEventListener("mousedown", handleMouseDown);
   useEventListener("mouseup", handleMouseUp);
   useEventListener("resize", handleWindowResize);
+
+  function handleMouseMove(e) {
+    if (!canvasRef.current) return
+
+    const rect = canvasRef.current.getBoundingClientRect();
+
+    setCursorX(e.clientX + window.pageXOffset);
+    setCursorY(e.clientY + window.pageYOffset);
+
+    const canvasAbsoluteX = e.clientX - rect.left;
+    const canvasAbsoluteY = e.clientY - rect.top;
+    const canvasRelativeX =
+      (canvasAbsoluteX * canvasAbsoluteWidth) / canvasRelativeWidth;
+    const canvasRelativeY =
+      (canvasAbsoluteY * canvasAbsoluteHeight) / canvasRelativeHeight;
+    setCanvasRelativeX(canvasRelativeX);
+    setCanvasRelativeY(canvasRelativeY);
+
+    // line below draws
+    if (mousePressed) {
+      drawPath();
+    }
+  }
+
+  const currentToolType = useSelector(state => state.tool.type);
+  function handleMouseDown() {
+    setMousePressed(true);
+
+    switch (currentToolType) {
+      case "bucket":
+        if (canvasHovered) {
+          floodFill();
+        }
+        break;
+      case "brush":
+        drawPath();
+        break;
+      default:
+        drawPath();
+        break;;
+    }
+  }
+
+  function handleMouseUp() {
+    setMousePressed(false);
+    ctx.beginPath();
+  }
+
+  function handleMouseEnterCanvas() {
+    setCanvasHovered(true);
+    if (mousePressed) {
+      handleMouseDown();
+    }
+  }
+
+  function handleMouseLeaveCanvas() {
+    setCanvasHovered(false);
+  }
+
+  function handleWindowResize() {
+    calculcateCanvasRelativeSize();
+  }
+
+  function calculcateCanvasRelativeSize() {
+    const canvasRect = canvasRef.current.getBoundingClientRect();
+    setCanvasRelativeWidth(canvasRect.width);
+    setCanvasRelativeHeight(canvasRect.height);
+  }
 
   const canvasRef = useRef();
   const [ctx, setCtx] = useState(0);
@@ -52,29 +120,6 @@ export default function Canvas(props) {
   const [canvasRelativeWidth, setCanvasRelativeWidth] = useState(0);
   const [canvasRelativeHeight, setCanvasRelativeHeight] = useState(0);
 
-  function handleMouseMove(e) {
-    if (!canvasRef.current) return
-
-    const rect = canvasRef.current.getBoundingClientRect();
-
-    setCursorX(e.clientX + window.pageXOffset);
-    setCursorY(e.clientY + window.pageYOffset);
-
-    const canvasAbsoluteX = e.clientX - rect.left;
-    const canvasAbsoluteY = e.clientY - rect.top;
-    const canvasRelativeX =
-      (canvasAbsoluteX * canvasAbsoluteWidth) / canvasRelativeWidth;
-    const canvasRelativeY =
-      (canvasAbsoluteY * canvasAbsoluteHeight) / canvasRelativeHeight;
-    setCanvasRelativeX(canvasRelativeX);
-    setCanvasRelativeY(canvasRelativeY);
-
-    // line below draws
-    if (mousePressed) {
-      drawPath();
-    }
-  }
-
   function floodFill() {
     // get image data
     const imgData = ctx.getImageData(
@@ -99,30 +144,6 @@ export default function Canvas(props) {
     ctx.putImageData(floodFill.imageData, 0, 0);
   }
 
-  const currentToolType = useSelector(state => state.tool.type);
-  function handleMouseDown() {
-    setMousePressed(true);
-
-    switch (currentToolType) {
-      case "bucket":
-        if (canvasHovered) {
-          floodFill();
-        }
-        break;
-      case "brush":
-        drawPath();
-        break;
-      default:
-        drawPath();
-        break;;
-    }
-  }
-
-  function handleMouseUp() {
-    setMousePressed(false);
-    ctx.beginPath();
-  }
-
   const currentBrushColor = useSelector(state => state.tool.color);
   const currentBrushSize = useSelector(state => state.tool.size);
 
@@ -134,33 +155,6 @@ export default function Canvas(props) {
     ctx.lineTo(canvasRelativeX, canvasRelativeY);
     ctx.stroke();
     ctx.moveTo(canvasRelativeX, canvasRelativeY);
-  }
-
-  function handleMouseEnterCanvas() {
-    setCanvasHovered(true);
-    if (mousePressed) {
-      handleMouseDown();
-    }
-  }
-
-  function handleMouseLeaveCanvas() {
-    setCanvasHovered(false);
-  }
-
-  function handleWindowResize() {
-    calculcateCanvasRelativeSize();
-  }
-
-  function calculcateCanvasRelativeSize() {
-    const canvasRect = canvasRef.current.getBoundingClientRect();
-    setCanvasRelativeWidth(canvasRect.width);
-    setCanvasRelativeHeight(canvasRect.height);
-  }
-
-  // eslint-disable-next-line no-unused-vars
-  function drawRectangle(x, y, width, height, color, ctx) {
-    ctx.fillStyle = color || "black";
-    ctx.fillRect(x, y, width, height);
   }
 
   const canvasBackgroundStyle = {
