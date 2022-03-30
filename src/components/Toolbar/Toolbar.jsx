@@ -17,13 +17,13 @@ export default function Toolbar(props) {
         </div>
         <ColorSelector/>
       </div>
-      <div className="col-12 col-sm-3">
+      <div className="col-12 col-sm-3 d-flex justify-content-start mt-2 mt-lg-0">
         <ToolSelector/>
       </div>
-      <div className="col-12 col-sm-3">
+      <div className="col-12 col-sm-3 d-flex justify-content-start mt-2 mt-lg-0">
         <BrushSizeSelector/>
       </div>
-      <div className="col-12 col-sm-2 d-flex justify-content-end">
+      <div className="col-12 col-sm-2 d-flex justify-content-start justify-content-lg-end mt-2 mt-lg-0">
         <EraseCanvasButton
           eraseCanvas={() => {
             props.eraseCanvas(true);
