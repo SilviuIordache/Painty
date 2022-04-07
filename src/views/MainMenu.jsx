@@ -20,7 +20,7 @@ export default function MainMenu() {
     <div className="row rounded pt-4 pb-5" style={style}>
       <div className="col-12 mb-5">
         <h1>Painty 🎨</h1>
-        <p>A painting app where you draw the word</p>
+        <p>Draw words against the clock or pratice freely without a time constraint</p>
       </div>
       <div className="container">
         <div className="row">
