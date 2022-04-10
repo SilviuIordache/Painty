@@ -19,7 +19,7 @@ export default function Signup() {
     try {
       setError('')
       setLoading(true);
-      await signup(usernameRef.current.value, emailRef.current.value, passwordRef.current.value)
+      await signup(usernameRef.current.value, emailRef.current.value, passwordRef.current.value);
       setLoading(false);
       navigate('/');
     } catch (err) {
