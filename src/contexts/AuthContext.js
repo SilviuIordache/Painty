@@ -13,7 +13,6 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true)
 
   async function signup(username, email, password) {
-    console.log(username, email, password)
     const response = await auth.createUserWithEmailAndPassword(email, password);
     return updateProfile(response.user, {
       displayName: username
