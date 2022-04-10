@@ -16,7 +16,8 @@ import { AuthProvider } from "./contexts/AuthContext"
 
 const style = {
   backgroundColor: "lightgray",
-  minHeight: "100vh"
+  minHeight: "100vh",
+  maxWidth: "60rem"
 }
 function App() {
   return (
