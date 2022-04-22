@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Card, Button, Alert } from 'react-bootstrap';
 import { useAuth } from '../../contexts/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
+import DownloadedImage from '../../components/DebugComponent/DownloadedImage';
 
 export default function Profile() {
   const [error, setError] = useState('');
@@ -32,6 +33,10 @@ export default function Profile() {
           </p>
           <p>
             <strong>Username: </strong> {currentUser.displayName}
+          </p>
+          <p>
+            <strong>Image: </strong>
+            <DownloadedImage/>
           </p>
           <Link to="/update-profile" className="btn btn-primary w-100 mt-3">
             Update Profile

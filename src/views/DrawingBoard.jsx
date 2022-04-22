@@ -103,7 +103,8 @@ export default function DrawingBoard() {
     } else {
       imageName = drawingTitle;
     }
-
+    
+    // convert Canvas data to DataURL
     const dataURL = canvas.toDataURL();
 
     // check for stored images

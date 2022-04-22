@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import DrawingButtons from "../components/DrawingButtons/DrawingButtons";
+import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import DrawingButtons from '../components/DrawingButtons/DrawingButtons';
 
-import getImageURLSize from "../helpers/getImageURLSize";
+import getImageURLSize from '../helpers/getImageURLSize';
 
 export default function DrawingDetails() {
   const navigate = useNavigate();
   const urlParams = useParams();
   const [drawing, setDrawing] = useState({
-    name: "default",
+    name: 'default',
   });
   useEffect(() => {
-    const images = JSON.parse(localStorage.getItem("paintyImages"));
+    const images = JSON.parse(localStorage.getItem('paintyImages'));
     const image = images.find((img) => img.id === parseInt(urlParams.id, 10));
     setDrawing(image);
   }, [urlParams.id]);
 
   function deleteCallback() {
-    navigate("/gallery");
+    navigate('/gallery');
   }
 
   return (
@@ -38,19 +38,17 @@ export default function DrawingDetails() {
               <b>Game mode: </b>
               <span className="text-info">{drawing.mode}</span>
             </p>
-            <DrawingDate date={drawing.date}/>
-            <DrawingSize src={drawing.src}/>
+            <DrawingDate date={drawing.date} />
+            <DrawingSize src={drawing.src} />
           </div>
-          <div>
-            <DrawingButtons
-              id={drawing.id}
-              name={drawing.name}
-              src={drawing.src}
-              deleteCallback={deleteCallback}
-              imageHovered={true}
-              dynamic={false}
-            />
-          </div>
+          <DrawingButtons
+            id={drawing.id}
+            name={drawing.name}
+            src={drawing.src}
+            deleteCallback={deleteCallback}
+            imageHovered={true}
+            dynamic={false}
+          />
         </div>
       </div>
     </div>
@@ -64,8 +62,11 @@ function DrawingSize(props) {
     size = getImageURLSize(props.src);
   }
   return (
-    <p><b>Size: </b>{size.toFixed(2)} KB</p>
-  )
+    <p>
+      <b>Size: </b>
+      {size.toFixed(2)} KB
+    </p>
+  );
 }
 
 function DrawingDate(props) {
@@ -78,6 +79,8 @@ function DrawingDate(props) {
   }
 
   return (
-    <p><b>Date:</b> {formattedDate}</p>
-  )
+    <p>
+      <b>Date:</b> {formattedDate}
+    </p>
+  );
 }
