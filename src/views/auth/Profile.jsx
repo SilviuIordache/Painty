@@ -29,6 +29,9 @@ export default function Profile() {
           <h1 className="mb-4">Profile</h1>
           {error && <Alert variant="danger">{error}</Alert>}
           <p>
+            <strong>ID: </strong> {currentUser.uid}
+          </p>
+          <p>
             <strong>Email: </strong> {currentUser.email}
           </p>
           <p>

@@ -1,8 +1,8 @@
 import { getStorage, ref, uploadString } from 'firebase/storage';
 
-export default async function uploadImage(name, src) {
+export default async function uploadImage(name, src, uid) {
   const storage = getStorage();
-  const storageRef = ref(storage, `images/${name}`);
+  const storageRef = ref(storage, `${uid}/${name}`);
   const message = src.split(',')[1];
 
   try {
