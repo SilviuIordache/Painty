@@ -3,13 +3,15 @@ import GalleryDrawing from "../components/GalleryDrawing/GalleryDrawing";
 import GalleryBar from "../components/GalleryBar/GalleryBar";
 
 export default function Gallery() {
-  const [images, setImages] = useState(
-    JSON.parse(localStorage.getItem("paintyImages"))
-  );
+  const [images, setImages] = useState(getImages());
 
   function deleteCallback() {
-    const updatedImages = JSON.parse(localStorage.getItem("paintyImages"));
+    const updatedImages = getImages();
     setImages(updatedImages.reverse());
+  }
+
+  function getImages() {
+    return JSON.parse(localStorage.getItem("paintyImages"));
   }
 
   let imageElements = (
