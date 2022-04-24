@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import useInterval from "../hooks/useInterval";
 import { useParams, useNavigate, Prompt, Link } from "react-router-dom";
+import { useAuth } from '../contexts/AuthContext';
 
 import Toast from "../components/Toast/Toast";
 import Toolbar from "../components/Toolbar/Toolbar";
@@ -107,36 +108,46 @@ export default function DrawingBoard() {
     // convert Canvas data to DataURL
     const dataURL = canvas.toDataURL();
 
-    // check for stored images
-    const galleryImages = JSON.parse(localStorage.getItem("paintyImages"));
+    saveToLocalStorage(dataURL, imageName);
+    saveToDB(dataURL, imageName)
+  }
 
-    const imgID =
-      galleryImages?.length > 0
-        ? galleryImages[galleryImages.length - 1].id + 1
-        : 0;
+  function saveToLocalStorage(dataURL, imageName) {
+     // check for stored images
+     const galleryImages = JSON.parse(localStorage.getItem("paintyImages"));
 
-    // build image object
-    const imgObject = {
-      id: imgID,
-      src: dataURL,
-      name: imageName,
-      mode: gameMode,
-      date: new Date().toISOString(),
-    };
+     const imgID =
+       galleryImages?.length > 0
+         ? galleryImages[galleryImages.length - 1].id + 1
+         : 0;
+ 
+     // build image object
+     const imgObject = {
+       id: imgID,
+       src: dataURL,
+       name: imageName,
+       mode: gameMode,
+       date: new Date().toISOString(),
+     };
+ 
+     if (galleryImages) {
+       // add to array and store it back
+       galleryImages.push(imgObject);
+       localStorage.setItem("paintyImages", JSON.stringify(galleryImages));
+     } else {
+       // create an array
+       let arr = [];
+       arr.push(imgObject);
+       localStorage.setItem("paintyImages", JSON.stringify(arr));
+     }
+     if (gameMode === 'practice') {
+       setSavedFeedback(true);
+     }
+  }
 
-    if (galleryImages) {
-      // add to array and store it back
-      galleryImages.push(imgObject);
-      localStorage.setItem("paintyImages", JSON.stringify(galleryImages));
-    } else {
-      // create an array
-      let arr = [];
-      arr.push(imgObject);
-      localStorage.setItem("paintyImages", JSON.stringify(arr));
-    }
-    if (gameMode === 'practice') {
-      setSavedFeedback(true);
-    }
+  const { uploadImage } = useAuth();
+  async function saveToDB(dataURL, imageName) {
+    await uploadImage(imageName, dataURL, gameMode);
   }
 
   function eraseCanvas(manualErase) {

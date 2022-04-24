@@ -1,13 +1,11 @@
-import uploadImage from "../../helpers/uploadImage";
 import { useAuth } from '../../contexts/AuthContext';
 
 export default function UploadImageButton(props) {
-
-  const { currentUser } = useAuth();
+  const { uploadImage } = useAuth();
 
   async function upload(e) {
     e.stopPropagation();
-    await uploadImage(props.name, props.src, currentUser.uid);
+    await uploadImage(props.name, props.src, props.mode);
   }
 
   return (

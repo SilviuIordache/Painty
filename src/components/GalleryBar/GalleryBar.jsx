@@ -27,9 +27,12 @@ function StorageCapacity(props) {
   }
 
   let usedStorage = 0;
-  images.forEach((image) => {
-    usedStorage = usedStorage + getImageURLSize(image.src);
-  });
+
+  if (images) {
+    images.forEach((image) => {
+      usedStorage = usedStorage + getImageURLSize(image.src);
+    });
+  }
 
   return <div>Storage: {usedStorage.toFixed(0)} / 5000 KB </div>;
 }
