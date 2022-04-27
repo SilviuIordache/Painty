@@ -5,8 +5,15 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from 'firebase/auth';
-import { getStorage, ref, uploadString } from 'firebase/storage';
-import { collection, addDoc, Timestamp } from "firebase/firestore";
+import { getStorage, ref, uploadString, getDownloadURL } from 'firebase/storage';
+import {
+  query,
+  where,
+  collection,
+  addDoc,
+  getDocs,
+  Timestamp,
+} from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
 
 const AuthContext = React.createContext();
@@ -20,7 +27,11 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   async function signup(username, email, password) {
-    const response = await createUserWithEmailAndPassword(auth, email, password);
+    const response = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
     return updateProfile(response.user, {
       displayName: username,
     });
@@ -43,22 +54,46 @@ export function AuthProvider({ children }) {
     const imgID = uuidv4();
     const storageRef = ref(storage, `${currentUser.uid}/${imgID}`);
     const message = src.split(',')[1];
-  
+
     try {
       await uploadString(storageRef, message, 'base64');
       const firestamp = Timestamp.now();
-      
+
       const storageObject = {
         imageID: imgID,
         authorID: currentUser.uid,
         path: `${currentUser.uid}/${imgID}`,
         name: name,
         mode: mode,
-        date: firestamp
-      }
+        date: firestamp,
+      };
 
-      await addDoc(collection(db, "images"), storageObject);
+      await addDoc(collection(db, 'images'), storageObject);
       console.log('image uploaded successfuly');
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function getImages() {
+    const q = await query(
+      collection(db, 'images'),
+      where('authorID', '==', currentUser.uid)
+    );
+    const querySnapshot = await getDocs(q);
+
+    let images = [];
+    querySnapshot.forEach((doc) => {
+      images.push(doc.data());
+    });
+    return images;
+  }
+
+  async function downloadImage(path) {
+    const storage = getStorage();
+    try {
+      const res = await getDownloadURL(ref(storage, path));
+      return res;
     } catch (err) {
       console.log(err)
     }
@@ -82,6 +117,8 @@ export function AuthProvider({ children }) {
     logout,
     resetPassword,
     uploadImage,
+    getImages,
+    downloadImage
   };
   return (
     <AuthContext.Provider value={value}>
