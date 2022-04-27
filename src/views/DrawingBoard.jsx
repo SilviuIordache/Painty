@@ -108,7 +108,7 @@ export default function DrawingBoard() {
     // convert Canvas data to DataURL
     const dataURL = canvas.toDataURL();
 
-    saveToLocalStorage(dataURL, imageName);
+    // saveToLocalStorage(dataURL, imageName);
     saveToDB(dataURL, imageName)
   }
 

@@ -3,7 +3,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import DrawingContainer from '../components/GalleryDrawing/DrawingContainer';
 import DrawingButtons from '../components/DrawingButtons/DrawingButtons';
-import getImageURLSize from '../helpers/getImageURLSize';
 
 export default function DrawingDetails() {
   const navigate = useNavigate();
@@ -51,7 +50,7 @@ export default function DrawingDetails() {
                 <span className="text-info">{drawing.mode}</span>
               </p>
               <DrawingDate date={drawing.date} />
-              <DrawingSize src={drawing.src} />
+              <DrawingSize size={drawing.size} />
             </div>
             <DrawingButtons
               id={drawing.id}
@@ -72,13 +71,11 @@ export default function DrawingDetails() {
 function DrawingSize(props) {
   let size = 1;
 
-  if (props.src) {
-    size = getImageURLSize(props.src);
-  }
+  size = (props.size / 1024).toFixed(0);
   return (
     <p>
       <b>Size: </b>
-      {size.toFixed(2)} KB
+      {size} KB
     </p>
   );
 }

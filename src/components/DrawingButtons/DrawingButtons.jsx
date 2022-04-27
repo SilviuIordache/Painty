@@ -1,7 +1,6 @@
 import DownloadImageButton from './DownloadImageButton';
 import DeleteImageButton from './DeleteImageButton';
 import ShareButton from './ShareButton';
-import UploadImageButton from './UploadImageButton';
 
 export default function DrawingButtons(props) {
   let btnGroupStyle = {
@@ -25,7 +24,6 @@ export default function DrawingButtons(props) {
       <DownloadImageButton name={props.name} src={props.src} />
       <DeleteImageButton id={props.id} deleteCallback={props.deleteCallback} />
       {!props.dynamic && <ShareButton name={props.name} src={props.src} />}
-      <UploadImageButton src={props.src} name={props.name} mode={props.mode} />
     </div>
   );
 }

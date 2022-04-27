@@ -1,5 +1,3 @@
-import getImageURLSize from "../../helpers/getImageURLSize";
-
 export default function GalleryBar(props) {
   return (
     <div className="bg-white rounded py-4">
@@ -30,9 +28,12 @@ function StorageCapacity(props) {
 
   if (images) {
     images.forEach((image) => {
-      usedStorage = usedStorage + getImageURLSize(image.src);
+      usedStorage = usedStorage + image.size;
     });
   }
 
-  return <div>Storage: {usedStorage.toFixed(0)} / 5000 KB </div>;
+  usedStorage = (usedStorage / 1024).toFixed(0)
+
+
+  return <div>Storage: {usedStorage} / 5000 KB </div>;
 }

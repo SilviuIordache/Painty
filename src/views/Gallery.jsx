@@ -38,6 +38,7 @@ export default function Gallery() {
           alt={image.name}
           name={image.name}
           mode={image.mode}
+          size={image.size}
           id={image.id}
           key={image.id}
           deleteCallback={deleteCallback}
@@ -47,7 +48,7 @@ export default function Gallery() {
   return (
     <div className="row bg-secondary p-5">
       <div className="row mb-3">
-        <div className="col-12">{/* <GalleryBar images={images}/> */}</div>
+        <div className="col-12"><GalleryBar images={images}/></div>
       </div>
       <div className="row">{imageElements}</div>
     </div>

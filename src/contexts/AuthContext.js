@@ -54,11 +54,13 @@ export function AuthProvider({ children }) {
   async function uploadImage(name, src, mode) {
     const storage = getStorage();
     const imgID = uuidv4();
-    const storageRef = ref(storage, `${currentUser.uid}/${imgID}`);
+    const imageStoragePath = `${currentUser.uid}/${imgID}`
+    const storageRef = ref(storage, imageStoragePath);
     const message = src.split(',')[1];
 
     try {
-      await uploadString(storageRef, message, 'base64');
+      const res = await uploadString(storageRef, message, 'base64');
+      const storedSize = res.metadata.size;
       const firestamp = Timestamp.now();
 
       const storageObject = {
@@ -68,6 +70,7 @@ export function AuthProvider({ children }) {
         name: name,
         mode: mode,
         date: firestamp,
+        size: storedSize
       };
 
       await addDoc(collection(db, 'images'), storageObject);

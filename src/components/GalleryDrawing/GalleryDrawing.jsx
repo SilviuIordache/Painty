@@ -32,7 +32,7 @@ export default function GalleryDrawing(props) {
       onClick={goToDrawingDetails}
     >
 
-      <DrawingTitle mode={props.mode} name={props.name} />
+      <DrawingTitle mode={props.mode} name={props.name} size={props.size} />
 
       <DrawingContainer
         name={props.name}
@@ -58,11 +58,23 @@ function DrawingTitle(props) {
   const style = {
     backgroundColor: "lightgray",
     fontSize: "1rem",
-    padding: "0.3rem 0.5rem"
+    padding: "0.3rem 0.5rem",
+    display: "flex",
+    justifyContent: "space-between"
   }
+  const size = (props.size / 1024).toFixed(0)
   return (
     <div style={style} className="text-truncate">
-      {props.mode === 'challenge' && '⏳'} {props.name}
+      <div className="d-flex">
+        <div className="me-1">
+          {props.mode === 'challenge' && '⏳'} 
+          {props.mode === 'practice' && '🖌'} 
+        </div>
+        {props.name}
+      </div>
+      <div>
+        {size}KB
+      </div>
     </div>
   )
 }
