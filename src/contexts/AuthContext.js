@@ -10,7 +10,9 @@ import {
   query,
   where,
   collection,
+  doc,
   addDoc,
+  getDoc,
   getDocs,
   Timestamp,
 } from 'firebase/firestore';
@@ -84,9 +86,21 @@ export function AuthProvider({ children }) {
 
     let images = [];
     querySnapshot.forEach((doc) => {
-      images.push(doc.data());
+      const obj = doc.data();
+      // also add the db id to the object
+      obj.id = doc.id;
+      images.push(obj);
     });
     return images;
+  }
+
+  async function getImage(id) {
+    const docRef = doc(db, "images", id)
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      return docSnap.data();
+    }
   }
 
   async function downloadImage(path) {
@@ -95,7 +109,7 @@ export function AuthProvider({ children }) {
       const res = await getDownloadURL(ref(storage, path));
       return res;
     } catch (err) {
-      console.log(err)
+      
     }
   }
 
@@ -118,6 +132,7 @@ export function AuthProvider({ children }) {
     resetPassword,
     uploadImage,
     getImages,
+    getImage,
     downloadImage
   };
   return (

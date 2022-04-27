@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from '../../contexts/AuthContext';
 import DrawingButtons from "../DrawingButtons/DrawingButtons";
-
+import DrawingContainer from "./DrawingContainer";
 
 export default function GalleryDrawing(props) {
   const navigate = useNavigate();
@@ -11,20 +10,6 @@ export default function GalleryDrawing(props) {
   function goToDrawingDetails() {
     navigate(`/drawing/${props.id}`)
   }
-
-  const { downloadImage } = useAuth();
-  const [imageSrc, setImageSrc] = useState();
-  useEffect(() => {
-    let imageRetrieved = false;
-    const fetchData = async () => {
-      const data = await downloadImage(props.path);
-      if (!imageRetrieved) {
-        setImageSrc(data)
-      }
-    }
-    fetchData().catch((err) => {});
-    return () => imageRetrieved = false;
-  })
 
   const className = "col-12 col-md-6 col-lg-4 mb-3 position-relative";
 
@@ -49,11 +34,10 @@ export default function GalleryDrawing(props) {
 
       <DrawingTitle mode={props.mode} name={props.name} />
 
-      <img
-        src={imageSrc}
-        alt={props.name}
-        key={props.index}
-        width="100%"
+      <DrawingContainer
+        name={props.name}
+        index={props.index}
+        path={props.path}
       />
 
       <DrawingButtons

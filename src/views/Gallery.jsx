@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import GalleryDrawing from "../components/GalleryDrawing/GalleryDrawing";
-import GalleryBar from "../components/GalleryBar/GalleryBar";
+import React, { useState, useEffect } from 'react';
+import GalleryDrawing from '../components/GalleryDrawing/GalleryDrawing';
+import GalleryBar from '../components/GalleryBar/GalleryBar';
 import { useAuth } from '../contexts/AuthContext';
 
 export default function Gallery() {
@@ -9,20 +9,16 @@ export default function Gallery() {
 
   useEffect(() => {
     let dataRetrieved = false;
-  
     const fetchData = async () => {
       const data = await getImages();
       if (!dataRetrieved) {
         setImages(data);
       }
-    }
-  
-    fetchData()
-      .catch(console.error);;
-  
-    // cancel any future `setImages`
+    };
+    fetchData().catch(console.error);
+
     return () => dataRetrieved = false;
-  }, [])
+  }, [getImages]);
 
   function deleteCallback() {
     const updatedImages = getImages();
@@ -42,8 +38,8 @@ export default function Gallery() {
           alt={image.name}
           name={image.name}
           mode={image.mode}
-          id={image.imageID}
-          key={image.imageID}
+          id={image.id}
+          key={image.id}
           deleteCallback={deleteCallback}
         />
       ));
@@ -51,9 +47,7 @@ export default function Gallery() {
   return (
     <div className="row bg-secondary p-5">
       <div className="row mb-3">
-        <div className="col-12">
-          {/* <GalleryBar images={images}/> */}
-        </div>
+        <div className="col-12">{/* <GalleryBar images={images}/> */}</div>
       </div>
       <div className="row">{imageElements}</div>
     </div>
