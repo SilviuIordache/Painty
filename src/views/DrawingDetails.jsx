@@ -34,7 +34,7 @@ export default function DrawingDetails() {
         {drawing &&
         <DrawingContainer
           name={drawing.name}
-          index={drawing.index}
+          id={urlParams.id}
           path={drawing.path}
         />
         }
@@ -53,7 +53,7 @@ export default function DrawingDetails() {
               <DrawingSize size={drawing.size} />
             </div>
             <DrawingButtons
-              id={drawing.id}
+              id={urlParams.id}
               name={drawing.name}
               mode={drawing.mode}
               src={drawing.src}

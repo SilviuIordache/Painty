@@ -16,5 +16,13 @@ export default function DrawingContainer(props) {
     return () => (imageRetrieved = false);
   });
 
-  return <img src={imageSrc} alt={props.name} key={props.index} width="100%" />;
+  return (
+    <img
+      id={props.id}
+      src={imageSrc}
+      alt={props.name}
+      key={props.index}
+      width="100%"
+    />
+  );
 }
