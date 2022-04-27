@@ -36,7 +36,7 @@ export default function GalleryDrawing(props) {
 
       <DrawingContainer
         name={props.name}
-        index={props.index}
+        id={props.id}
         path={props.path}
       />
 
