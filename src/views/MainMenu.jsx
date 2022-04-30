@@ -1,17 +1,26 @@
 import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { useAuth } from '../contexts/AuthContext';
 import BasicCard from "../components/BasicCard/BasicCard";
 
 export default function MainMenu() {
   const navigate = useNavigate();
 
-  function getDrawingsNumber() {
-    const galleryImages = JSON.parse(localStorage.getItem("paintyImages"));
+  const { getImages } = useAuth();
+  const [images, setImages] = useState([]);
 
-    if (galleryImages?.length) {
-      return galleryImages.length
-    }
-    return 0;
-  }
+  useEffect(() => {
+    let dataRetrieved = false;
+    const fetchData = async () => {
+      const data = await getImages();
+      if (!dataRetrieved) {
+        setImages(data);
+      }
+    };
+    fetchData().catch(console.error);
+
+    return () => dataRetrieved = false;
+  }, [getImages]);
 
   const style = {
     backgroundColor: "#c0d1cd"
@@ -45,7 +54,7 @@ export default function MainMenu() {
           <div className="col-12 col-lg-4 mb-2">
             <BasicCard
               title={"GALLERY 🖼️"}
-              subTitle={getDrawingsNumber() + ' drawing(s)'}
+              subTitle={images.length + ' drawing(s)'}
               description={"A collection of your drawings"}
               buttonCallback={() => {navigate('/gallery')}}
               buttonText={"VIEW"}
