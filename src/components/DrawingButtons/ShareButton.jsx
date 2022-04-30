@@ -5,33 +5,13 @@ import dataURLtoBlob from '../../helpers/dataURLtoBlob';
 
 export default function ShareButton(props) {
 
-  // async function nativeShare(e) {
-  //   e.stopPropagation();
-  //   if (navigator.share) {
-  //     const blob = dataURLtoBlob(props.src);
-  //     const imageFile = new File([blob], props.name, { type: blob.type });
-
-  //     const website = 'https://painty-app.herokuapp.com/';
-  //     const fileLink = 'https://ibb.co/10s8bM6';
-  //     const shareText = `
-  //       Created on ${website}.\n
-  //       Checkout my daily Drawdle for the word "${props.name}":\n
-  //       ${fileLink}
-  //     `;
-
-  //     navigator.share({
-  //       title: `${props.name}`,
-  //       text: shareText,
-  //       file: [imageFile],
-  //     });
-  //   }
-  // }
-
   async function copyImageToClipboard(e) {
     e.stopPropagation();
-    const blob = dataURLtoBlob(props.src);
-    await copyBlobToClipboard(blob);
-    setCopied(true);
+    const img = document.getElementById(props.id);
+    console.log(img.src);
+    // const blob = dataURLtoBlob(img.src);
+    // await copyBlobToClipboard(blob);
+    // setCopied(true);
   }
 
   const [copied, setCopied] = useState(false);

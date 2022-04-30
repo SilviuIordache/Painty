@@ -23,7 +23,9 @@ export default function DrawingButtons(props) {
     <div style={btnGroupStyle}>
       <DownloadImageButton id={props.id} name={props.name} src={props.src} />
       <DeleteImageButton id={props.id} deleteCallback={props.deleteCallback} />
-      {!props.dynamic && <ShareButton name={props.name} src={props.src} />}
+      {!props.dynamic && (
+        <ShareButton id={props.id} name={props.name} src={props.src} />
+      )}
     </div>
   );
 }
