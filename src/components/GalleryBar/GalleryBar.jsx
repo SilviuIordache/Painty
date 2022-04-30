@@ -21,7 +21,6 @@ function StorageCapacity(props) {
   let usedStorage = 0;
 
   if (props.images) {
-    console.log(props.images)
     props.images.forEach((image) => {
       usedStorage = usedStorage + image.size;
     });
