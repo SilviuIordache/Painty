@@ -1,5 +1,9 @@
+import { useAuth } from '../../contexts/AuthContext';
+
 export default function DeleteImageButton(props) {
-  function deleteImage(e) {
+  const { deleteImage } = useAuth();
+
+  function removeImage(e) {
     e.stopPropagation();
 
     const confirmDelete = window.confirm(
@@ -7,24 +11,13 @@ export default function DeleteImageButton(props) {
     );
     if (!confirmDelete) return;
 
-    const updatedImages = JSON.parse(localStorage.getItem("paintyImages"));
-
-    // find index of id
-    const indexToDelete = updatedImages.findIndex(
-      (elem) => elem.id === props.id
-    );
-
-    // delete elem at that index
-    updatedImages.splice(indexToDelete, 1);
-
-    // update storage
-    localStorage.setItem("paintyImages", JSON.stringify(updatedImages));
+    deleteImage(props.id, props.path);
 
     props.deleteCallback();
   }
 
   return (
-    <button className="btn btn-danger ms-1" onClick={deleteImage}>
+    <button className="btn btn-danger ms-1" onClick={removeImage}>
       <i className="fas fa-trash"></i>
     </button>
   );

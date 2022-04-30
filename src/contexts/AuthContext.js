@@ -5,7 +5,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from 'firebase/auth';
-import { getStorage, ref, uploadString, getDownloadURL } from 'firebase/storage';
+import { deleteObject, getStorage, ref, uploadString, getDownloadURL } from 'firebase/storage';
 import {
   query,
   where,
@@ -14,6 +14,7 @@ import {
   addDoc,
   getDoc,
   getDocs,
+  deleteDoc,
   Timestamp,
 } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
@@ -59,6 +60,7 @@ export function AuthProvider({ children }) {
     const message = src.split(',')[1];
 
     try {
+      // upload file
       const res = await uploadString(storageRef, message, 'base64');
       const storedSize = res.metadata.size;
       const firestamp = Timestamp.now();
@@ -73,8 +75,27 @@ export function AuthProvider({ children }) {
         size: storedSize
       };
 
+      // upload doc with reference to file
       await addDoc(collection(db, 'images'), storageObject);
       console.log('image uploaded successfuly');
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function deleteImage(docID, imagePath) {
+    // delete DB doc
+    try {
+      await deleteDoc(doc(db, "images", docID));
+    } catch (err) {
+      console.log(err);
+    }
+
+    // delete storage file
+    try {
+      const storage = getStorage();
+      const desertRef = ref(storage, `${imagePath}`);
+      await deleteObject(desertRef);
     } catch (err) {
       console.log(err);
     }
@@ -134,6 +155,7 @@ export function AuthProvider({ children }) {
     logout,
     resetPassword,
     uploadImage,
+    deleteImage,
     getImages,
     getImage,
     downloadImage

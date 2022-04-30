@@ -18,16 +18,11 @@ function DrawingsTotal(props) {
 }
 
 function StorageCapacity(props) {
-  
-  let images = []
-  if (props.images) {
-    images = props.images
-  }
-
   let usedStorage = 0;
 
-  if (images) {
-    images.forEach((image) => {
+  if (props.images) {
+    console.log(props.images)
+    props.images.forEach((image) => {
       usedStorage = usedStorage + image.size;
     });
   }

@@ -54,9 +54,9 @@ export default function DrawingDetails() {
             </div>
             <DrawingButtons
               id={urlParams.id}
+              path={drawing.path}
               name={drawing.name}
               mode={drawing.mode}
-              src={drawing.src}
               deleteCallback={deleteCallback}
               imageHovered={true}
               dynamic={false}

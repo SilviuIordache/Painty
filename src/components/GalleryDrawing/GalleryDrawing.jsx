@@ -42,9 +42,9 @@ export default function GalleryDrawing(props) {
 
       <DrawingButtons
         id={props.id}
+        path={props.path}
         name={props.name}
         mode={props.mode}
-        src={props.src}
         deleteCallback={props.deleteCallback}
         imageHovered={imageHovered}
         dynamic={true}

@@ -20,9 +20,9 @@ export default function Gallery() {
     return () => dataRetrieved = false;
   }, [getImages]);
 
-  function deleteCallback() {
-    const updatedImages = getImages();
-    setImages(updatedImages.reverse());
+  async function deleteCallback() {
+    const updatedImages = await getImages();
+    setImages(updatedImages);
   }
 
   let imageElements = (
