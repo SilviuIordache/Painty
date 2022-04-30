@@ -16,7 +16,7 @@ export default function BucketCursor(props) {
 
   return (
     <div style={style}>
-      <i class="fas fa-crosshairs"></i>
+      <i className="fas fa-crosshairs"></i>
     </div>
   )
 }
