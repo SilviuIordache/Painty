@@ -9,9 +9,9 @@ export default function ShareButton(props) {
     e.stopPropagation();
     const img = document.getElementById(props.id);
     console.log(img.src);
-    // const blob = dataURLtoBlob(img.src);
-    // await copyBlobToClipboard(blob);
-    // setCopied(true);
+    const blob = dataURLtoBlob(img.src);
+    await copyBlobToClipboard(blob);
+    setCopied(true);
   }
 
   const [copied, setCopied] = useState(false);
