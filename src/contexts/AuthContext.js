@@ -102,19 +102,41 @@ export function AuthProvider({ children }) {
   }
 
   async function getImages() {
-    const q = await query(
-      collection(db, 'images'),
-      where('authorID', '==', currentUser.uid)
-    );
-    const querySnapshot = await getDocs(q);
+    async function getImagesFromDB() {
+      const q = await query(
+        collection(db, 'images'),
+        where('authorID', '==', currentUser.uid)
+      );
+      const querySnapshot = await getDocs(q);
+  
+      let images = [];
+      querySnapshot.forEach((doc) => {
+        const obj = doc.data();
+        // also add the db id to the object
+        obj.id = doc.id;
+        images.push(obj);
+      });
+      // store images to local storage
+      storeImagesToLocalStorage(images)
 
-    let images = [];
-    querySnapshot.forEach((doc) => {
-      const obj = doc.data();
-      // also add the db id to the object
-      obj.id = doc.id;
-      images.push(obj);
-    });
+      return images;
+    }
+
+    function storeImagesToLocalStorage(images) {
+      const storageObj = {
+        images
+      }
+      localStorage.setItem('paintyCache', JSON.stringify(storageObj))
+    }
+
+    function getImagesFromLocalStorage() {
+      const storage = JSON.parse(localStorage.getItem('paintyCache'));
+      const images = storage.images;
+
+      return images;
+    }
+    const images = await getImagesFromDB();
+    // const images = await getImagesFromLocalStorage();
     return images;
   }
 
@@ -133,7 +155,7 @@ export function AuthProvider({ children }) {
       const res = await getDownloadURL(ref(storage, path));
       return res;
     } catch (err) {
-      
+      console.log(err)
     }
   }
 
