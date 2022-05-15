@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { increment, incrementByAmount, decrement  } from "../../redux/features/counterSlice";
-import { changeTool } from "../../redux/features/toolReducer"
+import { changeTool } from "../../redux/features/toolSlice"
 
 export default function TestCounter() {
   const counter = useSelector(state => state.counter.value);

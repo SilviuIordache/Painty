@@ -1,6 +1,6 @@
 import "./ColorSquare.css";
 import { useDispatch } from 'react-redux';
-import { changeColor } from "../../redux/features/toolReducer";
+import { changeColor } from "../../redux/features/toolSlice";
 
 export default function ColorSquare(props) {
 

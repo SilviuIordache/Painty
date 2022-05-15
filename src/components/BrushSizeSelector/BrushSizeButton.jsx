@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { changeBrushSize } from "../../redux/features/toolReducer";
+import { changeBrushSize } from "../../redux/features/toolSlice";
 
 export default function BrushSizeButton(props) {
   const dispatch = useDispatch();

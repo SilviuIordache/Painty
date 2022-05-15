@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { changeTool, changeColor, changeBrushSize} from "../../redux/features/toolReducer"
+import { changeTool, changeColor, changeBrushSize} from "../../redux/features/toolSlice"
 
 export default function Toolbar(props) {
   const dispatch = useDispatch();
