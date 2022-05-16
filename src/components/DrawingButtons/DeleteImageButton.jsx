@@ -1,8 +1,6 @@
-import { useAuth } from '../../contexts/AuthContext';
+import { deleteImage } from '../../dbservices/images.js';
 
 export default function DeleteImageButton(props) {
-  const { deleteImage } = useAuth();
-
   function removeImage(e) {
     e.stopPropagation();
 

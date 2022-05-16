@@ -2,15 +2,16 @@ import React, { useState, useEffect } from 'react';
 import GalleryDrawing from '../components/GalleryDrawing/GalleryDrawing';
 import GalleryBar from '../components/GalleryBar/GalleryBar';
 import { useAuth } from '../contexts/AuthContext';
+import { getImages } from '../dbservices/images.js';
 
 export default function Gallery() {
-  const { getImages } = useAuth();
   const [images, setImages] = useState();
 
+  const { currentUser } = useAuth();
   useEffect(() => {
     let dataRetrieved = false;
     const fetchData = async () => {
-      const data = await getImages();
+      const data = await getImages(currentUser.uid);
       if (!dataRetrieved) {
         setImages(data);
       }
@@ -18,10 +19,10 @@ export default function Gallery() {
     fetchData().catch(console.error);
 
     return () => dataRetrieved = false;
-  }, [getImages]);
+  }, [currentUser.uid]);
 
   async function deleteCallback() {
-    const updatedImages = await getImages();
+    const updatedImages = await getImages(currentUser.uid);
     setImages(updatedImages);
   }
 

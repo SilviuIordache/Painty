@@ -3,17 +3,17 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import BasicCard from '../components/BasicCard/BasicCard';
 import ChallengeCard from '../components/MainMenu/ChallengeCard';
+import { getImages } from '../dbservices/images.js';
 
 export default function MainMenu() {
   const navigate = useNavigate();
-
-  const { getImages } = useAuth();
   const [images, setImages] = useState([]);
 
+  const { currentUser } = useAuth();
   useEffect(() => {
     let dataRetrieved = false;
     const fetchData = async () => {
-      const data = await getImages();
+      const data = await getImages(currentUser.uid);
       if (!dataRetrieved) {
         setImages(data);
       }
@@ -21,7 +21,7 @@ export default function MainMenu() {
     fetchData().catch(console.error);
 
     return () => (dataRetrieved = false);
-  }, [getImages]);
+  }, [currentUser.uid]);
 
   const style = {
     backgroundColor: '#c0d1cd',

@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
-import useInterval from "../hooks/useInterval";
-import { useParams, useNavigate, Prompt, Link } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import useInterval from '../hooks/useInterval';
+import { useParams, useNavigate, Prompt, Link } from 'react-router-dom';
+import { uploadImage } from '../dbservices/images.js';
+import Toast from '../components/Toast/Toast';
+import Toolbar from '../components/Toolbar/Toolbar';
+import Canvas from '../components/Canvas/Canvas';
+import ChallengeBar from '../components/ChallengeBar/ChallengeBar';
 import { useAuth } from '../contexts/AuthContext';
-
-import Toast from "../components/Toast/Toast";
-import Toolbar from "../components/Toolbar/Toolbar";
-import Canvas from "../components/Canvas/Canvas";
-import ChallengeBar from "../components/ChallengeBar/ChallengeBar";
 
 export default function DrawingBoard() {
   let navigate = useNavigate();
@@ -20,7 +20,7 @@ export default function DrawingBoard() {
   // countdown timer -----------------------------
   const [delay, setDelay] = useState(1000);
   useEffect(() => {
-    if (gameMode === "practice") {
+    if (gameMode === 'practice') {
       setDelay(null);
     }
   }, [gameMode]);
@@ -50,7 +50,7 @@ export default function DrawingBoard() {
       setIsBlocking(false);
 
       setTimeout(() => {
-        navigate("/gallery");
+        navigate('/gallery');
       }, 0);
     }
   }
@@ -59,12 +59,12 @@ export default function DrawingBoard() {
   useEffect(() => {
     const mode = urlParams.mode;
     setGameMode(mode);
-    if (mode === "challenge") {
+    if (mode === 'challenge') {
       setChallengeWords(generateChallengeWords());
     }
 
     function generateChallengeWords() {
-      const words = require("../jsons/words.json").list;
+      const words = require('../jsons/words.json').list;
 
       // generate unique random index numbers
       const randomNumbers = [];
@@ -92,75 +92,47 @@ export default function DrawingBoard() {
   const [challengeWords, setChallengeWords] = useState([]);
 
   function saveCanvas(drawingTitle) {
-    const canvas = document.getElementById("canvas");
+    const canvas = document.getElementById('canvas');
 
     let imageName;
     if (!drawingTitle) {
       imageName = prompt(
-        "Assign a name to this image before saving it",
-        "NewDrawing"
+        'Assign a name to this image before saving it',
+        'NewDrawing'
       );
       if (!imageName) return;
     } else {
       imageName = drawingTitle;
     }
-    
+
     // convert Canvas data to DataURL
     const dataURL = canvas.toDataURL();
 
     // saveToLocalStorage(dataURL, imageName);
-    saveToDB(dataURL, imageName)
+    saveToDB(dataURL, imageName);
   }
 
-  function saveToLocalStorage(dataURL, imageName) {
-     // check for stored images
-     const galleryImages = JSON.parse(localStorage.getItem("paintyImages"));
-
-     const imgID =
-       galleryImages?.length > 0
-         ? galleryImages[galleryImages.length - 1].id + 1
-         : 0;
- 
-     // build image object
-     const imgObject = {
-       id: imgID,
-       src: dataURL,
-       name: imageName,
-       mode: gameMode,
-       date: new Date().toISOString(),
-     };
- 
-     if (galleryImages) {
-       // add to array and store it back
-       galleryImages.push(imgObject);
-       localStorage.setItem("paintyImages", JSON.stringify(galleryImages));
-     } else {
-       // create an array
-       let arr = [];
-       arr.push(imgObject);
-       localStorage.setItem("paintyImages", JSON.stringify(arr));
-     }
-     if (gameMode === 'practice') {
-       setSavedFeedback(true);
-     }
-  }
-
-  const { uploadImage } = useAuth();
+  const { currentUser } = useAuth();
   async function saveToDB(dataURL, imageName) {
-    await uploadImage(imageName, dataURL, gameMode);
+    await uploadImage({
+      name: imageName,
+      src: dataURL,
+      mode: gameMode,
+      userID: currentUser.uid,
+    });
   }
 
   function eraseCanvas(manualErase) {
     if (manualErase) {
-      const confirmErase = window.confirm("Erase current canvas?");
+      const confirmErase = window.confirm('Erase current canvas?');
       if (!confirmErase) return;
     }
 
-    const canvas = document.getElementById("canvas");
-    const context = canvas.getContext("2d");
+    const canvas = document.getElementById('canvas');
+    const context = canvas.getContext('2d');
     context.clearRect(0, 0, canvas.width, canvas.height);
 
-    context.fillStyle = "#ffffff";
+    context.fillStyle = '#ffffff';
     context.fillRect(0, 0, canvas.width, canvas.height);
   }
 
@@ -173,7 +145,7 @@ export default function DrawingBoard() {
         when={isBlocking}
         message={`Are you sure you want to leave this page?`}
       />
-      {gameMode === "challenge" && (
+      {gameMode === 'challenge' && (
         <ChallengeBar
           currentWord={currentWord}
           roundCurrent={roundCurrent}
@@ -182,13 +154,13 @@ export default function DrawingBoard() {
           endRound={roundEndLogic}
         />
       )}
-      <Canvas/>
+      <Canvas />
       <Toolbar
         gameMode={gameMode}
         eraseCanvas={eraseCanvas}
         saveCanvas={saveCanvas}
       />
-      <Toast 
+      <Toast
         show={savedFeedback}
         showCb={setSavedFeedback}
         message={

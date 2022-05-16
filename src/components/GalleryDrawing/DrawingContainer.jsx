@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
+import { getImageFile } from '../../dbservices/images.js';
 
 export default function DrawingContainer(props) {
-  const { downloadImage } = useAuth();
   const [imageSrc, setImageSrc] = useState();
   useEffect(() => {
     let imageRetrieved = false;
     const fetchData = async () => {
-      const data = await downloadImage(props.path);
+      const data = await getImageFile(props.path);
       if (!imageRetrieved) {
         setImageSrc(data);
       }

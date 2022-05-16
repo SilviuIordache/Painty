@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import { getImageDoc } from '../dbservices/images.js';
 import DrawingContainer from '../components/GalleryDrawing/DrawingContainer';
 import DrawingButtons from '../components/DrawingButtons/DrawingButtons';
 
 export default function DrawingDetails() {
   const navigate = useNavigate();
   const urlParams = useParams();
-  const { getImage } = useAuth();
 
   const [drawing, setDrawing] = useState();
   useEffect(() => {
     let retrieved = false;
     
     const fetchData = async () => {
-      const response = await getImage(urlParams.id);
+      const response = await getImageDoc(urlParams.id);
       if (!retrieved) {
         setDrawing(response);
       }
@@ -22,7 +21,7 @@ export default function DrawingDetails() {
     fetchData().catch(err => console.log(err));
 
     return () => (retrieved = false);
-  }, [getImage, urlParams.id]);
+  }, [urlParams.id]);
 
   function deleteCallback() {
     navigate('/gallery');
