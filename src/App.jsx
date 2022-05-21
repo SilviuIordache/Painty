@@ -12,7 +12,7 @@ import ForgotPassword from "./views/auth/ForgotPassword";
 import Profile from "./views/auth/Profile";
 
 import { Container } from "react-bootstrap";
-import { AuthProvider } from "./contexts/AuthContext"
+import { AuthProvider } from "./contexts/AuthContext";
 
 const style = {
   backgroundColor: "lightgray",

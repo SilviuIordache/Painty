@@ -13,7 +13,7 @@ export default function DrawingContainer(props) {
     };
     fetchData().catch((err) => {});
     return () => (imageRetrieved = false);
-  });
+  }, [props.path]);
 
   return (
     <img

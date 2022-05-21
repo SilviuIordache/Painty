@@ -49,22 +49,19 @@ export async function getImages(userID) {
     let images = [];
     querySnapshot.forEach((doc) => {
       const obj = doc.data();
-      // also add the db id to the object
       obj.id = doc.id;
+      obj.date = obj.date.toDate().toString();
       images.push(obj);
     });
-    // store images to local storage
-    storeImagesToLocalStorage(images);
-
     return images;
   }
 
-  function storeImagesToLocalStorage(images) {
-    const storageObj = {
-      images,
-    };
-    localStorage.setItem('paintyCache', JSON.stringify(storageObj));
-  }
+  // function storeImagesToLocalStorage(images) {
+  //   const storageObj = {
+  //     images,
+  //   };
+  //   localStorage.setItem('paintyCache', JSON.stringify(storageObj));
+  // }
 
   // function getImagesFromLocalStorage() {
   //   const storage = JSON.parse(localStorage.getItem('paintyCache'));

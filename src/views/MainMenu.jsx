@@ -1,27 +1,23 @@
 import { useNavigate } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
-import { useAuth } from '../contexts/AuthContext';
+import React from 'react';
 import BasicCard from '../components/BasicCard/BasicCard';
 import ChallengeCard from '../components/MainMenu/ChallengeCard';
-import { getImages } from '../dbservices/images.js';
+import GalleryCard from '../components/MainMenu/GalleryCard';
+
+import { fetchImages } from '../redux/features/imagesSlice.js';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+
+import { useAuth } from "../contexts/AuthContext";
 
 export default function MainMenu() {
   const navigate = useNavigate();
-  const [images, setImages] = useState([]);
 
+  const dispatch = useDispatch();
   const { currentUser } = useAuth();
   useEffect(() => {
-    let dataRetrieved = false;
-    const fetchData = async () => {
-      const data = await getImages(currentUser.uid);
-      if (!dataRetrieved) {
-        setImages(data);
-      }
-    };
-    fetchData().catch(console.error);
-
-    return () => (dataRetrieved = false);
-  }, [currentUser.uid]);
+    dispatch(fetchImages(currentUser.uid));
+  }, [dispatch, currentUser.uid]);
 
   const style = {
     backgroundColor: '#c0d1cd',
@@ -48,14 +44,7 @@ export default function MainMenu() {
               />
             </div>
             <div className="col-12">
-              <BasicCard
-                title={'Gallery'}
-                subTitle={images.length + ' drawing(s)'}
-                buttonCallback={() => {
-                  navigate('/gallery');
-                }}
-                buttonText={'View'}
-              />
+              <GalleryCard/>
             </div>
           </div>
         </div>
