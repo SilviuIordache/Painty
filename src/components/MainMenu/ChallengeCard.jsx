@@ -24,10 +24,10 @@ export default function BasicCard(props) {
     <Card sx={cardStyle}>
       <CardContent>
         <Typography variant="h5" component="div">
-          Daily drawing
+          Daily timed drawing
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          new word available: {dailyWord}
+          {dailyWord}
         </Typography>
       </CardContent>
       <CardActions>
