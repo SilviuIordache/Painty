@@ -15,6 +15,7 @@ import {
   doc,
   deleteDoc,
   getDoc,
+  orderBy,
 } from 'firebase/firestore';
 import { db } from '../firebase';
 import { v4 as uuidv4 } from 'uuid';
@@ -40,9 +41,11 @@ export async function getImageFile(path) {
 
 export async function getImages(userID) {
   async function getImagesFromDB() {
+    // needs indexes created in firebase to work
     const q = await query(
       collection(db, 'images'),
-      where('authorID', '==', userID)
+      where('authorID', '==', userID),
+      orderBy('date', 'desc'),
     );
     const querySnapshot = await getDocs(q);
 

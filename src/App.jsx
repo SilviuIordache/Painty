@@ -28,20 +28,20 @@ function App() {
           <BrowserRouter>
             <Navigation />
             <Routes>
-              <PrivateRoute>
-                <Route exact path="/" element={<MainMenu />} />
+              <PrivateRoute exact path="/">
+                <Route element={<MainMenu />} />
               </PrivateRoute>
-              <PrivateRoute>
-                <Route path="/draw/:mode" element={<DrawingBoard />} />
+              <PrivateRoute path="/draw/:mode">
+                <Route element={<DrawingBoard />} />
               </PrivateRoute>
-              <PrivateRoute>
-                <Route path="/gallery" element={<Gallery />} />
+              <PrivateRoute path="/gallery">
+                <Route element={<Gallery />} />
               </PrivateRoute>
-              <PrivateRoute>
-                <Route path="/drawing/:id" element={<DrawingDetails />} />
+              <PrivateRoute path="/drawing/:id">
+                <Route element={<DrawingDetails />} />
               </PrivateRoute>
-              <PrivateRoute>
-                <Route path="/profile" element={<Profile />} />
+              <PrivateRoute path="/profile">
+                <Route element={<Profile />} />
               </PrivateRoute>
               <Route path="/signup" element={<Signup />} />
               <Route path="/login" element={<Login />} />
