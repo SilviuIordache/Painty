@@ -10,10 +10,15 @@ export default function Navigation() {
         <Link to="/" className="me-5">Home</Link>
       </div>
       <div className="col-3 d-flex justify-content-end">
-        <Link to="/gallery" className="me-2">Gallery</Link>
         { currentUser ?
-          <Link to="/profile" className="me-2">Profile</Link> :
-          <Link to="/signup" className="me-2">Sign Up</Link> 
+          <>
+            <Link to="/gallery" className="me-2">Gallery</Link>
+            <Link to="/profile" className="me-2">{currentUser.displayName}</Link>
+          </> :
+          <>
+            <Link to="/signup" className="me-2">Sign Up</Link>
+            <Link to="/login" className="me-2">Login</Link>
+          </>
         }
       </div>
     </div>
