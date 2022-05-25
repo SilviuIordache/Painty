@@ -1,6 +1,7 @@
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
+import CustomSnackbar from './components/CustomSnackbar/CustomSnackbar'
 import Navigation from './components/Navigation/Navigation';
 import MainMenu from './views/MainMenu';
 import DrawingBoard from './views/DrawingBoard';
@@ -24,6 +25,7 @@ function App() {
     // delete top wrapper?
     <div className="App">
       <AuthProvider>
+        <CustomSnackbar/>
         <Container style={style}>
           <BrowserRouter>
             <Navigation />
