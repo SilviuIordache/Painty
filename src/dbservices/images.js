@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify';
+
 import {
   getStorage,
   ref,
@@ -11,6 +13,8 @@ import {
   addDoc,
   Timestamp,
   where,
+  startAt,
+  limit,
   getDocs,
   doc,
   deleteDoc,
@@ -46,6 +50,8 @@ export async function getImages(userID) {
       collection(db, 'images'),
       where('authorID', '==', userID),
       orderBy('date', 'desc'),
+      // limit(3),
+      // startAfter(2),
     );
     const querySnapshot = await getDocs(q);
 
@@ -102,7 +108,6 @@ export async function uploadImage({ name, src, mode, userID }) {
 
     // upload doc with reference to file
     await addDoc(collection(db, 'images'), storageObject);
-    console.log('image uploaded successfuly');
   } catch (err) {
     console.log(err);
   }
@@ -121,7 +126,10 @@ export async function deleteImage(docID, imagePath) {
     const storage = getStorage();
     const desertRef = ref(storage, `${imagePath}`);
     await deleteObject(desertRef);
+
+    toast.success("Image deleted");
   } catch (err) {
     console.log(err);
+    toast.error("Error deleting image. Please retry");
   }
 }

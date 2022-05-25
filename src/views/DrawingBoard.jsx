@@ -7,6 +7,8 @@ import Toolbar from '../components/Toolbar/Toolbar';
 import Canvas from '../components/Canvas/Canvas';
 import ChallengeBar from '../components/ChallengeBar/ChallengeBar';
 import { useAuth } from '../contexts/AuthContext';
+import { toast } from 'react-toastify';
+
 
 export default function DrawingBoard() {
   let navigate = useNavigate();
@@ -114,12 +116,19 @@ export default function DrawingBoard() {
 
   const { currentUser } = useAuth();
   async function saveToDB(dataURL, imageName) {
-    await uploadImage({
-      name: imageName,
-      src: dataURL,
-      mode: gameMode,
-      userID: currentUser.uid,
-    });
+    try {
+      await uploadImage({
+        name: imageName,
+        src: dataURL,
+        mode: gameMode,
+        userID: currentUser.uid,
+      });
+      toast.success("Image saved");
+    } catch (err) {
+      console.log(err);
+      toast.error("Error saving image. Please retry");
+    }
+    
   }
 
   function eraseCanvas(manualErase) {

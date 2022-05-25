@@ -1,7 +1,6 @@
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
-import CustomSnackbar from './components/CustomSnackbar/CustomSnackbar'
 import Navigation from './components/Navigation/Navigation';
 import MainMenu from './views/MainMenu';
 import DrawingBoard from './views/DrawingBoard';
@@ -12,6 +11,8 @@ import Login from './views/auth/Login';
 import ForgotPassword from './views/auth/ForgotPassword';
 import Profile from './views/auth/Profile';
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Container } from 'react-bootstrap';
 import { AuthProvider } from './contexts/AuthContext';
 
@@ -25,7 +26,7 @@ function App() {
     // delete top wrapper?
     <div className="App">
       <AuthProvider>
-        <CustomSnackbar/>
+        <ToastContainer/>
         <Container style={style}>
           <BrowserRouter>
             <Navigation />
