@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import useInterval from '../hooks/useInterval';
 import { useParams, useNavigate, Prompt, Link } from 'react-router-dom';
 import { uploadImage } from '../dbservices/images.js';
-import Toast from '../components/Toast/Toast';
 import Toolbar from '../components/Toolbar/Toolbar';
 import Canvas from '../components/Canvas/Canvas';
 import ChallengeBar from '../components/ChallengeBar/ChallengeBar';
@@ -168,18 +167,6 @@ export default function DrawingBoard() {
         gameMode={gameMode}
         eraseCanvas={eraseCanvas}
         saveCanvas={saveCanvas}
-      />
-      <Toast
-        show={savedFeedback}
-        showCb={setSavedFeedback}
-        message={
-          <div className="d-flex">
-            <p>Drawing saved in the&nbsp;</p>
-            <Link to="/gallery" className="me-5">
-              Gallery
-            </Link>
-          </div>
-        }
       />
     </div>
   );

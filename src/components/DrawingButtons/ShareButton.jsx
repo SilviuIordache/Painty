@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Toast from "../Toast/Toast";
 import copyBlobToClipboard from '../../helpers/copyBlobToClipboard';
 import dataURLtoBlob from '../../helpers/dataURLtoBlob';
 
@@ -22,11 +21,6 @@ export default function ShareButton(props) {
         <i className="fas fa-copy"></i>
       </button>
 
-      <Toast
-        show={copied}
-        showCb={setCopied}
-        message={<p>Image copied to clipboard</p>}
-      />
     </span>
   );
 }
