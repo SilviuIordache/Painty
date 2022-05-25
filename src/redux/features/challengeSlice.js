@@ -1,11 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+
 const initialState = {
   challengeWords: [],
   currentWord: '',
   roundCurrent: 1,
   roundTotal: 3,
-  roundTime: 5
+  roundTime: 10,
+  timer: 10
 };
 
 export const challengeSlice = createSlice({
@@ -22,6 +24,12 @@ export const challengeSlice = createSlice({
     incrementRound: (state) => {
       state.roundCurrent += 1;
     },
+    updateTimer: (state) => {
+      state.timer -= 1;
+    },
+    resetTimer: (state) => {
+      state.timer = state.roundTime;
+    }
   },
 });
 
@@ -46,6 +54,6 @@ function generateRandomWords(amount) {
   return wordsArray;
 }
 
-export const { initialiseChallengeMode, setCurrentWord, incrementRound } =
+export const { initialiseChallengeMode, setCurrentWord, incrementRound, updateTimer, resetTimer } =
   challengeSlice.actions;
 export default challengeSlice.reducer;

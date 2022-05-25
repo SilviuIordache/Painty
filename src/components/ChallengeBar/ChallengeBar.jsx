@@ -5,7 +5,7 @@ export default function ChallengeBar(props) {
   const currentWord = useSelector(state => state.challenge.currentWord);
   const roundTotal = useSelector(state => state.challenge.roundTotal);
   const roundCurrent = useSelector(state => state.challenge.roundCurrent);
-
+  const timer = useSelector((state) => state.challenge.timer);
 
   return (
     <div className="row bg-secondary rounded py-2 d-flex justify-content-center">
@@ -20,7 +20,7 @@ export default function ChallengeBar(props) {
         <div className="bg-white rounded py-1 d-flex justify-content-around h-100">
           <div className="d-flex align-items-center">
             <i className="fas fa-stopwatch me-2"></i>
-            {props.timer}
+            {timer}
           </div>
         </div>
       </div>

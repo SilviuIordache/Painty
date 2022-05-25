@@ -8,22 +8,36 @@ import ChallengeBar from '../components/ChallengeBar/ChallengeBar';
 import { useAuth } from '../contexts/AuthContext';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
-import { initialiseChallengeMode, setCurrentWord, incrementRound } from "../redux/features/challengeSlice";
+import {
+  initialiseChallengeMode,
+  setCurrentWord,
+  incrementRound,
+  updateTimer,
+  resetTimer,
+} from '../redux/features/challengeSlice';
 
 import { useSelector } from 'react-redux';
-
 
 export default function DrawingBoard() {
   const dispatch = useDispatch();
   let navigate = useNavigate();
 
+  const currentWord = useSelector((state) => state.challenge.currentWord);
+  const roundCurrent = useSelector((state) => state.challenge.roundCurrent);
+  const timer = useSelector((state) => state.challenge.timer);
+  const roundTotal = useSelector((state) => state.challenge.roundTotal);
+
   // game logic state
   const [gameMode, setGameMode] = useState();
-
-  const currentWord = useSelector(state => state.challenge.currentWord);
-  const roundCurrent = useSelector(state => state.challenge.roundCurrent);
-  const roundTime = useSelector(state => state.challenge.roundTime);
-  const roundTotal = useSelector(state => state.challenge.roundTotal);
+  const urlParams = useParams();
+  useEffect(() => {
+    const mode = urlParams.mode;
+    setGameMode(mode);
+    if (mode === 'challenge') {
+      dispatch(initialiseChallengeMode());
+      dispatch(setCurrentWord());
+    }
+  }, [dispatch, urlParams.mode]);
 
   // countdown timer -----------------------------
   const [delay, setDelay] = useState(1000);
@@ -33,12 +47,11 @@ export default function DrawingBoard() {
     }
   }, [gameMode]);
 
-  let [timer, setTimer] = useState(roundTime);
   useInterval(() => {
     if (timer === 0) {
       roundEndLogic();
     } else {
-      setTimer(timer - 1);
+      dispatch(updateTimer());
     }
   }, delay);
   // ---------------------------------------------
@@ -48,7 +61,7 @@ export default function DrawingBoard() {
     eraseCanvas();
     if (roundCurrent < roundTotal) {
       dispatch(incrementRound());
-      setTimer(roundTime);
+      dispatch(resetTimer());
       dispatch(setCurrentWord());
     } else {
       // pause timer
@@ -58,20 +71,10 @@ export default function DrawingBoard() {
       setIsBlocking(false);
 
       setTimeout(() => {
-        navigate('/gallery');
+        navigate('/');
       }, 0);
     }
   }
-
-  const urlParams = useParams();
-  useEffect(() => {
-    const mode = urlParams.mode;
-    setGameMode(mode);
-    if (mode === 'challenge') {
-      dispatch(initialiseChallengeMode());
-      dispatch(setCurrentWord())
-    }
-  }, [dispatch, urlParams.mode]);
 
   function saveCanvas(drawingTitle) {
     const canvas = document.getElementById('canvas');
@@ -101,12 +104,11 @@ export default function DrawingBoard() {
         mode: gameMode,
         userID: currentUser.uid,
       });
-      toast.success("Image saved");
+      toast.success('Image saved');
     } catch (err) {
       console.log(err);
-      toast.error("Error saving image. Please retry");
+      toast.error('Error saving image. Please retry');
     }
-    
   }
 
   function eraseCanvas(manualErase) {
@@ -132,10 +134,7 @@ export default function DrawingBoard() {
         message={`Are you sure you want to leave this page?`}
       />
       {gameMode === 'challenge' && (
-        <ChallengeBar
-          timer={timer}
-          endRound={roundEndLogic}
-        />
+        <ChallengeBar endRound={roundEndLogic} />
       )}
       <Canvas />
       <Toolbar
