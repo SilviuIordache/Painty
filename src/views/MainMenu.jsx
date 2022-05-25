@@ -8,7 +8,7 @@ import { fetchImages } from '../redux/features/imagesSlice.js';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from '../contexts/AuthContext';
 
 export default function MainMenu() {
   const navigate = useNavigate();
@@ -30,21 +30,33 @@ export default function MainMenu() {
       <div className="container">
         <div className="row">
           <div className="col-6">
-              <ChallengeCard/>
+            <ChallengeCard />
           </div>
           <div className="col-6 ">
-            <div className="col-12 mb-2">
-              <BasicCard
-                title={'Practice'}
-                subTitle={'freestyle with unlimited time'}
-                buttonCallback={() => {
-                  navigate('/draw/practice');
-                }}
-                buttonText={'Draw'}
-              />
+            <div className="row">
+              <div className="col-6 mb-2">
+                <BasicCard
+                  title={'Practice'}
+                  subTitle={'freestyle with unlimited time'}
+                  buttonCallback={() => {
+                    navigate('/draw/practice');
+                  }}
+                  buttonText={'Start'}
+                />
+              </div>
+              <div className="col-6 mb-2">
+                <BasicCard
+                  title={'Challenge'}
+                  subTitle={'time-attack mode'}
+                  buttonCallback={() => {
+                    navigate('/draw/challenge');
+                  }}
+                  buttonText={'Start'}
+                />
+              </div>
             </div>
             <div className="col-12">
-              <GalleryCard/>
+              <GalleryCard />
             </div>
           </div>
         </div>

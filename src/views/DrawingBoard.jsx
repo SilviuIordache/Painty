@@ -7,16 +7,23 @@ import Canvas from '../components/Canvas/Canvas';
 import ChallengeBar from '../components/ChallengeBar/ChallengeBar';
 import { useAuth } from '../contexts/AuthContext';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { initialiseChallengeMode, setCurrentWord, incrementRound } from "../redux/features/challengeSlice";
+
+import { useSelector } from 'react-redux';
 
 
 export default function DrawingBoard() {
+  const dispatch = useDispatch();
   let navigate = useNavigate();
 
   // game logic state
   const [gameMode, setGameMode] = useState();
-  const [roundCurrent, setRoundCurrent] = useState(1);
-  const [roundTotal] = useState(3);
-  const [roundTime] = useState(30);
+
+  const currentWord = useSelector(state => state.challenge.currentWord);
+  const roundCurrent = useSelector(state => state.challenge.roundCurrent);
+  const roundTime = useSelector(state => state.challenge.roundTime);
+  const roundTotal = useSelector(state => state.challenge.roundTotal);
 
   // countdown timer -----------------------------
   const [delay, setDelay] = useState(1000);
@@ -40,9 +47,9 @@ export default function DrawingBoard() {
     saveCanvas(currentWord);
     eraseCanvas();
     if (roundCurrent < roundTotal) {
-      setRoundCurrent(roundCurrent + 1);
+      dispatch(incrementRound());
       setTimer(roundTime);
-      setCurrentWord(challengeWords[roundCurrent]);
+      dispatch(setCurrentWord());
     } else {
       // pause timer
       setDelay(null);
@@ -61,36 +68,10 @@ export default function DrawingBoard() {
     const mode = urlParams.mode;
     setGameMode(mode);
     if (mode === 'challenge') {
-      setChallengeWords(generateChallengeWords());
+      dispatch(initialiseChallengeMode());
+      dispatch(setCurrentWord())
     }
-
-    function generateChallengeWords() {
-      const words = require('../jsons/words.json').list;
-
-      // generate unique random index numbers
-      const randomNumbers = [];
-      while (randomNumbers.length < roundTotal) {
-        const randomNumber = Math.floor(Math.random() * words.length) + 1;
-        if (randomNumbers.indexOf(randomNumber) === -1) {
-          randomNumbers.push(randomNumber);
-        }
-      }
-
-      // populate words array with words found at above indexes
-      let wordsArray = [];
-      randomNumbers.forEach((num) => {
-        wordsArray.push(words[num]);
-      });
-
-      setCurrentWord(wordsArray[roundCurrent - 1]);
-      return wordsArray;
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  let [currentWord, setCurrentWord] = useState();
-  const [challengeWords, setChallengeWords] = useState([]);
+  }, [dispatch, urlParams.mode]);
 
   function saveCanvas(drawingTitle) {
     const canvas = document.getElementById('canvas');
@@ -108,8 +89,6 @@ export default function DrawingBoard() {
 
     // convert Canvas data to DataURL
     const dataURL = canvas.toDataURL();
-
-    // saveToLocalStorage(dataURL, imageName);
     saveToDB(dataURL, imageName);
   }
 
@@ -145,7 +124,6 @@ export default function DrawingBoard() {
   }
 
   let [isBlocking, setIsBlocking] = useState(true);
-  const [savedFeedback, setSavedFeedback] = useState(false);
 
   return (
     <div className="drawing-board">
@@ -155,9 +133,6 @@ export default function DrawingBoard() {
       />
       {gameMode === 'challenge' && (
         <ChallengeBar
-          currentWord={currentWord}
-          roundCurrent={roundCurrent}
-          roundTotal={roundTotal}
           timer={timer}
           endRound={roundEndLogic}
         />
