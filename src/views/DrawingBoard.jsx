@@ -33,6 +33,8 @@ export default function DrawingBoard() {
   useEffect(() => {
     const mode = urlParams.mode;
     setGameMode(mode);
+
+    // this should be moved inside challengeBar on initialise
     if (mode === 'challenge') {
       dispatch(initialiseChallengeMode());
       dispatch(setCurrentWord());
