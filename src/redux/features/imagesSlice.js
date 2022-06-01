@@ -1,10 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getImages } from '../../dbservices/images.js';
 
-export const fetchImages = createAsyncThunk('images/fetchImages', async (userId) => {
-  const response = await getImages(userId);
-  return response
-});
+export const fetchImages = createAsyncThunk(
+  'images/fetchImages',
+  async (userId) => {
+    const response = await getImages(userId);
+    return response;
+  }
+);
 
 const initialState = {
   list: [],
@@ -20,7 +23,7 @@ export const imagesSlice = createSlice({
     },
     [fetchImages.fulfilled]: (state, { payload }) => {
       state.list = payload;
-      state.status = 'success'
+      state.status = 'success';
     },
     [fetchImages.rejected]: (state, action) => {
       state.status = 'failed';

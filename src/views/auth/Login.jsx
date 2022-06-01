@@ -1,37 +1,36 @@
-import React, { useRef, useState } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import React, { useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Form, Button, Card, Alert } from 'react-bootstrap';
-import { useAuth } from '../../contexts/AuthContext';
+import { useSelector, useDispatch } from 'react-redux';
+import { signIn } from '../../redux/features/authSlice.js';
 
 export default function Login() {
-  
   const emailRef = useRef();
   const passwordRef = useRef();
-  const { login } =  useAuth();
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate()
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { error, loading } = useSelector((state) => state.auth);
 
   async function handleSubmit(e) {
     e.preventDefault();
-
     try {
-      setError('')
-      setLoading(true);
-      await login(emailRef.current.value, passwordRef.current.value);
-      setLoading(false);
+      await dispatch(
+        signIn({
+          email: emailRef.current.value,
+          password: passwordRef.current.value,
+        })
+      );
       navigate('/');
     } catch (err) {
-      console.log(err)
-      setError("Login error");
-      setLoading(false);
+      console.log(err);
     }
   }
 
   const style = {
-    minWidth: "30rem",
-    paddingBottom: "1rem"
-  }
+    minWidth: '30rem',
+    paddingBottom: '1rem',
+  };
   return (
     <div className="d-flex justify-content-center">
       <Card style={style}>
@@ -45,16 +44,22 @@ export default function Login() {
             </Form.Group>
             <Form.Group id="password" className="mb-3">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" ref={passwordRef} required></Form.Control>
+              <Form.Control
+                type="password"
+                ref={passwordRef}
+                required
+              ></Form.Control>
             </Form.Group>
-            <Button disabled={loading} className="w-100 mt-3" type="submit">Log In</Button>
+            <Button disabled={loading} className="w-100 mt-3" type="submit">
+              Log In
+            </Button>
           </Form>
         </Card.Body>
         <div className="w-100 text-center mt-2">
-         <Link to="/forgot-password">Forgot password?</Link> 
+          <Link to="/forgot-password">Forgot password?</Link>
         </div>
         <div className="w-100 text-center mt-2">
-          Don't have an account?  <Link to="/signup">Sign Up</Link> 
+          Don't have an account? <Link to="/signup">Sign Up</Link>
         </div>
       </Card>
     </div>

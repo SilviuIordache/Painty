@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
-import { useAuth } from '../../contexts/AuthContext';
+import { useSelector } from 'react-redux';
 
 export default function Navigation() {
-  const { currentUser } =  useAuth();
-
+  const { currentUser } = useSelector(state => state.auth);
   return (
     <div className="row mb-2 py-3 bg-light rounded d-flex justify-content-between">
       <div className="col-4">

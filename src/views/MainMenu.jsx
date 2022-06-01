@@ -8,13 +8,13 @@ import { fetchImages } from '../redux/features/imagesSlice.js';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 
-import { useAuth } from '../contexts/AuthContext';
+import { useSelector } from 'react-redux';
 
 export default function MainMenu() {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-  const { currentUser } = useAuth();
+  const { currentUser } = useSelector(state => state.auth);
   useEffect(() => {
     dispatch(fetchImages(currentUser.uid));
   }, [dispatch, currentUser.uid]);

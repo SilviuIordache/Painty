@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import GalleryBar from '../components/GalleryBar/GalleryBar';
-import { useAuth } from '../contexts/AuthContext';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchImages } from '../redux/features/imagesSlice.js';
 
@@ -8,7 +7,7 @@ import GalleryDrawingList from '../components/GalleryDrawing/GalleryDrawingList'
 
 export default function Gallery() {
   const images = useSelector((state) => state.images.list);
-  const { currentUser } = useAuth();
+  const { currentUser } = useSelector(state => state.auth);
 
   const dispatch = useDispatch();
   useEffect(() => {

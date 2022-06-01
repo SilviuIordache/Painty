@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import useInterval from '../hooks/useInterval';
-import { useParams, useNavigate, Prompt, Link } from 'react-router-dom';
+import { useParams, useNavigate, Prompt } from 'react-router-dom';
 import { uploadImage } from '../dbservices/images.js';
 import Toolbar from '../components/Toolbar/Toolbar';
 import Canvas from '../components/Canvas/Canvas';
 import ChallengeBar from '../components/ChallengeBar/ChallengeBar';
-import { useAuth } from '../contexts/AuthContext';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import {
@@ -97,7 +96,7 @@ export default function DrawingBoard() {
     saveToDB(dataURL, imageName);
   }
 
-  const { currentUser } = useAuth();
+  const { currentUser } = useSelector((state) => state.auth);
   async function saveToDB(dataURL, imageName) {
     try {
       await uploadImage({
@@ -135,9 +134,7 @@ export default function DrawingBoard() {
         when={isBlocking}
         message={`Are you sure you want to leave this page?`}
       />
-      {gameMode === 'challenge' && (
-        <ChallengeBar endRound={roundEndLogic} />
-      )}
+      {gameMode === 'challenge' && <ChallengeBar endRound={roundEndLogic} />}
       <Canvas />
       <Toolbar
         gameMode={gameMode}

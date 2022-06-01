@@ -1,31 +1,26 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Button, Card, Alert } from 'react-bootstrap';
-import { useAuth } from '../../contexts/AuthContext';
+import { useSelector } from 'react-redux';
+import { register } from '../../dbservices/auth';
 
 export default function Signup() {
   
   const usernameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
-  const { signup } =  useAuth();
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate()
+  const { error, loading } = useSelector((state) => state.auth);
+
 
   async function handleSubmit(e) {
     e.preventDefault();
 
     try {
-      setError('')
-      setLoading(true);
-      await signup(usernameRef.current.value, emailRef.current.value, passwordRef.current.value);
-      setLoading(false);
+      await register(usernameRef.current.value, emailRef.current.value, passwordRef.current.value);
       navigate('/');
     } catch (err) {
       console.log(err)
-      setError(err.message);
-      setLoading(false);
     }
   }
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import copyBlobToClipboard from '../../helpers/copyBlobToClipboard';
 import dataURLtoBlob from '../../helpers/dataURLtoBlob';
 
@@ -10,10 +10,8 @@ export default function ShareButton(props) {
     console.log(img.src);
     const blob = dataURLtoBlob(img.src);
     await copyBlobToClipboard(blob);
-    setCopied(true);
   }
 
-  const [copied, setCopied] = useState(false);
 
   return (
     <span>

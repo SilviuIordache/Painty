@@ -1,20 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Card, Button, Alert } from 'react-bootstrap';
-import { useAuth } from '../../contexts/AuthContext';
+import { useSelector, useDispatch } from 'react-redux';
+import { signOut } from '../../redux/features/authSlice.js';
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function Profile() {
-  const [error, setError] = useState('');
-  const { currentUser, logout } = useAuth();
+  const { currentUser } = useSelector(state => state.auth);
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { error } = useSelector((state) => state.auth);
 
   async function handleLogout() {
-    setError('');
     try {
-      await logout();
+      await dispatch(signOut())
       navigate('/login');
-    } catch {
-      setError('Failed to logout');
+    } catch(err) {
+      console.log(err)
     }
   }
 
