@@ -1,6 +1,7 @@
+import { db } from '../firebase';
 import { auth } from '../firebase';
+import { addDoc, collection } from 'firebase/firestore';
 import {
-  updateProfile,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from 'firebase/auth';
@@ -8,10 +9,15 @@ import {
 import parseLoginResponse from '../helpers/parseLoginResponse'
 
 export async function register(username, email, password) {
-  const response = await createUserWithEmailAndPassword(auth, email, password);
-  return updateProfile(response.user, {
-    displayName: username,
-  });
+  // add user to auth storage
+  const res = await createUserWithEmailAndPassword(auth, email, password);
+
+  // add other profile data to separate storage
+  const profile = {
+    uid: res.user.uid,
+    displayName: username
+  }
+  await addDoc(collection(db, 'users'), profile);
 }
 
 export async function login(email, password) {
