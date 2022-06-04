@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
 import GalleryBar from '../components/GalleryBar/GalleryBar';
+import GalleryDrawing from '../components/GalleryDrawing/GalleryDrawing';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchImages } from '../redux/features/imagesSlice.js';
 
-import GalleryDrawingList from '../components/GalleryDrawing/GalleryDrawingList';
-
 export default function Gallery() {
   const images = useSelector((state) => state.images.list);
-  const { currentUser } = useSelector(state => state.auth);
+  const { currentUser } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -35,4 +34,21 @@ export default function Gallery() {
       </div>
     </div>
   );
+}
+
+function GalleryDrawingList(props) {
+  let mappedImages = props.images.map((image) => (
+    <GalleryDrawing
+      path={image.path}
+      alt={image.name}
+      name={image.name}
+      mode={image.mode}
+      size={image.size}
+      id={image.id}
+      key={image.id}
+      deleteCallback={props.deleteCallback}
+    />
+  ));
+
+  return mappedImages;
 }
