@@ -46,6 +46,7 @@ function GalleryDrawingList(props) {
       size={image.size}
       id={image.id}
       key={image.id}
+      authorID={image.authorID}
       deleteCallback={props.deleteCallback}
     />
   ));

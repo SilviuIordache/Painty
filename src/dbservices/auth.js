@@ -17,7 +17,7 @@ export async function register(username, email, password) {
     uid: res.user.uid,
     displayName: username
   }
-  await addDoc(collection(db, 'users'), profile);
+  await addDoc(collection(db, 'profiles'), profile);
 }
 
 export async function login(email, password) {

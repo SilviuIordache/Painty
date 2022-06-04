@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DrawingButtons from "../DrawingButtons/DrawingButtons";
 import DrawingContainer from "./DrawingContainer";
+import TopBanner from './TopBanner';
+import BottomBanner from './BottomBanner';
 
 export default function GalleryDrawing(props) {
   const navigate = useNavigate();
@@ -32,13 +34,13 @@ export default function GalleryDrawing(props) {
       onClick={goToDrawingDetails}
     >
 
-      <DrawingTitle mode={props.mode} name={props.name} size={props.size} />
-
+      <TopBanner authorID={props.authorID}/>
       <DrawingContainer
         name={props.name}
         id={props.id}
         path={props.path}
       />
+      <BottomBanner mode={props.mode} name={props.name} size={props.size} />
 
       <DrawingButtons
         id={props.id}
@@ -49,32 +51,6 @@ export default function GalleryDrawing(props) {
         imageHovered={imageHovered}
         dynamic={true}
       />
-    </div>
-  )
-}
-
-
-function DrawingTitle(props) {
-  const style = {
-    backgroundColor: "lightgray",
-    fontSize: "1rem",
-    padding: "0.3rem 0.5rem",
-    display: "flex",
-    justifyContent: "space-between"
-  }
-  const size = (props.size / 1024).toFixed(0)
-  return (
-    <div style={style} className="text-truncate">
-      <div className="d-flex">
-        <div className="me-1">
-          {props.mode === 'challenge' && '⏳'} 
-          {props.mode === 'practice' && '🖌'} 
-        </div>
-        {props.name}
-      </div>
-      <div>
-        {size}KB
-      </div>
     </div>
   )
 }
