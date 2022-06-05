@@ -6,6 +6,10 @@ import { deleteImage } from '../../dbservices/images.js';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchImages } from '../../redux/features/imagesSlice.js';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import DownloadIcon from '@mui/icons-material/Download';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function OptionsMenu(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -77,8 +81,18 @@ export default function OptionsMenu(props) {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleDownload}>Download</MenuItem>
-        <MenuItem onClick={handleDelete}>Delete</MenuItem>
+        <MenuItem onClick={handleDownload}>
+          <ListItemIcon>
+            <DownloadIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText>Download</ListItemText>
+        </MenuItem>
+        <MenuItem onClick={handleDelete}>
+        <ListItemIcon>
+            <DeleteIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText>Delete</ListItemText>
+        </MenuItem>
       </Menu>
     </div>
   );
