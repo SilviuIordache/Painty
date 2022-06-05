@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { deleteImage } from '../../dbservices/images.js';
@@ -10,6 +10,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import DownloadIcon from '@mui/icons-material/Download';
 import DeleteIcon from '@mui/icons-material/Delete';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 export default function OptionsMenu(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -63,15 +64,15 @@ export default function OptionsMenu(props) {
 
   return (
     <div>
-      <Button
+      <IconButton
         id="basic-button"
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        OPT
-      </Button>
+        <MoreHorizIcon fontSize="small" />
+      </IconButton>
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}

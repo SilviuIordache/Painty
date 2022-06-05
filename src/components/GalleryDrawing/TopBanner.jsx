@@ -10,11 +10,13 @@ export default function TopBanner(props) {
     fontSize: "1rem",
     padding: "0.3rem 0.5rem",
     display: "flex",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    alignItems: "center",
+    minHeight: "3rem"
   }
 
   return (
-    <div style={style} className="text-truncate">
+    <div style={style} className="text-truncate d-flex">
       <div className="d-flex">
         <AuthorName authorID={props.authorID}/>
       </div>
