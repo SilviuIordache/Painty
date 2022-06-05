@@ -132,7 +132,7 @@ export default function DrawingBoard() {
     <div className="drawing-board">
       <Prompt
         when={isBlocking}
-        message={`Are you sure you want to leave this page?`}
+        message={`Leave this page? Unsaved work could be lost.`}
       />
       {gameMode === 'challenge' && <ChallengeBar endRound={roundEndLogic} />}
       <Canvas />
