@@ -1,7 +1,10 @@
-import { useEffect, useState } from 'react';
-import { getUserProfile } from '../../dbservices/users.js';
+import OptionsMenu from './OptionsMenu.jsx'
+import { useSelector } from 'react-redux';
+import AuthorName from './AuthorName';
 
 export default function TopBanner(props) {
+  const { currentUser } = useSelector(state => state.auth);
+
   const style = {
     backgroundColor: "lightgray",
     fontSize: "1rem",
@@ -10,26 +13,20 @@ export default function TopBanner(props) {
     justifyContent: "space-between"
   }
 
-  const [authorName, setAuthorName] = useState();
-  useEffect(() => {
-    let imageRetrieved = false;
-    const fetchData = async () => {
-      const data = await getUserProfile(props.authorID);
-      if (!imageRetrieved) {
-        setAuthorName(data.displayName);
-      }
-    };
-    fetchData().catch((err) => {
-      console.log(err)
-    });
-    return () => (imageRetrieved = false);
-  }, []);
-
   return (
     <div style={style} className="text-truncate">
       <div className="d-flex">
-        {authorName}
+        <AuthorName authorID={props.authorID}/>
       </div>
+      { props.authorID === currentUser.uid &&
+        <OptionsMenu
+          authorID={props.authorID}
+          id={props.id}
+          path={props.path}
+          name={props.name}
+          mode={props.mode}
+        />
+      }
     </div>
   )
 }

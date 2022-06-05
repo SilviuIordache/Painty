@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function BottomBanner(props) {
   const style = {
     backgroundColor: "lightgray",
@@ -14,7 +16,7 @@ export default function BottomBanner(props) {
           {props.mode === 'challenge' && '⏳'} 
           {props.mode === 'practice' && '🖌'} 
         </div>
-        {props.name}
+        <Link to={`/drawing/${props.id}`} className="me-2">{props.name}</Link>
       </div>
       <div>
         {size}KB

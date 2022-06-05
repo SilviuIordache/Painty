@@ -13,10 +13,6 @@ export default function Gallery() {
     dispatch(fetchImages(currentUser.uid));
   }, [dispatch, currentUser.uid]);
 
-  async function deleteCallback() {
-    dispatch(fetchImages(currentUser.uid));
-  }
-
   return (
     <div className="row bg-secondary p-5">
       <div className="row mb-3">
@@ -29,7 +25,7 @@ export default function Gallery() {
           <p className="text-light">Your saved drawings will appear here.</p>
         )}
         {images.length > 0 && (
-          <GalleryDrawingList images={images} deleteCallback={deleteCallback} />
+          <GalleryDrawingList images={images} />
         )}
       </div>
     </div>
@@ -47,7 +43,6 @@ function GalleryDrawingList(props) {
       id={image.id}
       key={image.id}
       authorID={image.authorID}
-      deleteCallback={props.deleteCallback}
     />
   ));
 

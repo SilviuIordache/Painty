@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from 'react-redux';
 
 export default function Navigation() {
+
   const { currentUser } = useSelector(state => state.auth);
   return (
     <div className="row mb-2 py-3 bg-light rounded d-flex justify-content-between">
@@ -12,7 +13,6 @@ export default function Navigation() {
         <Link to="/feed" className="me-2">Feed</Link>
         { currentUser ?
           <>
-            
             <Link to="/gallery" className="me-2">Gallery</Link>
             <Link to="/profile" className="me-2">{currentUser.displayName}</Link>
           </> :
