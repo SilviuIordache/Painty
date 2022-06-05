@@ -1,9 +1,7 @@
 import OptionsMenu from './OptionsMenu.jsx'
-import { useSelector } from 'react-redux';
 import AuthorName from './AuthorName';
 
 export default function TopBanner(props) {
-  const { currentUser } = useSelector(state => state.auth);
 
   const style = {
     backgroundColor: "lightgray",
@@ -20,7 +18,6 @@ export default function TopBanner(props) {
       <div className="d-flex">
         <AuthorName authorID={props.authorID}/>
       </div>
-      { props.authorID === currentUser.uid &&
         <OptionsMenu
           authorID={props.authorID}
           id={props.id}
@@ -28,7 +25,6 @@ export default function TopBanner(props) {
           name={props.name}
           mode={props.mode}
         />
-      }
     </div>
   )
 }

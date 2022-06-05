@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -14,10 +14,10 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import ImageIcon from '@mui/icons-material/Image';
 
 export default function OptionsMenu(props) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const location = useLocation();
-  const { currentUser } = useSelector(state => state.auth);
+  const { currentUser } = useSelector((state) => state.auth);
 
   let navigate = useNavigate();
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ export default function OptionsMenu(props) {
     event.stopPropagation();
     setAnchorEl(event.currentTarget);
   };
-  
+
   const handleClose = (event) => {
     event.stopPropagation();
     setAnchorEl(null);
@@ -34,7 +34,7 @@ export default function OptionsMenu(props) {
 
   const handleDownload = () => {
     const img = document.getElementById(props.id);
-    const link = document.createElement("a");
+    const link = document.createElement('a');
     link.download = props.name;
     // attach the img src to the link
     link.href = img.src;
@@ -43,28 +43,32 @@ export default function OptionsMenu(props) {
     document.body.removeChild(link);
 
     setAnchorEl(null);
-  }
+  };
 
   const handleDelete = () => {
     const confirmDelete = window.confirm(
-      "Are you sure you want to delete this image?"
+      'Are you sure you want to delete this image?'
     );
     if (!confirmDelete) return;
 
     deleteImage(props.id, props.path);
-    
+
     if (location.pathname.includes('gallery')) {
       dispatch(fetchImages(currentUser.uid));
     } else if (location.pathname.includes('drawing')) {
-      navigate('/gallery')
+      navigate('/gallery');
     }
 
     setAnchorEl(null);
-  }
+  };
 
   const handleNavigateToDetails = () => {
-    navigate(`/drawing/${props.id}`)
-  }
+    navigate(`/drawing/${props.id}`);
+  };
+
+  const [privateOption] = useState(() => {
+    return props.authorID === currentUser.uid;
+  });
 
   return (
     <div>
@@ -107,13 +111,14 @@ export default function OptionsMenu(props) {
           </ListItemIcon>
           <ListItemText>Details</ListItemText>
         </MenuItem>
-
-        <MenuItem onClick={handleDelete}>
-        <ListItemIcon>
-            <DeleteIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Delete</ListItemText>
-        </MenuItem>
+        {privateOption && (
+          <MenuItem onClick={handleDelete}>
+            <ListItemIcon>
+              <DeleteIcon fontSize="small" />
+            </ListItemIcon>
+            <ListItemText>Delete</ListItemText>
+          </MenuItem>
+        )}
       </Menu>
     </div>
   );
