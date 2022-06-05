@@ -111,6 +111,7 @@ export default function OptionsMenu(props) {
           </ListItemIcon>
           <ListItemText>Details</ListItemText>
         </MenuItem>
+
         {privateOption && (
           <MenuItem onClick={handleDelete}>
             <ListItemIcon>
