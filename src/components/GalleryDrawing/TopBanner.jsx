@@ -1,5 +1,5 @@
 import OptionsMenu from './OptionsMenu.jsx'
-import AuthorName from './AuthorName';
+import UserName from './UserName';
 
 export default function TopBanner(props) {
 
@@ -16,7 +16,7 @@ export default function TopBanner(props) {
   return (
     <div style={style} className="text-truncate d-flex">
       <div className="d-flex">
-        <AuthorName authorID={props.authorID}/>
+        <UserName uid={props.authorID}/>
       </div>
         <OptionsMenu
           authorID={props.authorID}

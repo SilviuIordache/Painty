@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getImageDoc } from '../dbservices/images.js';
 import DrawingContainer from '../components/GalleryDrawing/DrawingContainer';
 import OptionsMenu from '../components/GalleryDrawing/OptionsMenu';
-import AuthorName from '../components/GalleryDrawing/AuthorName';
+import UserName from '../components/GalleryDrawing/UserName';
 
 export default function DrawingDetails() {
   const urlParams = useParams();
@@ -40,7 +40,7 @@ export default function DrawingDetails() {
             <div>
               <h5 className="mb-4 text-break">{drawing.name.toUpperCase()}</h5>
               <div>
-                <b>Author: </b> <AuthorName authorID={drawing.authorID} />
+                <b>Author: </b> <UserName uid={drawing.authorID} />
               </div>
               <div>
                 <b>Game mode: </b>

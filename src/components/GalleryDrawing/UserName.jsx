@@ -7,7 +7,7 @@ export default function AuthorName(props) {
   useEffect(() => {
     let authorRetrieved = false;
     const fetchData = async () => {
-      const data = await getUserProfile(props.authorID);
+      const data = await getUserProfile(props.uid);
       if (!authorRetrieved) {
         setAuthorName(data.displayName);
       }
@@ -16,7 +16,7 @@ export default function AuthorName(props) {
       console.log(err)
     });
     return () => (authorRetrieved = false);
-  }, [props.authorID]);
+  }, [props.uid]);
 
   return <div className="d-inline">{authorName}</div>;
 }

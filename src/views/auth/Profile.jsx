@@ -3,6 +3,8 @@ import { Card, Button, Alert } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { signOut } from '../../redux/features/authSlice.js';
 import { Link, useNavigate } from 'react-router-dom';
+import UserName from '../../components/GalleryDrawing/UserName';
+
 
 export default function Profile() {
   const { currentUser } = useSelector(state => state.auth);
@@ -36,7 +38,7 @@ export default function Profile() {
             <strong>Email: </strong> {currentUser.email}
           </p>
           <p>
-            <strong>Username: </strong> {currentUser.displayName}
+            <strong>Username: </strong> <UserName uid={currentUser.uid}/>
           </p>
           <p>
             <strong>Image: </strong>

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useSelector } from 'react-redux';
+import UserName from '../GalleryDrawing/UserName';
 
 export default function Navigation() {
 
@@ -14,7 +15,9 @@ export default function Navigation() {
         { currentUser ?
           <>
             <Link to="/gallery" className="me-2">Gallery</Link>
-            <Link to="/profile" className="me-2">{currentUser.displayName}</Link>
+            <Link to="/profile" className="me-2">
+              <UserName uid={currentUser.uid}/>
+            </Link>
           </> :
           <>
             <Link to="/signup" className="me-2">Sign Up</Link>
