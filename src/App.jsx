@@ -4,7 +4,7 @@ import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import MainMenu from './views/MainMenu';
 import DrawingBoard from './views/DrawingBoard';
 import Gallery from './views/Gallery';
-import Feed from './views/Feed';
+import Explore from './views/Explore';
 
 import DrawingDetails from './views/DrawingDetails';
 import Signup from './views/auth/Signup';
@@ -50,7 +50,7 @@ function App() {
             <PrivateRoute path="/profile">
               <Route element={<Profile />} />
             </PrivateRoute>
-            <Route path="/feed" element={<Feed />} />
+            <Route path="/explore" element={<Explore />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
