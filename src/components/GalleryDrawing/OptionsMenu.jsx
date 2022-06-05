@@ -11,6 +11,7 @@ import ListItemText from '@mui/material/ListItemText';
 import DownloadIcon from '@mui/icons-material/Download';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import ImageIcon from '@mui/icons-material/Image';
 
 export default function OptionsMenu(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -20,7 +21,6 @@ export default function OptionsMenu(props) {
 
   let navigate = useNavigate();
   const dispatch = useDispatch();
-
 
   const handleClick = (event) => {
     event.stopPropagation();
@@ -62,6 +62,10 @@ export default function OptionsMenu(props) {
     setAnchorEl(null);
   }
 
+  const handleNavigateToDetails = () => {
+    navigate(`/drawing/${props.id}`)
+  }
+
   return (
     <div>
       <IconButton
@@ -76,6 +80,14 @@ export default function OptionsMenu(props) {
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
         open={open}
         onClose={handleClose}
         MenuListProps={{
@@ -88,6 +100,14 @@ export default function OptionsMenu(props) {
           </ListItemIcon>
           <ListItemText>Download</ListItemText>
         </MenuItem>
+
+        <MenuItem onClick={handleNavigateToDetails}>
+          <ListItemIcon>
+            <ImageIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText>Details</ListItemText>
+        </MenuItem>
+
         <MenuItem onClick={handleDelete}>
         <ListItemIcon>
             <DeleteIcon fontSize="small" />
