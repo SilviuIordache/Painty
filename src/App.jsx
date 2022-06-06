@@ -13,12 +13,16 @@ import ForgotPassword from './views/auth/ForgotPassword';
 import Profile from './views/auth/Profile';
 
 import Navigation from './components/Navigation/Navigation';
-import AuthCheck from './components/AuthCheck/AuthCheck'
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Container } from 'react-bootstrap';
-
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './firebase';
+import parseLoginResponse from './helpers/parseLoginResponse';
+import { setCurrentUser, signOut } from './redux/features/authSlice.js';
 
 const style = {
   backgroundColor: 'lightgray',
@@ -26,13 +30,26 @@ const style = {
   maxWidth: '60rem',
 };
 function App() {
-  return (
-    // delete top wrapper?
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const parsedUser = parseLoginResponse(user);
+        dispatch(setCurrentUser(parsedUser));
+      } else {
+        dispatch(signOut);
+      }
+      setIsLoading(false);
+    });
+  }, [dispatch]);
+
+  return ( isLoading ? <div/> :
     <div className="App">
       <ToastContainer />
       <Container style={style}>
         <BrowserRouter>
-        <AuthCheck/>
           <Navigation />
           <Routes>
             <PrivateRoute exact path="/">
