@@ -15,7 +15,7 @@ export default function Profile() {
 
   async function handleLogout() {
     try {
-      await dispatch(signOut())
+      await dispatch(signOut());
       navigate('/login');
     } catch(err) {
       console.log(err)

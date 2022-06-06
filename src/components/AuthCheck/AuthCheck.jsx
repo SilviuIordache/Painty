@@ -16,7 +16,6 @@ export default function AuthCheck() {
       if (user) {
         const parsedUser = parseLoginResponse(user);
         dispatch(setCurrentUser(parsedUser));
-        navigate('/');
       } else {
         dispatch(signOut);
         navigate('/login');
