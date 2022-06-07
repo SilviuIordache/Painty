@@ -3,23 +3,30 @@ import GalleryBar from '../components/GalleryBar/GalleryBar';
 import GalleryDrawing from '../components/GalleryDrawing/GalleryDrawing';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchImages } from '../redux/features/imagesSlice.js';
+import { useLocation } from 'react-router-dom';
+
 
 export default function Gallery() {
   const images = useSelector((state) => state.images.list);
   const { currentUser } = useSelector((state) => state.auth);
+  const location = useLocation();
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchImages(currentUser.uid));
-  }, [dispatch, currentUser.uid]);
+    if (location.pathname.includes('gallery')) {
+      dispatch(fetchImages(currentUser.uid));
+    } else {
+      dispatch(fetchImages());
+    }
+  }, [dispatch, currentUser.uid, location]);
 
   return (
     <div className="row bg-secondary p-5">
-      <div className="row mb-3">
+      {/* <div className="row mb-3">
         <div className="col-12">
           <GalleryBar images={images} />
         </div>
-      </div>
+      </div> */}
       <div className="row">
         {images.length === 0 && (
           <p className="text-light">Your saved drawings will appear here.</p>

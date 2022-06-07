@@ -46,13 +46,18 @@ export async function getImageFile(path) {
 export async function getImages(userID) {
   async function getImagesFromDB() {
     // needs indexes created in firebase to work
-    const q = await query(
-      collection(db, 'images'),
-      where('authorID', '==', userID),
-      orderBy('date', 'desc'),
-      // limit(3),
-      // startAfter(2),
-    );
+
+    let q;
+    if (userID) {
+      q = query(
+        collection(db, 'images'),
+        where('authorID', '==', userID),
+        orderBy('date', 'desc')
+      );
+    } else {
+      q = query(collection(db, 'images'), orderBy('date', 'desc'));
+    }
+
     const querySnapshot = await getDocs(q);
 
     let images = [];
@@ -64,21 +69,6 @@ export async function getImages(userID) {
     });
     return images;
   }
-
-  // function storeImagesToLocalStorage(images) {
-  //   const storageObj = {
-  //     images,
-  //   };
-  //   localStorage.setItem('paintyCache', JSON.stringify(storageObj));
-  // }
-
-  // function getImagesFromLocalStorage() {
-  //   const storage = JSON.parse(localStorage.getItem('paintyCache'));
-  //   const images = storage.images;
-  //   return images;
-  // }
-  // const images = await getImagesFromLocalStorage();
-
   const images = await getImagesFromDB();
   return images;
 }
@@ -127,9 +117,9 @@ export async function deleteImage(docID, imagePath) {
     const desertRef = ref(storage, `${imagePath}`);
     await deleteObject(desertRef);
 
-    toast.success("Image deleted");
+    toast.success('Image deleted');
   } catch (err) {
     console.log(err);
-    toast.error("Error deleting image. Please retry");
+    toast.error('Error deleting image. Please retry');
   }
 }

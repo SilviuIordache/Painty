@@ -12,7 +12,10 @@ export default function DrawingContainer(props) {
       }
     };
     fetchData().catch((err) => {});
-    return () => (imageRetrieved = false);
+    return () => {
+      imageRetrieved = false;
+      setImageSrc()
+    }
   }, [props.path]);
 
   return (

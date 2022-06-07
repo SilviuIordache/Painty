@@ -11,8 +11,7 @@ export const fetchImages = createAsyncThunk(
 
 const initialState = {
   list: [],
-  status: 'idle',
-  cachedImages: false
+  status: 'idle'
 };
 
 export const imagesSlice = createSlice({
@@ -23,8 +22,7 @@ export const imagesSlice = createSlice({
       state.status = 'loading';
     },
     [fetchImages.fulfilled]: (state, { payload }) => {
-      state.list = payload;
-      state.cachedImages = true;
+      state.list = payload
       state.status = 'success';
     },
     [fetchImages.rejected]: (state, action) => {
