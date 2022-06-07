@@ -53,11 +53,13 @@ export default function OptionsMenu(props) {
 
     deleteImage(props.id, props.path);
 
-    if (location.pathname.includes('gallery')) {
-      dispatch(fetchImages(currentUser.uid));
-    } else if (location.pathname.includes('drawing')) {
+    if (location.pathname.includes('drawing')) {
       navigate('/gallery');
-    }
+    } else if (location.pathname.includes('gallery')) {
+      dispatch(fetchImages(currentUser.uid));
+    } else if (location.pathname.includes('explore')) {
+      dispatch(fetchImages());
+    } 
 
     setAnchorEl(null);
   };
