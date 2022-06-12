@@ -32,6 +32,7 @@ export default function GalleryDrawing(props) {
         name={props.name}
         size={props.size}
         id={props.id}
+        likes={props.likes}
       />
     </div>
   );

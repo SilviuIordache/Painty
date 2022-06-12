@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import LikeButton from './LikeButton'
 
 export default function BottomBanner(props) {
   const style = {
@@ -6,9 +7,9 @@ export default function BottomBanner(props) {
     fontSize: "1rem",
     padding: "0.3rem 0.5rem",
     display: "flex",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    alignItems: "center"
   }
-  const size = (props.size / 1024).toFixed(0)
   return (
     <div style={style} className="text-truncate">
       <div className="d-flex">
@@ -19,7 +20,7 @@ export default function BottomBanner(props) {
         <Link to={`/drawing/${props.id}`} className="me-2">{props.name}</Link>
       </div>
       <div>
-        {size}KB
+        <LikeButton likes={props.likes} id={props.id}/>
       </div>
     </div>
   )

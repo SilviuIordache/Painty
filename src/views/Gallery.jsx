@@ -50,6 +50,7 @@ function GalleryDrawingList(props) {
       id={image.id}
       key={image.id}
       authorID={image.authorID}
+      likes={image.likes}
     />
   ));
 
