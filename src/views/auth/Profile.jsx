@@ -31,18 +31,18 @@ export default function Profile() {
         <Card.Body>
           <h1 className="mb-4">Profile</h1>
           {error && <Alert variant="danger">{error}</Alert>}
-          <p>
+          <div>
             <strong>ID: </strong> {currentUser.uid}
-          </p>
-          <p>
+          </div>
+          <div>
             <strong>Email: </strong> {currentUser.email}
-          </p>
-          <p>
+          </div>
+          <div>
             <strong>Username: </strong> <UserName uid={currentUser.uid}/>
-          </p>
-          <p>
+          </div>
+          <div>
             <strong>Image: </strong>
-          </p>
+          </div>
           <Link to="/update-profile" className="btn btn-primary w-100 mt-3">
             Update Profile
           </Link>
