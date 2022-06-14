@@ -23,11 +23,6 @@ import { auth } from './firebase';
 import parseLoginResponse from './helpers/parseLoginResponse';
 import { setCurrentUser, signOut } from './redux/features/authSlice.js';
 
-const style = {
-  backgroundColor: 'lightgray',
-  minHeight: '100vh',
-  maxWidth: '60rem',
-};
 function App() {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
@@ -44,10 +39,12 @@ function App() {
     });
   }, [dispatch]);
 
-  return ( isLoading ? <div/> :
-    <div className="App">
+  return isLoading ? (
+    <div />
+  ) : (
+    <div className="App" style={{ backgroundColor: '#525252'}}>
       <ToastContainer />
-      <Container style={style}>
+      <Container style={{ minHeight: '100vh', maxWidth: '60rem' }}>
         <BrowserRouter>
           <Navigation />
           <Routes>
