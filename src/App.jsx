@@ -4,7 +4,6 @@ import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import MainMenu from './views/MainMenu';
 import DrawingBoard from './views/DrawingBoard';
 import Gallery from './views/Gallery';
-import Explore from './views/Explore';
 
 import DrawingDetails from './views/DrawingDetails';
 import Signup from './views/auth/Signup';
