@@ -59,7 +59,7 @@ export default function OptionsMenu(props) {
       dispatch(fetchImages(currentUser.uid));
     } else if (location.pathname.includes('explore')) {
       dispatch(fetchImages());
-    } 
+    }
 
     setAnchorEl(null);
   };
@@ -70,6 +70,10 @@ export default function OptionsMenu(props) {
 
   const [privateOption] = useState(() => {
     return props.authorID === currentUser.uid;
+  });
+
+  const [locationIsDetails] = useState(() => {
+    return location.pathname.includes('drawing');
   });
 
   return (
@@ -107,12 +111,14 @@ export default function OptionsMenu(props) {
           <ListItemText>Download</ListItemText>
         </MenuItem>
 
-        <MenuItem onClick={handleNavigateToDetails}>
-          <ListItemIcon>
-            <ImageIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Details</ListItemText>
-        </MenuItem>
+        {!locationIsDetails && (
+          <MenuItem onClick={handleNavigateToDetails}>
+            <ListItemIcon>
+              <ImageIcon fontSize="small" />
+            </ListItemIcon>
+            <ListItemText>Details</ListItemText>
+          </MenuItem>
+        )}
 
         {privateOption && (
           <MenuItem onClick={handleDelete}>
