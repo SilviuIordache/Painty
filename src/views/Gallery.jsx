@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import GalleryBar from '../components/GalleryBar/GalleryBar';
+// import GalleryBar from '../components/GalleryBar/GalleryBar';
 import GalleryDrawing from '../components/GalleryDrawing/GalleryDrawing';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchImages } from '../redux/features/imagesSlice.js';
