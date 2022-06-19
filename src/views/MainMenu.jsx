@@ -20,7 +20,7 @@ export default function MainMenu() {
   }, [dispatch, currentUser.uid]);
 
   return (
-    <Grid container spacing={2} sx={{ mt: '1rem' }}>
+    <Grid container spacing={2}>
       {/* <ChallengeCard /> */}
       <Grid item xs={12} lg={6}>
         <Grid container spacing={2}>

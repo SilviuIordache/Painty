@@ -1,13 +1,18 @@
 import React from 'react';
-import { Card, Button, Alert } from 'react-bootstrap';
+import { Alert } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { signOut } from '../../redux/features/authSlice.js';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import UserName from '../../components/GalleryDrawing/UserName';
-
+import Grid from '@mui/material/Grid';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 
 export default function Profile() {
-  const { currentUser } = useSelector(state => state.auth);
+  const { currentUser } = useSelector((state) => state.auth);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -17,40 +22,59 @@ export default function Profile() {
     try {
       await dispatch(signOut());
       navigate('/login');
-    } catch(err) {
-      console.log(err)
+    } catch (err) {
+      console.log(err);
     }
   }
 
-  const style = {
-    minWidth: '30rem',
-  };
+  function goToUpdateProfile() {
+    navigate('/update-profile');
+  }
+
   return (
-    <div className="d-flex justify-content-center">
-      <Card style={style}>
-        <Card.Body>
-          <h1 className="mb-4">Profile</h1>
-          {error && <Alert variant="danger">{error}</Alert>}
-          <div>
-            <strong>ID: </strong> {currentUser.uid}
-          </div>
-          <div>
-            <strong>Email: </strong> {currentUser.email}
-          </div>
-          <div>
-            <strong>Username: </strong> <UserName uid={currentUser.uid}/>
-          </div>
-          <div>
-            <strong>Image: </strong>
-          </div>
-          <Link to="/update-profile" className="btn btn-primary w-100 mt-3">
-            Update Profile
-          </Link>
-        </Card.Body>
-        <Button variant="link" onClick={handleLogout}>
-          Log out
-        </Button>
-      </Card>
-    </div>
+    <Grid container spacing={2}>
+      <Grid item xs={12} lg={8}>
+        <Card sx={{ height: '100%' }}>
+          <CardContent>
+            <h1 className="mb-4">Profile</h1>
+            {error && <Alert variant="danger">{error}</Alert>}
+            <div>
+              <strong>ID: </strong> {currentUser.uid}
+            </div>
+            <div>
+              <strong>Email: </strong> {currentUser.email}
+            </div>
+            <div>
+              <strong>Username: </strong> <UserName uid={currentUser.uid} />
+            </div>
+            <div>
+              <strong>Image: </strong>
+            </div>
+          </CardContent>
+        </Card>
+      </Grid>
+      <Grid item xs={12} lg={4}>
+        <Card sx={{ height: '100%', minHeight: '10rem', display: 'flex', justifyContent: 'space-between', flexDirection: 'column' }}>
+          <CardContent>
+            <h1 className="mb-4">Actions</h1>
+          </CardContent>
+          <CardActions sx={{ justifyContent: 'space-between' }}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between'}}>
+              <Button
+                variant="contained"
+                size="large"
+                onClick={goToUpdateProfile}
+              >
+                Update Profile
+              </Button>
+
+              <Button variant="text" size="large" onClick={handleLogout}>
+                Log out
+              </Button>
+            </Box>
+          </CardActions>
+        </Card>
+      </Grid>
+    </Grid>
   );
 }
