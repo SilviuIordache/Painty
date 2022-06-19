@@ -5,20 +5,18 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 export default function GalleryCard() {
   const navigate = useNavigate();
-  const images = useSelector(state => state.images.list);
 
   return (
-    <Card>
+    <Card sx={{ height: '100%' }}>
       <CardContent>
         <Typography variant="h5" component="div">
-          Gallery
+          Online Gallery
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          {images.length} drawing(s)
+          Latest community drawings
         </Typography>
       </CardContent>
       <CardActions>
@@ -27,9 +25,9 @@ export default function GalleryCard() {
           onClick={() => {
             navigate('/gallery');
           }}
-          variant="contained"
+          variant="outlined"
         >
-          View
+          See more
         </Button>
       </CardActions>
     </Card>

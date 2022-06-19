@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchImages } from '../redux/features/imagesSlice.js';
 import { useLocation } from 'react-router-dom';
 
-
 export default function Gallery() {
   const images = useSelector((state) => state.images.list);
   const { currentUser } = useSelector((state) => state.auth);
@@ -21,7 +20,7 @@ export default function Gallery() {
   }, [dispatch, currentUser.uid, location]);
 
   return (
-    <div className="row bg-secondary p-5">
+    <div className="row p-5">
       {/* <div className="row mb-3">
         <div className="col-12">
           <GalleryBar images={images} />
@@ -31,9 +30,7 @@ export default function Gallery() {
         {images.length === 0 && (
           <p className="text-light">Your saved drawings will appear here.</p>
         )}
-        {images.length > 0 && (
-          <GalleryDrawingList images={images} />
-        )}
+        {images.length > 0 && <GalleryDrawingList images={images} />}
       </div>
     </div>
   );
