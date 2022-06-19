@@ -1,17 +1,17 @@
-import * as React from "react";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
+import * as React from 'react';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
 export default function BasicCard(props) {
   const cardStyle = {
-    textAlign: "left",
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
+    textAlign: 'left',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
   };
   return (
     <Card sx={cardStyle}>
@@ -25,7 +25,7 @@ export default function BasicCard(props) {
         <Typography variant="body2">{props.description}</Typography>
       </CardContent>
       <CardActions>
-        <Button size="large" onClick={props.buttonCallback} variant="outlined">
+        <Button size="large" onClick={props.buttonCallback} variant="contained">
           {props.buttonText}
         </Button>
       </CardActions>
