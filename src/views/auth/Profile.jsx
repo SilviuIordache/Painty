@@ -27,10 +27,6 @@ export default function Profile() {
     }
   }
 
-  function goToUpdateProfile() {
-    navigate('/update-profile');
-  }
-
   return (
     <Grid container spacing={2}>
       <Grid item xs={12} lg={8}>
