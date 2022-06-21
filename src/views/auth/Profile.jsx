@@ -4,12 +4,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { signOut } from '../../redux/features/authSlice.js';
 import { useNavigate } from 'react-router-dom';
 import UserName from '../../components/GalleryDrawing/UserName';
-import Grid from '@mui/material/Grid';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
+import {
+  Grid,
+  Card,
+  CardContent,
+  CardActions,
+  Button,
+  Box,
+} from '@mui/material';
 
 export default function Profile() {
   const { currentUser } = useSelector((state) => state.auth);
@@ -47,17 +49,21 @@ export default function Profile() {
         </Card>
       </Grid>
       <Grid item xs={12} lg={4}>
-        <Card sx={{ height: '100%', minHeight: '10rem', display: 'flex', justifyContent: 'space-between', flexDirection: 'column' }}>
+        <Card
+          sx={{
+            height: '100%',
+            minHeight: '10rem',
+            display: 'flex',
+            justifyContent: 'space-between',
+            flexDirection: 'column',
+          }}
+        >
           <CardContent>
             <h1 className="mb-4">Actions</h1>
           </CardContent>
           <CardActions sx={{ justifyContent: 'space-between' }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between'}}>
-              <Button
-                variant="contained"
-                size="large"
-                onClick={handleLogout}
-              >
+            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Button variant="contained" size="large" onClick={handleLogout}>
                 Log out
               </Button>
             </Box>
