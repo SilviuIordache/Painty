@@ -47,9 +47,6 @@ export default function Profile() {
             <div>
               <strong>Username: </strong> <UserName uid={currentUser.uid} />
             </div>
-            <div>
-              <strong>Image: </strong>
-            </div>
           </CardContent>
         </Card>
       </Grid>
