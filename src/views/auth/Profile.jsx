@@ -1,10 +1,10 @@
 import React from 'react';
-import { Alert } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { signOut } from '../../redux/features/authSlice.js';
 import { useNavigate } from 'react-router-dom';
 import UserName from '../../components/GalleryDrawing/UserName';
 import {
+  Alert,
   Grid,
   Card,
   CardContent,
@@ -35,7 +35,7 @@ export default function Profile() {
         <Card sx={{ height: '100%' }}>
           <CardContent>
             <h1 className="mb-4">Profile</h1>
-            {error && <Alert variant="danger">{error}</Alert>}
+            {error && <Alert severity="error">{error}</Alert>}
             <div>
               <strong>ID: </strong> {currentUser.uid}
             </div>
