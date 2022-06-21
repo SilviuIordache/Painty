@@ -63,12 +63,8 @@ export default function Profile() {
               <Button
                 variant="contained"
                 size="large"
-                onClick={goToUpdateProfile}
+                onClick={handleLogout}
               >
-                Update Profile
-              </Button>
-
-              <Button variant="text" size="large" onClick={handleLogout}>
                 Log out
               </Button>
             </Box>
