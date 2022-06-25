@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { signUp } from '../../redux/features/authSlice.js';
+import { signUp, resetErrorAndMessage } from '../../redux/features/authSlice.js';
 import {
   Alert,
   Grid,
@@ -13,6 +13,8 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import { useEffect } from 'react';
+
 export default function Signup() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -21,6 +23,10 @@ export default function Signup() {
   const [username, setUsername] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+
+  useEffect(() => {
+    dispatch(resetErrorAndMessage());
+  }, [dispatch])
 
   async function handleSubmit(e) {
     e.preventDefault();

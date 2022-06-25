@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { passReset } from '../../redux/features/authSlice.js';
+import { passReset, resetErrorAndMessage } from '../../redux/features/authSlice.js';
 
 import {
   Alert,
@@ -15,11 +15,17 @@ import {
   Typography,
 } from '@mui/material';
 
+import { useEffect } from 'react';
+
 export default function ForgotPassword() {
   const dispatch = useDispatch();
 
   const { error, message, loading } = useSelector((state) => state.auth);
   const [email, setEmail] = useState();
+
+  useEffect(() => {
+    dispatch(resetErrorAndMessage());
+  }, [dispatch])
 
   async function handleSubmit(e) {
     e.preventDefault();
