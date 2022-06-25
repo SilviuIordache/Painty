@@ -23,7 +23,7 @@ export default function GalleryCard() {
         <Button
           size="large"
           onClick={() => {
-            navigate('/gallery');
+            navigate('/explore');
           }}
           variant="outlined"
         >
