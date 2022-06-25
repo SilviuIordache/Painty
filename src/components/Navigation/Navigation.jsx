@@ -16,34 +16,36 @@ export default function Navigation() {
   };
   return (
     <AppBar position="absolute">
-      <Toolbar>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            width: '100%',
-          }}
-        >
-          <Link to="/" style={linkStyle}>
-            <HomeIcon fontSize="large" />
-          </Link>
-          {currentUser && (
-            <>
-              <Link to="/explore" style={linkStyle}>
-                <ExploreIcon fontSize="large" />
-              </Link>
+      <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+        <Toolbar sx={{ maxWidth: '60rem', width: '100%' }}>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              width: '100%',
+            }}
+          >
+            <Link to="/" style={linkStyle}>
+              <HomeIcon fontSize="large" />
+            </Link>
+            {currentUser && (
+              <>
+                <Link to="/explore" style={linkStyle}>
+                  <ExploreIcon fontSize="large" />
+                </Link>
 
-              <Link to="/draw/practice" style={linkStyle}>
-                <BrushIcon fontSize="large" />
-              </Link>
+                <Link to="/draw/practice" style={linkStyle}>
+                  <BrushIcon fontSize="large" />
+                </Link>
 
-              <Link to="/profile" style={linkStyle}>
-                <AccountCircleIcon fontSize="large" />
-              </Link>
-            </>
-          )}
-        </Box>
-      </Toolbar>
+                <Link to="/profile" style={linkStyle}>
+                  <AccountCircleIcon fontSize="large" />
+                </Link>
+              </>
+            )}
+          </Box>
+        </Toolbar>
+      </Box>
     </AppBar>
   );
 }
