@@ -15,12 +15,11 @@ import {
 } from '@mui/material';
 
 export default function Login() {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { error, loading } = useSelector((state) => state.auth);
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -54,7 +53,7 @@ export default function Login() {
             >
               Log In
             </Typography>
-            {error && <Alert variant="danger">{error}</Alert>}
+
             <form onSubmit={handleSubmit}>
               <Box
                 sx={{
@@ -86,6 +85,7 @@ export default function Login() {
               >
                 Log In
               </Button>
+              {error && <Alert severity="error" sx={{mt: '0.5rem'}}>{error}</Alert>}
             </form>
           </CardContent>
           <CardActions sx={{ display: 'flex', flexDirection: 'column' }}>
