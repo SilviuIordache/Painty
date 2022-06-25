@@ -1,5 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { login, logout } from '../../dbservices/auth.js';
+import { login, logout, register } from '../../dbservices/auth.js';
+
+export const signUp = createAsyncThunk(
+  'auth/register',
+  async ({ username, email, password }) => {
+    const res = await register(username, email, password);
+    return res;
+  }
+);
 
 export const signIn = createAsyncThunk(
   'auth/login',
@@ -9,12 +17,10 @@ export const signIn = createAsyncThunk(
   }
 );
 
-export const signOut = createAsyncThunk(
-  'auth/logout',
-  async () => {
-    await logout();
-  }
-)
+export const signOut = createAsyncThunk('auth/logout', async () => {
+  await logout();
+});
+
 const initialState = {
   currentUser: null,
   logged: false,
@@ -32,6 +38,18 @@ export const authSlice = createSlice({
     },
   },
   extraReducers: {
+    [signUp.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [signUp.fulfilled]: (state) => {
+      state.loading = false;
+      state.logged = true;
+      state.error = '';
+    },
+    [signUp.rejected]: (state, action) => {
+      state.error = 'Register failed';
+      state.loading = false;
+    },
     [signIn.pending]: (state, action) => {
       state.loading = true;
     },
@@ -42,7 +60,7 @@ export const authSlice = createSlice({
       state.error = '';
     },
     [signIn.rejected]: (state, action) => {
-      state.error = 'Invalid credentials'
+      state.error = 'Invalid credentials';
       state.loading = false;
     },
     [signOut.pending]: (state, action) => {

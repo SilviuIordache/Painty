@@ -85,7 +85,11 @@ export default function Login() {
               >
                 Log In
               </Button>
-              {error && <Alert severity="error" sx={{mt: '0.5rem'}}>{error}</Alert>}
+              {error && (
+                <Alert severity="error" sx={{ mt: '0.5rem' }}>
+                  {error}
+                </Alert>
+              )}
             </form>
           </CardContent>
           <CardActions sx={{ display: 'flex', flexDirection: 'column' }}>

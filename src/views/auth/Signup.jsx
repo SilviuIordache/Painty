@@ -1,59 +1,125 @@
-import React, { useRef } from 'react';
-import { Link, useNavigate } from "react-router-dom";
-import { Form, Button, Card, Alert } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
-import { register } from '../../dbservices/auth';
-
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { signUp } from '../../redux/features/authSlice.js';
+import {
+  Alert,
+  Grid,
+  Card,
+  CardContent,
+  CardActions,
+  Button,
+  Box,
+  TextField,
+  Typography,
+} from '@mui/material';
 export default function Signup() {
-  
-  const usernameRef = useRef();
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { error, loading } = useSelector((state) => state.auth);
 
+  const [username, setUsername] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
 
   async function handleSubmit(e) {
     e.preventDefault();
 
     try {
-      await register(usernameRef.current.value, emailRef.current.value, passwordRef.current.value);
-      navigate('/');
+      const res = await dispatch(signUp({ username, email, password }));
+      if (!res.error) {
+        navigate('/');
+      }
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   }
 
-  const style = {
-    minWidth: "30rem",
-    paddingBottom: "1rem"
-  }
   return (
-    <div className="d-flex justify-content-center">
-      <Card style={style}>
-        <Card.Body>
-          <h2 className="text-center mb-3">Sign Up</h2>
-          {error && <Alert variant="danger">{error}</Alert>}
-          <Form onSubmit={handleSubmit}>
-            <Form.Group id="username" className="mb-3">
-              <Form.Label>Username</Form.Label>
-              <Form.Control type="text" ref={usernameRef} required></Form.Control>
-            </Form.Group>
-            <Form.Group id="email" className="mb-3">
-              <Form.Label>Email</Form.Label>
-              <Form.Control type="email" ref={emailRef} required></Form.Control>
-            </Form.Group>
-            <Form.Group id="password" className="mb-3">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" ref={passwordRef} required></Form.Control>
-            </Form.Group>
-            <Button disabled={loading} className="w-100 mt-3" type="submit">Sign Up</Button>
-          </Form>
-        </Card.Body>
-        <div className="w-100 text-center mt-2">
-          Already have an account? <Link to="/login">Log In</Link> 
-        </div>
-      </Card>
-    </div>
+    <Grid
+      container
+      spacing={2}
+      sx={{ display: 'flex', justifyContent: 'center' }}
+    >
+      <Grid item xs={12} sm={8} md={6}>
+        <Card>
+          <CardContent>
+            <Typography
+              variant="h4"
+              component="div"
+              gutterBottom
+              sx={{ textAlign: 'center' }}
+            >
+              Sign Up
+            </Typography>
+
+            <form onSubmit={handleSubmit} autoComplete="off">
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                }}
+              >
+                <TextField
+                  label="Username"
+                  onChange={(e) => setUsername(e.target.value)}
+                  margin="normal"
+                  inputProps={{
+                    autoComplete: 'name',
+                    form: {
+                      autocomplete: 'off',
+                    },
+                  }}
+                />
+                <TextField
+                  label="Email"
+                  onChange={(e) => setEmail(e.target.value)}
+                  margin="normal"
+                  inputProps={{
+                    autoComplete: 'username',
+                    form: {
+                      autocomplete: 'off',
+                    },
+                  }}
+                />
+                <TextField
+                  id="password"
+                  label="Password"
+                  type="password"
+                  onChange={(e) => setPassword(e.target.value)}
+                  margin="normal"
+                  inputProps={{
+                    autoComplete: 'new-password',
+                    form: {
+                      autocomplete: 'off',
+                    },
+                  }}
+                />
+              </Box>
+              <Button
+                disabled={loading}
+                size="large"
+                variant="contained"
+                type="submit"
+                sx={{ width: '100%', mt: '1rem' }}
+              >
+                Sign Up
+              </Button>
+              {error && (
+                <Alert severity="error" sx={{ mt: '0.5rem' }}>
+                  {error}
+                </Alert>
+              )}
+            </form>
+          </CardContent>
+          <CardActions sx={{ display: 'flex', flexDirection: 'column' }}>
+            <Box sx={{ mb: '0.5rem' }}>
+              <span>Already have an account? </span>
+              <Link to="/login">Log In</Link>
+            </Box>
+          </CardActions>
+        </Card>
+      </Grid>
+    </Grid>
   );
 }
