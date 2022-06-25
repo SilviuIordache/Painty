@@ -1,5 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { login, logout, register, resetPassword } from '../../dbservices/auth.js';
+import {
+  login,
+  logout,
+  register,
+  resetPassword,
+} from '../../dbservices/auth.js';
 
 export const signUp = createAsyncThunk(
   'auth/register',
@@ -45,6 +50,10 @@ export const authSlice = createSlice({
       state.currentUser = action.payload;
       state.logged = true;
     },
+    resetErrorAndMessage: (state) => {
+      state.error = '';
+      state.message = '';
+    },
   },
   extraReducers: {
     [signUp.pending]: (state, action) => {
@@ -88,15 +97,15 @@ export const authSlice = createSlice({
       state.loading = true;
     },
     [passReset.fulfilled]: (state, action) => {
-      state.message = 'Check your inbox for further instructions'
+      state.message = 'Check your inbox for further instructions';
       state.loading = false;
     },
     [passReset.rejected]: (state, action) => {
-      state.error = 'Failed to reset password'
+      state.error = 'Failed to reset password';
       state.loading = false;
-    }
+    },
   },
 });
 
-export const { setCurrentUser } = authSlice.actions;
+export const { setCurrentUser, resetErrorAndMessage } = authSlice.actions;
 export default authSlice.reducer;
