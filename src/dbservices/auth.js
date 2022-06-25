@@ -9,15 +9,20 @@ import {
 import parseLoginResponse from '../helpers/parseLoginResponse'
 
 export async function register(username, email, password) {
-  // add user to auth storage
-  const res = await createUserWithEmailAndPassword(auth, email, password);
+  try {
+    // add user to auth storage
+    const res = await createUserWithEmailAndPassword(auth, email, password);
+  
+    // add other profile data to separate storage
+    const profile = {
+      uid: res.user.uid,
+      displayName: username
+    }
+    await addDoc(collection(db, 'profiles'), profile);
 
-  // add other profile data to separate storage
-  const profile = {
-    uid: res.user.uid,
-    displayName: username
+  } catch (err) {
+    throw err;
   }
-  await addDoc(collection(db, 'profiles'), profile);
 }
 
 export async function login(email, password) {

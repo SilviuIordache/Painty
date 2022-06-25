@@ -16,8 +16,10 @@ export default function MainMenu() {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.auth);
   useEffect(() => {
-    dispatch(fetchImages(currentUser.uid));
-  }, [dispatch, currentUser.uid]);
+    if (currentUser) {
+      dispatch(fetchImages(currentUser.uid));
+    }
+  }, [dispatch, currentUser]);
 
   return (
     <Grid container spacing={2}>
