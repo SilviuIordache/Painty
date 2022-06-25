@@ -43,13 +43,13 @@ export default function Login() {
       sx={{ display: 'flex', justifyContent: 'center' }}
     >
       <Grid item xs={12} sm={8} md={6}>
-        <Card>
+        <Card sx={{ padding: '1rem 0'}}>
           <CardContent>
             <Typography
               variant="h4"
               component="div"
               gutterBottom
-              sx={{ textAlign: 'center' }}
+              sx={{ textAlign: 'center', fontWeight: 'bold' }}
             >
               Log In
             </Typography>
@@ -96,7 +96,7 @@ export default function Login() {
             <Box sx={{ mb: '0.5rem' }}>
               <Link to="/forgot-password">Forgot password?</Link>
             </Box>
-            <Box sx={{ mb: '0.5rem' }}>
+            <Box>
               <span>Don't have an account? </span>
               <Link to="/signup">Sign Up</Link>
             </Box>

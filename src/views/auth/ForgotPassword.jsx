@@ -1,58 +1,94 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Form, Button, Card, Alert } from 'react-bootstrap';
-// import { useAuth } from '../../contexts/AuthContext';
+import { passReset } from '../../redux/features/authSlice.js';
+
+import {
+  Alert,
+  Grid,
+  Card,
+  CardContent,
+  CardActions,
+  Button,
+  Box,
+  TextField,
+  Typography,
+} from '@mui/material';
 
 export default function ForgotPassword() {
-  const emailRef = useRef();
-  // const { resetPassword } = useAuth();
-  const [error, setError] = useState('');
-  const [message, setMessage] = useState('');
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+
+  const { error, message, loading } = useSelector((state) => state.auth);
+  const [email, setEmail] = useState();
 
   async function handleSubmit(e) {
     e.preventDefault();
-
     try {
-      setError('');
-      setMessage('')
-      setLoading(true);
-      // await resetPassword(emailRef.current.value);
-      setMessage('Check your inbox for further instructions');
+      await dispatch(passReset({email}))
     } catch (err) {
-      setError('Failed to reset password');
+      console.log(err)
     }
-    setLoading(false);
   }
 
-  const style = {
-    minWidth: '30rem',
-    paddingBottom: '1rem',
-  };
   return (
-    <div className="d-flex justify-content-center">
-      <Card style={style}>
-        <Card.Body>
-          <h2 className="text-center mb-3">Password Reset</h2>
-          {error && <Alert variant="danger">{error}</Alert>}
-          {message && <Alert variant="success">{message}</Alert>}
-          <Form onSubmit={handleSubmit}>
-            <Form.Group id="email" className="mb-3">
-              <Form.Label>Email</Form.Label>
-              <Form.Control type="email" ref={emailRef} required></Form.Control>
-            </Form.Group>
-            <Button disabled={loading} className="w-100 mt-3" type="submit">
-              Reset Password
-            </Button>
-          </Form>
-        </Card.Body>
-        <div className="w-100 text-center mt-2">
-          <Link to="/login">Log in</Link>
-        </div>
-        <div className="w-100 text-center mt-2">
-          Don't have an account? <Link to="/signup">Sign Up</Link>
-        </div>
-      </Card>
-    </div>
+    <Grid
+      container
+      spacing={2}
+      sx={{ display: 'flex', justifyContent: 'center' }}
+    >
+      <Grid item xs={12} sm={8} md={6}>
+        <Card sx={{ padding: '1rem 0'}}>
+          <CardContent>
+            <Typography
+              variant="h4"
+              component="div"
+              gutterBottom
+              sx={{ textAlign: 'center', fontWeight: 'bold' }}
+            >
+              Password Reset
+            </Typography>
+            <form onSubmit={handleSubmit}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                }}
+              >
+                <TextField
+                  label="Email"
+                  onChange={(e) => setEmail(e.target.value)}
+                  margin="normal"
+                  inputProps={{
+                    autoComplete: 'name',
+                    form: {
+                      autocomplete: 'off',
+                    },
+                  }}
+                />
+              </Box>
+              <Button
+                variant="contained"
+                disabled={loading}
+                sx={{ width: '100%', mt: '1rem' }}
+                type="submit"
+              >
+                Reset Password
+              </Button>
+              <Box sx={{ mt: '1rem'}}>
+                {error && <Alert severity="error">{error}</Alert>}
+                {message && <Alert severity="success">{message}</Alert>}
+              </Box>
+            </form>
+          </CardContent>
+          <CardActions sx={{ display: 'flex', flexDirection: 'column' }}>
+            <Link to="/login">Log in</Link>
+            <Box sx={{ mt: '0.5rem' }}>
+              <span>Don't have an account?</span>{' '}
+              <Link to="/signup">Sign Up</Link>
+            </Box>
+          </CardActions>
+        </Card>
+      </Grid>
+    </Grid>
   );
 }
