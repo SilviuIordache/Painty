@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { login, logout, register } from '../../dbservices/auth.js';
+import { login, logout, register, resetPassword } from '../../dbservices/auth.js';
 
 export const signUp = createAsyncThunk(
   'auth/register',
@@ -21,10 +21,19 @@ export const signOut = createAsyncThunk('auth/logout', async () => {
   await logout();
 });
 
+export const passReset = createAsyncThunk(
+  'auth/passReset',
+  async ({ email }) => {
+    const res = await resetPassword(email);
+    return res;
+  }
+);
+
 const initialState = {
   currentUser: null,
   logged: false,
   error: '',
+  message: '',
   loading: false,
 };
 
@@ -75,6 +84,17 @@ export const authSlice = createSlice({
       state.error = 'Sign out failed';
       state.loading = false;
     },
+    [passReset.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [passReset.fulfilled]: (state, action) => {
+      state.message = 'Check your inbox for further instructions'
+      state.loading = false;
+    },
+    [passReset.rejected]: (state, action) => {
+      state.error = 'Failed to reset password'
+      state.loading = false;
+    }
   },
 });
 

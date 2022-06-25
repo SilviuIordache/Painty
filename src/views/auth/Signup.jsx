@@ -42,13 +42,13 @@ export default function Signup() {
       sx={{ display: 'flex', justifyContent: 'center' }}
     >
       <Grid item xs={12} sm={8} md={6}>
-        <Card>
+        <Card sx={{ padding: '1rem 0'}}>
           <CardContent>
             <Typography
               variant="h4"
               component="div"
               gutterBottom
-              sx={{ textAlign: 'center' }}
+              sx={{ textAlign: 'center', fontWeight: 'bold' }}
             >
               Sign Up
             </Typography>
@@ -113,7 +113,7 @@ export default function Signup() {
             </form>
           </CardContent>
           <CardActions sx={{ display: 'flex', flexDirection: 'column' }}>
-            <Box sx={{ mb: '0.5rem' }}>
+            <Box>
               <span>Already have an account? </span>
               <Link to="/login">Log In</Link>
             </Box>
