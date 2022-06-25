@@ -1,12 +1,22 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { signIn } from '../../redux/features/authSlice.js';
+import {
+  Alert,
+  Grid,
+  Card,
+  CardContent,
+  CardActions,
+  Button,
+  Box,
+  TextField,
+  Typography,
+} from '@mui/material';
 
 export default function Login() {
-  const emailRef = useRef();
-  const passwordRef = useRef();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -17,8 +27,8 @@ export default function Login() {
     try {
       await dispatch(
         signIn({
-          email: emailRef.current.value,
-          password: passwordRef.current.value,
+          email,
+          password,
         })
       );
       navigate('/');
@@ -27,41 +37,68 @@ export default function Login() {
     }
   }
 
-  const style = {
-    minWidth: '30rem',
-    paddingBottom: '1rem',
-  };
   return (
-    <div className="d-flex justify-content-center">
-      <Card style={style}>
-        <Card.Body>
-          <h2 className="text-center mb-3">Log In</h2>
-          {error && <Alert variant="danger">{error}</Alert>}
-          <Form onSubmit={handleSubmit}>
-            <Form.Group id="email" className="mb-3">
-              <Form.Label>Email</Form.Label>
-              <Form.Control type="email" ref={emailRef} required></Form.Control>
-            </Form.Group>
-            <Form.Group id="password" className="mb-3">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                ref={passwordRef}
-                required
-              ></Form.Control>
-            </Form.Group>
-            <Button disabled={loading} className="w-100 mt-3" type="submit">
+    <Grid
+      container
+      spacing={2}
+      sx={{ display: 'flex', justifyContent: 'center' }}
+    >
+      <Grid item xs={12} sm={8} md={6}>
+        <Card>
+          <CardContent>
+            <Typography
+              variant="h4"
+              component="div"
+              gutterBottom
+              sx={{ textAlign: 'center' }}
+            >
               Log In
-            </Button>
-          </Form>
-        </Card.Body>
-        <div className="w-100 text-center mt-2">
-          <Link to="/forgot-password">Forgot password?</Link>
-        </div>
-        <div className="w-100 text-center mt-2">
-          Don't have an account? <Link to="/signup">Sign Up</Link>
-        </div>
-      </Card>
-    </div>
+            </Typography>
+            {error && <Alert variant="danger">{error}</Alert>}
+            <form onSubmit={handleSubmit}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                }}
+              >
+                <TextField
+                  id="email"
+                  label="Email"
+                  onChange={(e) => setEmail(e.target.value)}
+                  margin="normal"
+                />
+                <TextField
+                  id="password"
+                  label="Password"
+                  type="password"
+                  onChange={(e) => setPassword(e.target.value)}
+                  margin="normal"
+                />
+              </Box>
+
+              <Button
+                disabled={loading}
+                size="large"
+                variant="contained"
+                type="submit"
+                sx={{ width: '100%', mt: '1rem' }}
+              >
+                Log In
+              </Button>
+            </form>
+          </CardContent>
+          <CardActions sx={{ display: 'flex', flexDirection: 'column' }}>
+            <Box sx={{ mb: '0.5rem' }}>
+              <Link to="/forgot-password">Forgot password?</Link>
+            </Box>
+            <Box sx={{ mb: '0.5rem' }}>
+              <span>Don't have an account? </span>
+              <Link to="/signup">Sign Up</Link>
+            </Box>
+          </CardActions>
+        </Card>
+      </Grid>
+    </Grid>
   );
 }
