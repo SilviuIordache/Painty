@@ -2,10 +2,16 @@ import { useState } from 'react';
 import DrawingContainer from './DrawingContainer';
 import TopBanner from './TopBanner';
 import BottomBanner from './BottomBanner';
-import { Grid } from '@mui/material';
+import { Grid, Box } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 export default function GalleryDrawing(props) {
   const [imageHovered, setImageHover] = useState(false);
+  const navigate = useNavigate();
+
+  function goToDetails() {
+    navigate(`/drawing/${props.id}`)
+  }
 
   return (
     <Grid
@@ -25,7 +31,9 @@ export default function GalleryDrawing(props) {
         mode={props.mode}
         imageHovered={imageHovered}
       />
-      <DrawingContainer name={props.name} id={props.id} path={props.path} />
+      <Box onClick={goToDetails} sx={{ cursor: 'pointer'}}>
+        <DrawingContainer name={props.name} id={props.id} path={props.path} />
+      </Box>
       <BottomBanner
         mode={props.mode}
         name={props.name}
