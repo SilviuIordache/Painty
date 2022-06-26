@@ -129,7 +129,7 @@ export default function DrawingBoard() {
   let [isBlocking, setIsBlocking] = useState(true);
 
   return (
-    <div className="drawing-board">
+    <div>
       <Prompt
         when={isBlocking}
         message={`Leave this page? Unsaved work could be lost.`}
