@@ -2,15 +2,14 @@ import { useState } from 'react';
 import DrawingContainer from './DrawingContainer';
 import TopBanner from './TopBanner';
 import BottomBanner from './BottomBanner';
+import { Grid } from '@mui/material';
 
 export default function GalleryDrawing(props) {
   const [imageHovered, setImageHover] = useState(false);
 
-  const className = 'col-12 col-md-6 col-lg-4 mb-3 position-relative';
-
   return (
-    <div
-      className={className}
+    <Grid
+      item xs={12} md={6} xl={4}
       onMouseEnter={() => {
         setImageHover(true);
       }}
@@ -34,6 +33,6 @@ export default function GalleryDrawing(props) {
         id={props.id}
         likes={props.likes}
       />
-    </div>
+    </Grid>
   );
 }

@@ -4,6 +4,7 @@ import GalleryDrawing from '../components/GalleryDrawing/GalleryDrawing';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchImages } from '../redux/features/imagesSlice.js';
 import { useLocation } from 'react-router-dom';
+import { Grid } from '@mui/material';
 
 export default function Gallery() {
   const images = useSelector((state) => state.images.list);
@@ -20,19 +21,17 @@ export default function Gallery() {
   }, [dispatch, currentUser.uid, location]);
 
   return (
-    <div className="row p-5">
-      {/* <div className="row mb-3">
-        <div className="col-12">
-          <GalleryBar images={images} />
-        </div>
-      </div> */}
-      <div className="row">
-        {images.length === 0 && (
+    <Grid container>
+      <Grid item xs={12}>
+        {images.length === 0 ? (
           <p className="text-light">Your saved drawings will appear here.</p>
+        ) : (
+          <Grid container spacing={2}>
+            <GalleryDrawingList images={images} />
+          </Grid>
         )}
-        {images.length > 0 && <GalleryDrawingList images={images} />}
-      </div>
-    </div>
+      </Grid>
+    </Grid>
   );
 }
 
