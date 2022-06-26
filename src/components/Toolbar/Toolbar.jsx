@@ -1,54 +1,56 @@
-import BrushSizeSelector from "../BrushSizeSelector/BrushSizeSelector";
-import ColorSelector from "../ColorSelector/ColorSelector";
-import ColorPreview from "../ColorPreview/ColorPreview";
-import ToolSelector from "../ToolSelector/ToolSelector";
+import BrushSizeSelector from '../BrushSizeSelector/BrushSizeSelector';
+import ColorSelector from '../ColorSelector/ColorSelector';
+import ColorPreview from '../ColorPreview/ColorPreview';
+import ToolSelector from '../ToolSelector/ToolSelector';
+import { Grid, Box } from '@mui/material';
 
 export default function Toolbar(props) {
-  const style = {
-    backgroundColor: "#f0f0f0",
-    padding: "1rem 2rem",
-    borderRadius: "0.5rem"
-  }
   return (
-    <div style={style} className="row mt-2">
-      <div className="col-9 col-sm-4 d-flex">
-        <div className="me-2">
-          <ColorPreview/>
-        </div>
-        <ColorSelector/>
-      </div>
-      <div className="col-12 col-sm-3 d-flex justify-content-start mt-2 mt-lg-0">
-        <ToolSelector/>
-      </div>
-      <div className="col-12 col-sm-3 d-flex justify-content-start mt-2 mt-lg-0">
-        <BrushSizeSelector/>
-      </div>
-      <div className="col-12 col-sm-2 d-flex justify-content-start justify-content-lg-end mt-2 mt-lg-0">
+    <Grid container sx={{ backgroundColor: 'lightgray', padding: '1rem 1rem' }}>
+      <Grid item xs={12} md={4} xl={4} sx={{marginBottom: '0.5rem'}}>
+        <Box sx={{ display: 'flex' }}>
+          <ColorPreview />
+          <Box sx={{ marginLeft: '0.5rem' }}>
+            <ColorSelector />
+          </Box>
+        </Box>
+      </Grid>
+      <Grid item xs={12} md={4} xl={3} sx={{marginBottom: '0.5rem'}}>
+        <ToolSelector />
+      </Grid>
+      <Grid item xs={12} md={4} xl={3} sx={{marginBottom: '0.5rem'}}>
+        <BrushSizeSelector />
+      </Grid>
+      <Grid item xs={12} md={4} xl={2}>
         <EraseCanvasButton
           eraseCanvas={() => {
             props.eraseCanvas(true);
           }}
         />
-        {props.gameMode === "practice" && (
+        {props.gameMode === 'practice' && (
           <SaveCanvasButton
             saveCanvas={() => {
               props.saveCanvas();
             }}
           />
         )}
-      </div>
-    </div>
+      </Grid>
+    </Grid>
   );
 }
 
 const actionButtonStyle = {
   width: '3.6rem',
   height: '3.6rem',
-  fontSize: '1.3rem'
-}
+  fontSize: '1.3rem',
+};
 function EraseCanvasButton(props) {
   return (
-    <button style={actionButtonStyle} className="btn btn-danger px-3 me-1 " onClick={props.eraseCanvas}>
+    <button
+      style={actionButtonStyle}
+      className="btn btn-danger px-3 me-1 "
+      onClick={props.eraseCanvas}
+    >
       <i className="far fa-trash-alt"></i>
     </button>
   );
@@ -56,7 +58,11 @@ function EraseCanvasButton(props) {
 
 function SaveCanvasButton(props) {
   return (
-    <button style={actionButtonStyle} className="btn btn-primary px-3" onClick={props.saveCanvas}>
+    <button
+      style={actionButtonStyle}
+      className="btn btn-primary px-3"
+      onClick={props.saveCanvas}
+    >
       <i className="far fa-save"></i>
     </button>
   );

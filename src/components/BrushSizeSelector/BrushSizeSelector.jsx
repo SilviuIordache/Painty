@@ -1,11 +1,11 @@
 import BrushSizeButton from './BrushSizeButton';
 import { useSelector } from 'react-redux';
-
+import { Box } from '@mui/material';
 
 export default function BrushSizeSelector(props) {
-  const sizes = require("../../jsons/brushSizes.json").sizes;
-  const currentBrushSize = useSelector(state => state.tool.size);
-  
+  const sizes = require('../../jsons/brushSizes.json').sizes;
+  const currentBrushSize = useSelector((state) => state.tool.size);
+
   const brushSizes = sizes.map((size, index) => {
     return (
       <BrushSizeButton
@@ -17,8 +17,6 @@ export default function BrushSizeSelector(props) {
   });
 
   return (
-    <div className="d-flex justify-content-end">
-      {brushSizes}
-    </div>
-  )
+    <Box sx={{ display: 'flex'}}>{brushSizes}</Box>
+  );
 }

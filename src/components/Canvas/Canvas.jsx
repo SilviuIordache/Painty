@@ -1,17 +1,18 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import FloodFill from "q-floodfill";
-import BrushCursor from "../BrushCursor/BrushCursor";
-import useEventListener from "../../hooks/useEventListener";
+import FloodFill from 'q-floodfill';
+import BrushCursor from '../BrushCursor/BrushCursor';
+import useEventListener from '../../hooks/useEventListener';
+import { Grid, Box } from '@mui/material';
 
 export default function Canvas() {
-  useEventListener("mousemove", handleMouseMove);
-  useEventListener("mousedown", handleMouseDown);
-  useEventListener("mouseup", handleMouseUp);
-  useEventListener("resize", handleWindowResize);
+  useEventListener('mousemove', handleMouseMove);
+  useEventListener('mousedown', handleMouseDown);
+  useEventListener('mouseup', handleMouseUp);
+  useEventListener('resize', handleWindowResize);
 
   function handleMouseMove(e) {
-    if (!canvasRef.current) return
+    if (!canvasRef.current) return;
 
     const rect = canvasRef.current.getBoundingClientRect();
 
@@ -33,22 +34,22 @@ export default function Canvas() {
     }
   }
 
-  const currentToolType = useSelector(state => state.tool.type);
+  const currentToolType = useSelector((state) => state.tool.type);
   function handleMouseDown() {
     setMousePressed(true);
 
     switch (currentToolType) {
-      case "bucket":
+      case 'bucket':
         if (canvasHovered) {
           floodFill();
         }
         break;
-      case "brush":
+      case 'brush':
         drawPath();
         break;
       default:
         drawPath();
-        break;;
+        break;
     }
   }
 
@@ -84,21 +85,21 @@ export default function Canvas() {
   // initialize canvas
   useEffect(() => {
     setupCanvas();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function setupCanvas() {
     const canvas = canvasRef.current;
 
-    canvas.style.backgroundColor = "white";
+    canvas.style.backgroundColor = 'white';
     canvas.width = canvasAbsoluteWidth;
     canvas.height = canvasAbsoluteHeight;
-    canvas.style.width = "100%";
-    canvas.style.height = "auto";
+    canvas.style.width = '100%';
+    canvas.style.height = 'auto';
 
-    const newCTX = canvas.getContext("2d");
+    const newCTX = canvas.getContext('2d');
 
-    newCTX.fillStyle = "#ffffff";
+    newCTX.fillStyle = '#ffffff';
     newCTX.fillRect(0, 0, canvasAbsoluteWidth, canvasAbsoluteHeight);
 
     setCtx(newCTX);
@@ -144,11 +145,11 @@ export default function Canvas() {
     ctx.putImageData(floodFill.imageData, 0, 0);
   }
 
-  const currentBrushColor = useSelector(state => state.tool.color);
-  const currentBrushSize = useSelector(state => state.tool.size);
+  const currentBrushColor = useSelector((state) => state.tool.color);
+  const currentBrushSize = useSelector((state) => state.tool.size);
 
   function drawPath(e) {
-    ctx.lineCap = "round";
+    ctx.lineCap = 'round';
     ctx.lineWidth = currentBrushSize;
     ctx.strokeStyle = currentBrushColor;
 
@@ -157,31 +158,21 @@ export default function Canvas() {
     ctx.moveTo(canvasRelativeX, canvasRelativeY);
   }
 
-  const canvasBackgroundStyle = {
-    backgroundColor: "darkgray",
-    padding: "2rem",
-    borderRadius: "0.5rem"
-  }
-
   return (
-    <div>
-      <div style={canvasBackgroundStyle} className="row">
-        <div className="col-12">
+    <Box>
+      <Grid container>
+        <Grid item xs={12}>
           <canvas
             id="canvas"
             ref={canvasRef}
-            style={{cursor: "none"}}
+            style={{ cursor: 'none' }}
             onMouseEnter={handleMouseEnterCanvas}
             onMouseLeave={handleMouseLeaveCanvas}
           />
-        </div>
-      </div>
+        </Grid>
+      </Grid>
 
-      <BrushCursor
-        hideBrush={!canvasHovered}
-        x={cursorX}
-        y={cursorY}
-      />
-    </div>
+      <BrushCursor hideBrush={!canvasHovered} x={cursorX} y={cursorY} />
+    </Box>
   );
 }
