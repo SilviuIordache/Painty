@@ -6,38 +6,30 @@ import useEventListener from '../../hooks/useEventListener';
 import { Grid, Box } from '@mui/material';
 
 export default function Canvas() {
-  useEventListener('mousemove', handleMouseMove);
   useEventListener('mousedown', handleMouseDown);
+  useEventListener('touchstart', handleTouchStart);
+  
+  useEventListener('mousemove', handleMouseMove);
+  useEventListener('touchmove', handleTouchMove);
+
   useEventListener('mouseup', handleMouseUp);
+  useEventListener('touchend', handleTouchEnd);
+
   useEventListener('resize', handleWindowResize);
 
-  function handleMouseMove(e) {
-    if (!canvasRef.current) return;
 
-    const rect = canvasRef.current.getBoundingClientRect();
-
-    setCursorX(e.clientX + window.pageXOffset);
-    setCursorY(e.clientY + window.pageYOffset);
-
-    const canvasAbsoluteX = e.clientX - rect.left;
-    const canvasAbsoluteY = e.clientY - rect.top;
-    const canvasRelativeX =
-      (canvasAbsoluteX * canvasAbsoluteWidth) / canvasRelativeWidth;
-    const canvasRelativeY =
-      (canvasAbsoluteY * canvasAbsoluteHeight) / canvasRelativeHeight;
-    setCanvasRelativeX(canvasRelativeX);
-    setCanvasRelativeY(canvasRelativeY);
-
-    // line below draws
-    if (mousePressed) {
-      drawPath();
-    }
+  // ---- TOOL START LOGIC --------
+  function handleTouchStart() {
+    toolStartLogic();
   }
 
-  const currentToolType = useSelector((state) => state.tool.type);
   function handleMouseDown() {
     setMousePressed(true);
-
+    toolStartLogic();
+  }
+  
+  const currentToolType = useSelector((state) => state.tool.type);
+  function toolStartLogic() {
     switch (currentToolType) {
       case 'bucket':
         if (canvasHovered) {
@@ -52,9 +44,62 @@ export default function Canvas() {
         break;
     }
   }
+  // ------------------------------
 
+
+  // ---- TOOL MOVE LOGIC ---------
+  function handleMouseMove(e) {
+    toolMoveLogic(e.clientX, e.clientY)
+
+    // line below draws (draw when mouse pressed)
+    if (mousePressed) {
+      drawPath();
+    }
+  }
+
+  function handleTouchMove(e) {
+    const x = e.touches[0].clientX;
+    const y = e.touches[0].clientY;
+
+    toolMoveLogic(x, y)
+    
+    // draw when canvas is hovered
+    const elem = document.elementFromPoint(x, y);
+    if (elem?.id === 'canvas') {
+      drawPath();
+    }
+  }
+
+  function toolMoveLogic(x, y) {
+    if (!canvasRef.current) return;
+
+    const rect = canvasRef.current.getBoundingClientRect();
+
+    setCursorX(x + window.pageXOffset);
+    setCursorY(y + window.pageYOffset);
+
+    const canvasAbsoluteX = x - rect.left;
+    const canvasAbsoluteY = y - rect.top;
+    const canvasRelativeX =
+      (canvasAbsoluteX * canvasAbsoluteWidth) / canvasRelativeWidth;
+    const canvasRelativeY =
+      (canvasAbsoluteY * canvasAbsoluteHeight) / canvasRelativeHeight;
+
+    setCanvasRelativeX(canvasRelativeX);
+    setCanvasRelativeY(canvasRelativeY);
+  }
+  // ------------------------------
+
+
+
+  // ---- TOOL END LOGIC ----------
   function handleMouseUp() {
     setMousePressed(false);
+    // end current path by beggining new one
+    ctx.beginPath();
+  }
+  
+  function handleTouchEnd() {
     ctx.beginPath();
   }
 
@@ -64,6 +109,7 @@ export default function Canvas() {
       handleMouseDown();
     }
   }
+  // --------------------------------
 
   function handleMouseLeaveCanvas() {
     setCanvasHovered(false);
@@ -107,7 +153,7 @@ export default function Canvas() {
   }
 
   const [mousePressed, setMousePressed] = useState(false);
-  let [canvasHovered, setCanvasHovered] = useState(true);
+  const [canvasHovered, setCanvasHovered] = useState(true);
 
   const [cursorX, setCursorX] = useState(0);
   const [cursorY, setCursorY] = useState(0);
@@ -156,6 +202,7 @@ export default function Canvas() {
     ctx.lineTo(canvasRelativeX, canvasRelativeY);
     ctx.stroke();
     ctx.moveTo(canvasRelativeX, canvasRelativeY);
+
   }
 
   return (
