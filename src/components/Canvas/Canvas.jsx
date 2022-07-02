@@ -19,17 +19,18 @@ export default function Canvas() {
 
 
   // ---- TOOL START LOGIC --------
-  function handleTouchStart() {
-    toolStartLogic();
+  function handleTouchStart(e) {
+    setLastTouch(e);
+    inputStartLogic();
   }
 
-  function handleMouseDown() {
+  function handleMouseDown(e) {
     setMousePressed(true);
-    toolStartLogic();
+    inputStartLogic();
   }
   
   const currentToolType = useSelector((state) => state.tool.type);
-  function toolStartLogic() {
+  function inputStartLogic() {
     switch (currentToolType) {
       case 'bucket':
         if (canvasHovered) {
@@ -49,7 +50,7 @@ export default function Canvas() {
 
   // ---- TOOL MOVE LOGIC ---------
   function handleMouseMove(e) {
-    toolMoveLogic(e.clientX, e.clientY)
+    calcDrawCoordinates(e.clientX, e.clientY)
 
     // line below draws (draw when mouse pressed)
     if (mousePressed) {
@@ -58,10 +59,11 @@ export default function Canvas() {
   }
 
   function handleTouchMove(e) {
+    setLastTouch(e);
     const x = e.touches[0].clientX;
     const y = e.touches[0].clientY;
 
-    toolMoveLogic(x, y)
+    calcDrawCoordinates(x, y)
     
     // draw when canvas is hovered
     const elem = document.elementFromPoint(x, y);
@@ -70,7 +72,7 @@ export default function Canvas() {
     }
   }
 
-  function toolMoveLogic(x, y) {
+  function calcDrawCoordinates(x, y) {
     if (!canvasRef.current) return;
 
     const rect = canvasRef.current.getBoundingClientRect();
@@ -99,8 +101,17 @@ export default function Canvas() {
     ctx.beginPath();
   }
   
-  function handleTouchEnd() {
+  function handleTouchEnd(e) {
     ctx.beginPath();
+
+    const x = lastTouch.touches[0].clientX;
+    const y = lastTouch.touches[0].clientY;
+    calcDrawCoordinates(x, y)
+
+    const elem = document.elementFromPoint(x, y);
+    if (elem?.id === 'canvas') {
+      e.preventDefault();
+    }
   }
 
   function handleMouseEnterCanvas() {
@@ -154,6 +165,7 @@ export default function Canvas() {
 
   const [mousePressed, setMousePressed] = useState(false);
   const [canvasHovered, setCanvasHovered] = useState(true);
+  const [lastTouch, setLastTouch] = useState()
 
   const [cursorX, setCursorX] = useState(0);
   const [cursorY, setCursorY] = useState(0);
