@@ -25,7 +25,7 @@ export default function ChallengeBar(props) {
           <button onClick={props.endRound} className="btn btn-warning ms-2">
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Box sx={{ marginRight: '0.2rem' }}>
-                <span>SKIP</span>
+                <span>NEXT</span>
               </Box>
               <i className="fas fa-fast-forward fa-xs"></i>
             </Box>
