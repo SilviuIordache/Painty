@@ -75,7 +75,7 @@ export default function Canvas() {
     setCanvasRelativeY(canvasRelativeY);
 
     // line below draws (draw when mouse pressed)
-    if (mousePressed) {
+    if (mousePressed && currentToolType === 'brush') {
       drawPath();
     }
   }
