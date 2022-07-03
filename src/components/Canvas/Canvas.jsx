@@ -36,17 +36,11 @@ export default function Canvas() {
 
   const mobileScreen = useCheckMobileScreen();
 
+
   // ---- TOOL START LOGIC --------
   function handleTouchStart(e) {
-    const x = e.touches[0].clientX;
-    const y = e.touches[0].clientY;
 
-    calcDrawCoordinates(x, y);
-    setLastTouch(e);
-
-    inputStartLogic();
-
-    ctx.beginPath();
+    drawPathMobile(e)
   }
 
   function handleMouseDown(e) {
@@ -83,17 +77,40 @@ export default function Canvas() {
   }
 
   function handleTouchMove(e) {
+    drawPathMobile(e)
+  }
+
+  function drawPathMobile(e) {
     setLastTouch(e);
     const x = e.touches[0].clientX;
     const y = e.touches[0].clientY;
-    calcDrawCoordinates(x, y);
 
-    // draw when canvas is hovered
+    if (!canvasRef.current) return;
+
+    const rect = canvasRef.current.getBoundingClientRect();
+
+    setCursorX(x + window.pageXOffset);
+    setCursorY(y + window.pageYOffset);
+
+    const canvasAbsoluteX = x - rect.left;
+    const canvasAbsoluteY = y - rect.top;
+
+    const canvasRelativeX =
+      (canvasAbsoluteX * canvasAbsoluteWidth) / canvasRelativeWidth;
+    const canvasRelativeY =
+      (canvasAbsoluteY * canvasAbsoluteHeight) / canvasRelativeHeight;
+
     const elem = document.elementFromPoint(x, y);
     if (elem?.id === 'canvas') {
-      drawPath();
+      ctx.lineCap = 'round';
+      ctx.lineWidth = currentBrushSize;
+      ctx.strokeStyle = currentBrushColor;
+      ctx.lineTo(canvasRelativeX, canvasRelativeY);
+      ctx.stroke();
+      ctx.moveTo(canvasRelativeX, canvasRelativeY);
     }
   }
+
 
   function calcDrawCoordinates(x, y) {
     if (!canvasRef.current) return;
@@ -130,6 +147,7 @@ export default function Canvas() {
     const elem = document.elementFromPoint(x, y);
     if (elem?.id === 'canvas') {
       e.preventDefault();
+      ctx.beginPath();
     }
   }
 
@@ -213,11 +231,6 @@ export default function Canvas() {
     ctx.lineCap = 'round';
     ctx.lineWidth = currentBrushSize;
     ctx.strokeStyle = currentBrushColor;
-
-    // fixes bug where first touch is a draw at coordinates 0,0
-    if (canvasRelativeX === 0 && canvasRelativeY === 0) {
-      return;
-    }
 
     ctx.lineTo(canvasRelativeX, canvasRelativeY);
     ctx.stroke();
