@@ -116,8 +116,8 @@ export default function Canvas() {
 
     return { canvasRelativeX, canvasRelativeY };
   }
-
   // ------------------------------
+
 
   // ---- TOOL END LOGIC ----------
   function handleMouseUp() {
@@ -136,6 +136,7 @@ export default function Canvas() {
       ctx.beginPath();
     }
   }
+  // --------------------------------
 
   function handleMouseEnterCanvas() {
     setCanvasHovered(true);
@@ -143,7 +144,6 @@ export default function Canvas() {
       handleMouseDown();
     }
   }
-  // --------------------------------
 
   function handleMouseLeaveCanvas() {
     setCanvasHovered(false);
