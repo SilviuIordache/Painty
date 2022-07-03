@@ -20,8 +20,15 @@ export default function Canvas() {
 
   // ---- TOOL START LOGIC --------
   function handleTouchStart(e) {
+    const x = e.touches[0].clientX;
+    const y = e.touches[0].clientY;
+
+    calcDrawCoordinates(x, y)
     setLastTouch(e);
+    
     inputStartLogic();
+
+    ctx.beginPath();
   }
 
   function handleMouseDown(e) {
@@ -62,7 +69,6 @@ export default function Canvas() {
     setLastTouch(e);
     const x = e.touches[0].clientX;
     const y = e.touches[0].clientY;
-
     calcDrawCoordinates(x, y)
     
     // draw when canvas is hovered
@@ -82,11 +88,12 @@ export default function Canvas() {
 
     const canvasAbsoluteX = x - rect.left;
     const canvasAbsoluteY = y - rect.top;
+    
     const canvasRelativeX =
-      (canvasAbsoluteX * canvasAbsoluteWidth) / canvasRelativeWidth;
+    (canvasAbsoluteX * canvasAbsoluteWidth) / canvasRelativeWidth;
     const canvasRelativeY =
-      (canvasAbsoluteY * canvasAbsoluteHeight) / canvasRelativeHeight;
-
+    (canvasAbsoluteY * canvasAbsoluteHeight) / canvasRelativeHeight;
+    
     setCanvasRelativeX(canvasRelativeX);
     setCanvasRelativeY(canvasRelativeY);
   }
@@ -102,11 +109,8 @@ export default function Canvas() {
   }
   
   function handleTouchEnd(e) {
-    ctx.beginPath();
-
     const x = lastTouch.touches[0].clientX;
     const y = lastTouch.touches[0].clientY;
-    calcDrawCoordinates(x, y)
 
     const elem = document.elementFromPoint(x, y);
     if (elem?.id === 'canvas') {
@@ -206,11 +210,11 @@ export default function Canvas() {
   const currentBrushColor = useSelector((state) => state.tool.color);
   const currentBrushSize = useSelector((state) => state.tool.size);
 
-  function drawPath(e) {
+  function drawPath() {
     ctx.lineCap = 'round';
     ctx.lineWidth = currentBrushSize;
     ctx.strokeStyle = currentBrushColor;
-
+    
     ctx.lineTo(canvasRelativeX, canvasRelativeY);
     ctx.stroke();
     ctx.moveTo(canvasRelativeX, canvasRelativeY);
