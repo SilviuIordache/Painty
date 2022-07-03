@@ -36,6 +36,8 @@ export default function Canvas() {
 
   const mobileScreen = useCheckMobileScreen();
 
+  const currentToolType = useSelector((state) => state.tool.type);
+
   // ---- TOOL START LOGIC --------
   function handleTouchStart(e) {
     drawPathMobile(e);
@@ -43,11 +45,6 @@ export default function Canvas() {
 
   function handleMouseDown(e) {
     setMousePressed(true);
-    inputStartLogic();
-  }
-
-  const currentToolType = useSelector((state) => state.tool.type);
-  function inputStartLogic() {
     switch (currentToolType) {
       case 'bucket':
         if (canvasHovered) {
@@ -62,6 +59,7 @@ export default function Canvas() {
         break;
     }
   }
+
   // ------------------------------
 
   // ---- TOOL MOVE LOGIC ---------
