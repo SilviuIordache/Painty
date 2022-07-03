@@ -48,7 +48,7 @@ function App() {
         <BrowserRouter>
           <Grid container>
             <Navigation/>
-              <Container style={{ minHeight: '100vh', maxWidth: '60rem', backgroundColor: 'gray', paddingTop: '6rem' }}>
+              <Container style={{ minHeight: '100vh', maxWidth: '60rem', backgroundColor: 'gray', paddingTop: '4.5rem' }}>
                 <Routes>
                   <PrivateRoute exact path="/">
                     <Route element={<MainMenu />} />
