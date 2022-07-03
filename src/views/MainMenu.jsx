@@ -4,22 +4,8 @@ import BasicCard from '../components/BasicCard/BasicCard';
 import GalleryCard from '../components/MainMenu/GalleryCard';
 import Grid from '@mui/material/Grid';
 
-import { fetchImages } from '../redux/features/imagesSlice.js';
-import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-
-import { useSelector } from 'react-redux';
-
 export default function MainMenu() {
   const navigate = useNavigate();
-
-  const dispatch = useDispatch();
-  const { currentUser } = useSelector((state) => state.auth);
-  useEffect(() => {
-    if (currentUser) {
-      dispatch(fetchImages(currentUser.uid));
-    }
-  }, [dispatch, currentUser]);
 
   return (
     <Grid container spacing={2}>
