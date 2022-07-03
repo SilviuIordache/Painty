@@ -40,15 +40,39 @@ export default function Canvas() {
 
   // ---- TOOL START LOGIC --------
   function handleTouchStart(e) {
-    drawPathMobile(e);
+    e.preventDefault();
+
+    switch (currentToolType) {
+      case 'bucket':
+        const x = e.touches[0].clientX;
+        const y = e.touches[0].clientY;
+        const { canvasRelativeX, canvasRelativeY } = getCanvasRelativeCoordinates(x, y);
+
+        if (touchIsOnCanvas(x, y)) {
+          floodFill(canvasRelativeX, canvasRelativeY);
+        }
+        break;
+      case 'brush':
+        drawPathMobile(e);
+        break;
+      default:
+        drawPathMobile(e);
+        break;
+    }
+
+    
   }
 
   function handleMouseDown(e) {
+
+    if (mobileScreen) {
+      return
+    }
     setMousePressed(true);
     switch (currentToolType) {
       case 'bucket':
         if (canvasHovered) {
-          floodFill();
+          floodFill(canvasRelativeX, canvasRelativeY);
         }
         break;
       case 'brush':
@@ -100,20 +124,7 @@ export default function Canvas() {
     }
   }
 
-  function getCanvasRelativeCoordinates(x, y) {
-    if (!canvasRef.current) return;
-    const rect = canvasRef.current.getBoundingClientRect();
 
-    const canvasAbsoluteX = x - rect.left;
-    const canvasAbsoluteY = y - rect.top;
-
-    const canvasRelativeX =
-      (canvasAbsoluteX * canvasAbsoluteWidth) / canvasRelativeWidth;
-    const canvasRelativeY =
-      (canvasAbsoluteY * canvasAbsoluteHeight) / canvasRelativeHeight;
-
-    return { canvasRelativeX, canvasRelativeY };
-  }
   // ------------------------------
 
 
@@ -127,14 +138,14 @@ export default function Canvas() {
   function handleTouchEnd(e) {
     const x = lastTouch.touches[0].clientX;
     const y = lastTouch.touches[0].clientY;
-
-    const elem = document.elementFromPoint(x, y);
-    if (elem?.id === 'canvas') {
-      e.preventDefault();
+    if (touchIsOnCanvas(x, y)) {
       ctx.beginPath();
+      e.preventDefault();
     }
   }
   // --------------------------------
+
+
 
   function handleMouseEnterCanvas() {
     setCanvasHovered(true);
@@ -151,11 +162,37 @@ export default function Canvas() {
     calculcateCanvasRelativeSize();
   }
 
+  // ----- HELPER FUNCTIONS --------
   function calculcateCanvasRelativeSize() {
     const canvasRect = canvasRef.current.getBoundingClientRect();
     setCanvasRelativeWidth(canvasRect.width);
     setCanvasRelativeHeight(canvasRect.height);
   }
+
+  function touchIsOnCanvas(x, y) {
+    const elem = document.elementFromPoint(x, y);
+    if (elem?.id === 'canvas') {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  function getCanvasRelativeCoordinates(x, y) {
+    if (!canvasRef.current) return;
+    const rect = canvasRef.current.getBoundingClientRect();
+
+    const canvasAbsoluteX = x - rect.left;
+    const canvasAbsoluteY = y - rect.top;
+
+    const canvasRelativeX =
+      (canvasAbsoluteX * canvasAbsoluteWidth) / canvasRelativeWidth;
+    const canvasRelativeY =
+      (canvasAbsoluteY * canvasAbsoluteHeight) / canvasRelativeHeight;
+
+    return { canvasRelativeX, canvasRelativeY };
+  }
+  // --------------------------------------------
 
   const canvasRef = useRef();
   const [ctx, setCtx] = useState(0);
@@ -184,7 +221,7 @@ export default function Canvas() {
     calculcateCanvasRelativeSize();
   }
 
-  function floodFill() {
+  function floodFill(x, y) {
     // get image data
     const imgData = ctx.getImageData(
       0,
@@ -199,8 +236,8 @@ export default function Canvas() {
     // Modify image data
     floodFill.fill(
       currentBrushColor,
-      Math.round(canvasRelativeX),
-      Math.round(canvasRelativeY),
+      Math.round(x),
+      Math.round(y),
       100
     );
 
