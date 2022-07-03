@@ -214,6 +214,11 @@ export default function Canvas() {
     ctx.lineCap = 'round';
     ctx.lineWidth = currentBrushSize;
     ctx.strokeStyle = currentBrushColor;
+
+    // fixes bug where first touch is a draw at coordinates 0,0
+    if (canvasRelativeX === 0 && canvasRelativeY === 0) {
+      return
+    }
     
     ctx.lineTo(canvasRelativeX, canvasRelativeY);
     ctx.stroke();
