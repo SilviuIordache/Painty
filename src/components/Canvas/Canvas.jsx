@@ -36,11 +36,9 @@ export default function Canvas() {
 
   const mobileScreen = useCheckMobileScreen();
 
-
   // ---- TOOL START LOGIC --------
   function handleTouchStart(e) {
-
-    drawPathMobile(e)
+    drawPathMobile(e);
   }
 
   function handleMouseDown(e) {
@@ -68,7 +66,13 @@ export default function Canvas() {
 
   // ---- TOOL MOVE LOGIC ---------
   function handleMouseMove(e) {
-    calcDrawCoordinates(e.clientX, e.clientY);
+     const { canvasRelativeX, canvasRelativeY } = getCanvasRelativeCoordinates(e.clientX, e.clientY);
+
+    setCursorX(e.clientX + window.pageXOffset);
+    setCursorY(e.clientY + window.pageYOffset);
+
+    setCanvasRelativeX(canvasRelativeX);
+    setCanvasRelativeY(canvasRelativeY);
 
     // line below draws (draw when mouse pressed)
     if (mousePressed) {
@@ -77,7 +81,7 @@ export default function Canvas() {
   }
 
   function handleTouchMove(e) {
-    drawPathMobile(e)
+    drawPathMobile(e);
   }
 
   function drawPathMobile(e) {
@@ -85,20 +89,7 @@ export default function Canvas() {
     const x = e.touches[0].clientX;
     const y = e.touches[0].clientY;
 
-    if (!canvasRef.current) return;
-
-    const rect = canvasRef.current.getBoundingClientRect();
-
-    setCursorX(x + window.pageXOffset);
-    setCursorY(y + window.pageYOffset);
-
-    const canvasAbsoluteX = x - rect.left;
-    const canvasAbsoluteY = y - rect.top;
-
-    const canvasRelativeX =
-      (canvasAbsoluteX * canvasAbsoluteWidth) / canvasRelativeWidth;
-    const canvasRelativeY =
-      (canvasAbsoluteY * canvasAbsoluteHeight) / canvasRelativeHeight;
+    const { canvasRelativeX, canvasRelativeY } = getCanvasRelativeCoordinates(x, y);
 
     const elem = document.elementFromPoint(x, y);
     if (elem?.id === 'canvas') {
@@ -111,14 +102,9 @@ export default function Canvas() {
     }
   }
 
-
-  function calcDrawCoordinates(x, y) {
+  function getCanvasRelativeCoordinates(x, y) {
     if (!canvasRef.current) return;
-
     const rect = canvasRef.current.getBoundingClientRect();
-
-    setCursorX(x + window.pageXOffset);
-    setCursorY(y + window.pageYOffset);
 
     const canvasAbsoluteX = x - rect.left;
     const canvasAbsoluteY = y - rect.top;
@@ -128,9 +114,9 @@ export default function Canvas() {
     const canvasRelativeY =
       (canvasAbsoluteY * canvasAbsoluteHeight) / canvasRelativeHeight;
 
-    setCanvasRelativeX(canvasRelativeX);
-    setCanvasRelativeY(canvasRelativeY);
+    return { canvasRelativeX, canvasRelativeY };
   }
+
   // ------------------------------
 
   // ---- TOOL END LOGIC ----------
