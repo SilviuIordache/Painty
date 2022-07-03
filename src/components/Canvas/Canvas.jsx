@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import useCheckMobileScreen from '../../hooks/useCheckMobileScreen';
 import { useSelector } from 'react-redux';
 import FloodFill from 'q-floodfill';
 import BrushCursor from '../BrushCursor/BrushCursor';
@@ -8,7 +9,7 @@ import { Grid, Box } from '@mui/material';
 export default function Canvas() {
   useEventListener('mousedown', handleMouseDown);
   useEventListener('touchstart', handleTouchStart);
-  
+
   useEventListener('mousemove', handleMouseMove);
   useEventListener('touchmove', handleTouchMove);
 
@@ -17,15 +18,32 @@ export default function Canvas() {
 
   useEventListener('resize', handleWindowResize);
 
+  const [mousePressed, setMousePressed] = useState(false);
+  const [canvasHovered, setCanvasHovered] = useState(true);
+  const [lastTouch, setLastTouch] = useState();
+
+  const [cursorX, setCursorX] = useState(0);
+  const [cursorY, setCursorY] = useState(0);
+
+  const [canvasRelativeX, setCanvasRelativeX] = useState(0);
+  const [canvasRelativeY, setCanvasRelativeY] = useState(0);
+
+  const [canvasAbsoluteWidth] = useState(800);
+  const [canvasAbsoluteHeight] = useState(600);
+
+  const [canvasRelativeWidth, setCanvasRelativeWidth] = useState(0);
+  const [canvasRelativeHeight, setCanvasRelativeHeight] = useState(0);
+
+  const mobileScreen = useCheckMobileScreen();
 
   // ---- TOOL START LOGIC --------
   function handleTouchStart(e) {
     const x = e.touches[0].clientX;
     const y = e.touches[0].clientY;
 
-    calcDrawCoordinates(x, y)
+    calcDrawCoordinates(x, y);
     setLastTouch(e);
-    
+
     inputStartLogic();
 
     ctx.beginPath();
@@ -35,7 +53,7 @@ export default function Canvas() {
     setMousePressed(true);
     inputStartLogic();
   }
-  
+
   const currentToolType = useSelector((state) => state.tool.type);
   function inputStartLogic() {
     switch (currentToolType) {
@@ -54,10 +72,9 @@ export default function Canvas() {
   }
   // ------------------------------
 
-
   // ---- TOOL MOVE LOGIC ---------
   function handleMouseMove(e) {
-    calcDrawCoordinates(e.clientX, e.clientY)
+    calcDrawCoordinates(e.clientX, e.clientY);
 
     // line below draws (draw when mouse pressed)
     if (mousePressed) {
@@ -69,8 +86,8 @@ export default function Canvas() {
     setLastTouch(e);
     const x = e.touches[0].clientX;
     const y = e.touches[0].clientY;
-    calcDrawCoordinates(x, y)
-    
+    calcDrawCoordinates(x, y);
+
     // draw when canvas is hovered
     const elem = document.elementFromPoint(x, y);
     if (elem?.id === 'canvas') {
@@ -88,18 +105,16 @@ export default function Canvas() {
 
     const canvasAbsoluteX = x - rect.left;
     const canvasAbsoluteY = y - rect.top;
-    
+
     const canvasRelativeX =
-    (canvasAbsoluteX * canvasAbsoluteWidth) / canvasRelativeWidth;
+      (canvasAbsoluteX * canvasAbsoluteWidth) / canvasRelativeWidth;
     const canvasRelativeY =
-    (canvasAbsoluteY * canvasAbsoluteHeight) / canvasRelativeHeight;
-    
+      (canvasAbsoluteY * canvasAbsoluteHeight) / canvasRelativeHeight;
+
     setCanvasRelativeX(canvasRelativeX);
     setCanvasRelativeY(canvasRelativeY);
   }
   // ------------------------------
-
-
 
   // ---- TOOL END LOGIC ----------
   function handleMouseUp() {
@@ -107,7 +122,7 @@ export default function Canvas() {
     // end current path by beggining new one
     ctx.beginPath();
   }
-  
+
   function handleTouchEnd(e) {
     const x = lastTouch.touches[0].clientX;
     const y = lastTouch.touches[0].clientY;
@@ -167,22 +182,6 @@ export default function Canvas() {
     calculcateCanvasRelativeSize();
   }
 
-  const [mousePressed, setMousePressed] = useState(false);
-  const [canvasHovered, setCanvasHovered] = useState(true);
-  const [lastTouch, setLastTouch] = useState()
-
-  const [cursorX, setCursorX] = useState(0);
-  const [cursorY, setCursorY] = useState(0);
-
-  const [canvasRelativeX, setCanvasRelativeX] = useState(0);
-  const [canvasRelativeY, setCanvasRelativeY] = useState(0);
-
-  const [canvasAbsoluteWidth] = useState(800);
-  const [canvasAbsoluteHeight] = useState(600);
-
-  const [canvasRelativeWidth, setCanvasRelativeWidth] = useState(0);
-  const [canvasRelativeHeight, setCanvasRelativeHeight] = useState(0);
-
   function floodFill() {
     // get image data
     const imgData = ctx.getImageData(
@@ -217,24 +216,23 @@ export default function Canvas() {
 
     // fixes bug where first touch is a draw at coordinates 0,0
     if (canvasRelativeX === 0 && canvasRelativeY === 0) {
-      return
+      return;
     }
-    
+
     ctx.lineTo(canvasRelativeX, canvasRelativeY);
     ctx.stroke();
     ctx.moveTo(canvasRelativeX, canvasRelativeY);
-
   }
 
   // prevent panning on component load; add back panning on component destroy
   useEffect(() => {
     const html = document.documentElement;
-    html.style.touchAction = 'none'
+    html.style.touchAction = 'none';
 
     return function cleanup() {
-      html.style.touchAction = 'auto'
-    }
-  }, [])
+      html.style.touchAction = 'auto';
+    };
+  }, []);
 
   return (
     <Box>
@@ -250,7 +248,11 @@ export default function Canvas() {
         </Grid>
       </Grid>
 
-      <BrushCursor hideBrush={!canvasHovered} x={cursorX} y={cursorY} />
+      <BrushCursor
+        hideBrush={!canvasHovered || mobileScreen}
+        x={cursorX}
+        y={cursorY}
+      />
     </Box>
   );
 }
