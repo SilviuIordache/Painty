@@ -46,7 +46,8 @@ export default function Canvas() {
       case 'bucket':
         const x = e.touches[0].clientX;
         const y = e.touches[0].clientY;
-        const { canvasRelativeX, canvasRelativeY } = getCanvasRelativeCoordinates(x, y);
+        const { canvasRelativeX, canvasRelativeY } =
+          getCanvasRelativeCoordinates(x, y);
 
         if (touchIsOnCanvas(x, y)) {
           floodFill(canvasRelativeX, canvasRelativeY);
@@ -59,14 +60,11 @@ export default function Canvas() {
         drawPathMobile(e);
         break;
     }
-
-    
   }
 
   function handleMouseDown(e) {
-
     if (mobileScreen) {
-      return
+      return;
     }
     setMousePressed(true);
     switch (currentToolType) {
@@ -88,7 +86,10 @@ export default function Canvas() {
 
   // ---- TOOL MOVE LOGIC ---------
   function handleMouseMove(e) {
-     const { canvasRelativeX, canvasRelativeY } = getCanvasRelativeCoordinates(e.clientX, e.clientY);
+    const { canvasRelativeX, canvasRelativeY } = getCanvasRelativeCoordinates(
+      e.clientX,
+      e.clientY
+    );
 
     setCursorX(e.clientX + window.pageXOffset);
     setCursorY(e.clientY + window.pageYOffset);
@@ -111,7 +112,10 @@ export default function Canvas() {
     const x = e.touches[0].clientX;
     const y = e.touches[0].clientY;
 
-    const { canvasRelativeX, canvasRelativeY } = getCanvasRelativeCoordinates(x, y);
+    const { canvasRelativeX, canvasRelativeY } = getCanvasRelativeCoordinates(
+      x,
+      y
+    );
 
     const elem = document.elementFromPoint(x, y);
     if (elem?.id === 'canvas') {
@@ -124,9 +128,7 @@ export default function Canvas() {
     }
   }
 
-
   // ------------------------------
-
 
   // ---- TOOL END LOGIC ----------
   function handleMouseUp() {
@@ -144,8 +146,6 @@ export default function Canvas() {
     }
   }
   // --------------------------------
-
-
 
   function handleMouseEnterCanvas() {
     setCanvasHovered(true);
@@ -172,13 +172,13 @@ export default function Canvas() {
   function touchIsOnCanvas(x, y) {
     const elem = document.elementFromPoint(x, y);
     if (elem?.id === 'canvas') {
-      return true
+      return true;
     } else {
-      return false
+      return false;
     }
   }
 
-  function getCanvasRelativeCoordinates(x, y) {
+  function getCanvasRelativeCoordinates(x = 0, y = 0) {
     if (!canvasRef.current) return;
     const rect = canvasRef.current.getBoundingClientRect();
 
@@ -234,12 +234,7 @@ export default function Canvas() {
     const floodFill = new FloodFill(imgData);
 
     // Modify image data
-    floodFill.fill(
-      currentBrushColor,
-      Math.round(x),
-      Math.round(y),
-      100
-    );
+    floodFill.fill(currentBrushColor, Math.round(x), Math.round(y), 100);
 
     // put the modified data back in context
     ctx.putImageData(floodFill.imageData, 0, 0);
