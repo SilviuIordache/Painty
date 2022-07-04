@@ -93,6 +93,7 @@ export default function DrawingBoard() {
 
     // convert Canvas data to DataURL
     const dataURL = canvas.toDataURL();
+
     saveToDB(dataURL, imageName);
   }
 
@@ -105,10 +106,14 @@ export default function DrawingBoard() {
         mode: gameMode,
         userID: currentUser.uid,
       });
-      toast.success('Image saved');
+      if (gameMode === 'practice') {
+        toast.success('Image saved');
+      }
     } catch (err) {
       console.log(err);
-      toast.error('Error saving image. Please retry');
+      if (gameMode === 'practice') {
+        toast.error('Error saving image. Please retry');
+      }
     }
   }
 
