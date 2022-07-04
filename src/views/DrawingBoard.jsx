@@ -72,7 +72,7 @@ export default function DrawingBoard() {
       setIsBlocking(false);
 
       setTimeout(() => {
-        navigate('/');
+        navigate('/gallery');
       }, 0);
     }
   }
