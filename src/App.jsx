@@ -44,7 +44,9 @@ function App() {
     <div />
   ) : (
     <div className="App" style={{ backgroundColor: '#525252'}}>
-      <ToastContainer />
+      <ToastContainer
+        position="bottom-right"
+      />
         <BrowserRouter>
           <Grid container>
             <Navigation/>
