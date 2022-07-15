@@ -4,6 +4,9 @@ import ColorPreview from '../ColorPreview/ColorPreview';
 import ToolSelector from '../ToolSelector/ToolSelector';
 import { Grid, Box } from '@mui/material';
 
+import SaveCanvasButton from './SaveCanvasButton';
+import EraseCanvasButton from './EraseCanvasButton';
+
 export default function Toolbar(props) {
   return (
     <Grid container sx={{ backgroundColor: 'lightgray', padding: '1rem 1rem' }}>
@@ -21,49 +24,15 @@ export default function Toolbar(props) {
       <Grid item xs={12} md={4} xl={3} sx={{marginBottom: '0.5rem'}}>
         <BrushSizeSelector />
       </Grid>
-      <Grid item xs={12} md={4} xl={2}>
-        <EraseCanvasButton
-          eraseCanvas={() => {
-            props.eraseCanvas(true);
-          }}
-        />
+      <Grid item xs={12} md={4} xl={2} sx={{ display: 'flex', justifyContent: 'end'}}>
+        <EraseCanvasButton/>
+        
         {props.gameMode === 'practice' && (
-          <SaveCanvasButton
-            saveCanvas={() => {
-              props.saveCanvas();
-            }}
-          />
+          <Box sx={{ marginLeft: '0.2rem'}}>
+            <SaveCanvasButton/>
+          </Box>
         )}
       </Grid>
     </Grid>
-  );
-}
-
-const actionButtonStyle = {
-  width: '3.6rem',
-  height: '3.6rem',
-  fontSize: '1.3rem',
-};
-function EraseCanvasButton(props) {
-  return (
-    <button
-      style={actionButtonStyle}
-      className="btn btn-danger px-3 me-1 "
-      onClick={props.eraseCanvas}
-    >
-      <i className="far fa-trash-alt"></i>
-    </button>
-  );
-}
-
-function SaveCanvasButton(props) {
-  return (
-    <button
-      style={actionButtonStyle}
-      className="btn btn-primary px-3"
-      onClick={props.saveCanvas}
-    >
-      <i className="far fa-save"></i>
-    </button>
   );
 }

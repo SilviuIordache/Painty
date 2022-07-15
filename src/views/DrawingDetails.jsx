@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getImageDoc } from '../dbservices/images.js';
+import { getImageDoc } from '../dbservices/images/getImageDoc';
 import DrawingContainer from '../components/GalleryDrawing/DrawingContainer';
 import OptionsMenu from '../components/GalleryDrawing/OptionsMenu';
 import UserName from '../components/GalleryDrawing/UserName';

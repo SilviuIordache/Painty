@@ -2,7 +2,7 @@ import { IconButton } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { useState } from 'react';
-import { toggleLike } from '../../dbservices/images';
+import { toggleLike } from '../../dbservices/images/toggleLike.js';
 import { useSelector } from 'react-redux';
 
 export default function LikeButton(props) {

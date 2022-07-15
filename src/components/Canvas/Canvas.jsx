@@ -47,7 +47,7 @@ export default function Canvas() {
         const x = e.touches[0].clientX;
         const y = e.touches[0].clientY;
         const { canvasRelativeX, canvasRelativeY } =
-          getCanvasRelativeCoordinates(x, y);
+          getCanvasRelativeCoordinates(x, y) || {}
 
         if (touchIsOnCanvas(x, y)) {
           floodFill(canvasRelativeX, canvasRelativeY);
@@ -89,7 +89,7 @@ export default function Canvas() {
     const { canvasRelativeX, canvasRelativeY } = getCanvasRelativeCoordinates(
       e.clientX,
       e.clientY
-    );
+    ) || {};
 
     setCursorX(e.clientX + window.pageXOffset);
     setCursorY(e.clientY + window.pageYOffset);
@@ -115,7 +115,7 @@ export default function Canvas() {
     const { canvasRelativeX, canvasRelativeY } = getCanvasRelativeCoordinates(
       x,
       y
-    );
+    ) || {}
 
     const elem = document.elementFromPoint(x, y);
     if (elem?.id === 'canvas') {
