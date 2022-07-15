@@ -4,7 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import useInterval from '../../hooks/useInterval';
 import saveCanvas from '../../shared/canvas/saveCanvas';
 import eraseCanvas from '../../shared/canvas/eraseCanvas';
-import { Box, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
+import CurrentRound from './CurrentRound';
+import RoundTimer from './RoundTimer';
+import CurrentWord from './CurrentWord';
 
 import {
   initialiseChallengeMode,
@@ -39,7 +42,7 @@ export default function ChallengeBar(props) {
       dispatch(updateTimer());
     }
   }, delay);
-  // // ---------------------------------------------
+  // ---------------------------------------------
 
   async function roundEndLogic() {
     await saveCanvas('challenge', currentWord, currentUser.uid);
@@ -62,66 +65,17 @@ export default function ChallengeBar(props) {
   return (
     <Grid container spacing={1} sx={{ marginBottom: '0.5rem' }}>
       <Grid item xs={8} lg={4}>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            backgroundColor: '#fffae3',
-            padding: '0.5rem',
-          }}
-        >
-          <span>
-            ROUND: {roundCurrent} / {roundTotal}
-          </span>
-          <button onClick={props.endRound} className="btn btn-warning ms-2">
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Box sx={{ marginRight: '0.2rem' }}>
-                <span>NEXT</span>
-              </Box>
-              <i className="fas fa-fast-forward fa-xs"></i>
-            </Box>
-          </button>
-        </Box>
+        <CurrentRound
+          roundCurrent={roundCurrent}
+          roundTotal={roundTotal}
+          roundEndLogic={roundEndLogic}
+        />
       </Grid>
       <Grid item xs={4} lg={4}>
-        <Box
-          sx={{
-            display: 'flex',
-            backgroundColor: '#fffae3',
-            padding: '0.5rem',
-            height: '100%',
-            alignItems: 'center',
-          }}
-        >
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              width: '100%',
-            }}
-          >
-            <i className="fas fa-stopwatch me-2"></i>
-            {timer}
-          </Box>
-        </Box>
+        <RoundTimer timer={timer}/>
       </Grid>
       <Grid item xs={12} lg={4}>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            backgroundColor: '#fffae3',
-            padding: '0.5rem',
-            height: '100%',
-            width: '100%',
-            alignItems: 'center',
-          }}
-        >
-          <span className="text-muted">Draw this: </span>
-          <span className="font-weight-bold">{currentWord.toUpperCase()}</span>
-        </Box>
+        <CurrentWord currentWord={currentWord}/>
       </Grid>
     </Grid>
   );
