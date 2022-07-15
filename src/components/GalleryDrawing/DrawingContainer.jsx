@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getImageFile } from '../../dbservices/images.js';
+import { getImageFile } from '../../dbservices/images/getImageFile.js';
 
 export default function DrawingContainer(props) {
   const [imageSrc, setImageSrc] = useState();

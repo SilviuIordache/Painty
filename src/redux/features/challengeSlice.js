@@ -6,8 +6,8 @@ const initialState = {
   currentWord: '',
   roundCurrent: 1,
   roundTotal: 3,
-  roundTime: 45,
-  timer: 45
+  roundTime: 30,
+  timer: 30
 };
 
 export const challengeSlice = createSlice({

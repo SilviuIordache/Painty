@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { deleteImage } from '../../dbservices/images.js';
+import { deleteImage } from '../../dbservices/images/deleteImage';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchImages } from '../../redux/features/imagesSlice.js';
@@ -55,10 +55,10 @@ export default function OptionsMenu(props) {
 
     if (location.pathname.includes('drawing')) {
       navigate('/gallery');
-    } else if (location.pathname.includes('gallery')) {
-      dispatch(fetchImages(currentUser.uid));
     } else if (location.pathname.includes('explore')) {
-      dispatch(fetchImages());
+
+      // to optimize in the future, maybe delete just from store
+      dispatch(fetchImages(currentUser.uid));
     }
 
     setAnchorEl(null);
