@@ -1,7 +1,7 @@
 import { auth } from '../../firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
-import parseLoginResponse from '../../helpers/parseLoginResponse';
+import parseLoginResponse from '../../utils/parseLoginResponse';
 
 export async function login(email, password) {
   try {
