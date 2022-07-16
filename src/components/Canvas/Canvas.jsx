@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import useCheckMobileScreen from '../../hooks/useCheckMobileScreen';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import FloodFill from 'q-floodfill';
 import BrushCursor from '../BrushCursor/BrushCursor';
 import useEventListener from '../../hooks/useEventListener';
 import { Grid, Box } from '@mui/material';
+import { setCanvasDirty } from "../../redux/features/canvasSlice"
 
 export default function Canvas() {
+  const dispatch = useDispatch();
+
   useEventListener('mousedown', handleMouseDown);
   useEventListener('touchstart', handleTouchStart);
 
@@ -126,6 +129,8 @@ export default function Canvas() {
       ctx.stroke();
       ctx.moveTo(canvasRelativeX, canvasRelativeY);
     }
+
+    dispatch(setCanvasDirty(true));
   }
 
   // ------------------------------
@@ -251,6 +256,8 @@ export default function Canvas() {
     ctx.lineTo(canvasRelativeX, canvasRelativeY);
     ctx.stroke();
     ctx.moveTo(canvasRelativeX, canvasRelativeY);
+
+    dispatch(setCanvasDirty(true));
   }
 
   // prevent panning on component load; add back panning on component destroy

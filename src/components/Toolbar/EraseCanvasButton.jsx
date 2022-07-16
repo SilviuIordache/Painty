@@ -1,12 +1,17 @@
 import eraseCanvas from '../../shared/canvas/eraseCanvas';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import Button from '@mui/material/Button';
+import { useDispatch } from 'react-redux';
+import { setCanvasDirty } from "../../redux/features/canvasSlice"
 
 export default function EraseCanvasButton() {
+  const dispatch = useDispatch();
+
   function eraseCanvasPre() {
     const confirmErase = window.confirm('Erase current canvas?');
     if (confirmErase) {
       eraseCanvas();
+      dispatch(setCanvasDirty(false));
     }
   }
 

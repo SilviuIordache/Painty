@@ -5,6 +5,7 @@ import SaveIcon from '@mui/icons-material/Save';
 
 export default function SaveCanvasButton(props) {
   const { currentUser } = useSelector((state) => state.auth);
+  const { canvasDirty } = useSelector((state) => state.canvas);
 
   function saveDrawing() {
     const drawingTitle = prompt(
@@ -19,6 +20,7 @@ export default function SaveCanvasButton(props) {
 
   return (
     <Button
+      disabled={!canvasDirty}
       color="primary"
       onClick={saveDrawing}
       variant="contained"
