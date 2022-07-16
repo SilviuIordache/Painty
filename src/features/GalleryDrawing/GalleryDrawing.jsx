@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import DrawingContainer from './DrawingContainer';
-import TopBanner from './TopBanner';
-import BottomBanner from './BottomBanner';
+import DrawingContainer from '../../components/DrawingContainer/DrawingContainer';
+import TopBanner from './components/TopBanner';
+import BottomBanner from './components/BottomBanner';
 import { Grid, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 

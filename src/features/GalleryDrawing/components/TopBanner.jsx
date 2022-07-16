@@ -1,5 +1,5 @@
-import OptionsMenu from './OptionsMenu.jsx'
-import UserName from './UserName';
+import DrawingOptions from '../../../components/DrawingOptions/DrawingOptions'
+import UserName from '../../../components/UserName/UserName';
 
 export default function TopBanner(props) {
 
@@ -18,7 +18,7 @@ export default function TopBanner(props) {
       <div className="d-flex">
         <UserName uid={props.authorID}/>
       </div>
-        <OptionsMenu
+        <DrawingOptions
           authorID={props.authorID}
           id={props.id}
           path={props.path}

@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import saveCanvas from '../../shared/canvas/saveCanvas';
+import saveCanvas from '../../../../shared/canvas/saveCanvas';
 import Button from '@mui/material/Button';
 import SaveIcon from '@mui/icons-material/Save';
 

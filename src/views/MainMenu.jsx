@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import BasicCard from '../components/BasicCard/BasicCard';
-import GalleryCard from '../components/MainMenu/GalleryCard';
+import GalleryCard from '../features/MainMenu/GalleryCard';
 import Grid from '@mui/material/Grid';
 
 export default function MainMenu() {

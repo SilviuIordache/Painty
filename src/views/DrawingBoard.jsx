@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Prompt, useParams } from 'react-router-dom';
-import Toolbar from '../components/Toolbar/Toolbar';
-import Canvas from '../components/Canvas/Canvas';
+import Toolbar from '../features/Toolbar/Toolbar';
+import Canvas from '../features/DrawingBoard/components/Canvas';
 import ChallengeBar from '../components/ChallengeBar/ChallengeBar';
 
 export default function DrawingBoard() {

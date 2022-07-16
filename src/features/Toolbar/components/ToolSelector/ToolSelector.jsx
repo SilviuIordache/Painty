@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { changeTool, changeColor, changeBrushSize} from "../../redux/features/toolSlice"
+import { changeTool, changeColor, changeBrushSize} from "../../../../redux/features/toolSlice"
 
 export default function Toolbar() {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ export default function Toolbar() {
       cb: () => {
         dispatch(changeTool("eraser"));
         dispatch(changeColor("#FFFFFF"));
-        dispatch(changeBrushSize(require("../../jsons/brushSizes.json").sizes[2]));
+        dispatch(changeBrushSize(require("../../../../jsons/brushSizes.json").sizes[2]));
       }
     },
     {

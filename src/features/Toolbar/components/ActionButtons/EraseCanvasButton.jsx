@@ -1,8 +1,8 @@
-import eraseCanvas from '../../shared/canvas/eraseCanvas';
+import eraseCanvas from '../../../../shared/canvas/eraseCanvas';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import Button from '@mui/material/Button';
 import { useDispatch } from 'react-redux';
-import { setCanvasDirty } from "../../redux/features/canvasSlice"
+import { setCanvasDirty } from "../../../../redux/features/canvasSlice"
 
 export default function EraseCanvasButton() {
   const dispatch = useDispatch();
