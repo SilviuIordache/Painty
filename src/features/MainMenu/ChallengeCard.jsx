@@ -5,7 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from 'react-router-dom';
-import getDailyWord from '../../helpers/getDailyWord';
+import getDailyWord from '../../utils/getDailyWord';
 
 export default function BasicCard(props) {
   const navigate = useNavigate();

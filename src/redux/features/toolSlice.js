@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   type: 'brush',
-  size: require("../../jsons/brushSizes.json").sizes[1],
+  size: require("../../data/brushSizes.json").sizes[1],
   color: '#000000'
 }
 

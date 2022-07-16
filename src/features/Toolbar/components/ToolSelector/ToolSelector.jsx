@@ -18,7 +18,7 @@ export default function Toolbar() {
       cb: () => {
         dispatch(changeTool("eraser"));
         dispatch(changeColor("#FFFFFF"));
-        dispatch(changeBrushSize(require("../../../../jsons/brushSizes.json").sizes[2]));
+        dispatch(changeBrushSize(require("../../../../data/brushSizes.json").sizes[2]));
       }
     },
     {
