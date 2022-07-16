@@ -11,7 +11,7 @@ import Login from './views/auth/Login';
 import ForgotPassword from './views/auth/ForgotPassword';
 import Profile from './views/auth/Profile';
 
-import Navigation from './components/Navigation/Navigation';
+import Navigation from './features/Navigation/Navigation';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

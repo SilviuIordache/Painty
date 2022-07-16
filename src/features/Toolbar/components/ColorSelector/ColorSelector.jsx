@@ -2,7 +2,7 @@ import ColorSquare from "./ColorSquare";
 import React, { useState } from "react";
 
 export default function ColorGrid() {
-  const [colors] = useState(require("../../jsons/colors.json").list);
+  const [colors] = useState(require("../../../../jsons/colors.json").list);
   const colorsArray1 = colors.slice(0, 7);
   const colorsArray2 = colors.slice(7, 14);
 

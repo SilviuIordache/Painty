@@ -1,11 +1,11 @@
-import BrushSizeSelector from '../BrushSizeSelector/BrushSizeSelector';
-import ColorSelector from '../ColorSelector/ColorSelector';
-import ColorPreview from '../ColorPreview/ColorPreview';
-import ToolSelector from '../ToolSelector/ToolSelector';
+import BrushSizeSelector from './components/BrushSelector/BrushSizeSelector';
+import ColorSelector from './components/ColorSelector/ColorSelector';
+import ColorPreview from './components/ColorPreview/ColorPreview';
+import ToolSelector from './components/ToolSelector/ToolSelector';
 import { Grid, Box } from '@mui/material';
 
-import SaveCanvasButton from './SaveCanvasButton';
-import EraseCanvasButton from './EraseCanvasButton';
+import SaveCanvasButton from './components/ActionButtons/SaveCanvasButton';
+import EraseCanvasButton from './components/ActionButtons/EraseCanvasButton';
 
 export default function Toolbar(props) {
   return (

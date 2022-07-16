@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getImageDoc } from '../dbservices/images/getImageDoc';
-import DrawingContainer from '../components/GalleryDrawing/DrawingContainer';
-import OptionsMenu from '../components/GalleryDrawing/OptionsMenu';
-import UserName from '../components/GalleryDrawing/UserName';
+import DrawingContainer from '../components/DrawingContainer/DrawingContainer';
+import DrawingOptions from '../components/DrawingOptions/DrawingOptions';
+import UserName from '../components/UserName/UserName';
 
 export default function DrawingDetails() {
   const urlParams = useParams();
@@ -49,7 +49,7 @@ export default function DrawingDetails() {
               <DrawingDate date={drawing.date} />
               <DrawingSize size={drawing.size} />
             </div>
-            <OptionsMenu
+            <DrawingOptions
               id={urlParams.id}
               authorID={drawing.authorID}
               path={drawing.path}
