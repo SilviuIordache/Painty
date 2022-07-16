@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Prompt, useParams } from 'react-router-dom';
 import Toolbar from '../features/Toolbar/Toolbar';
-import Canvas from '../features/DrawingBoard/components/Canvas';
-import ChallengeBar from '../components/ChallengeBar/ChallengeBar';
+import Canvas from '../features/Canvas/Canvas';
+import ChallengeBar from '../features/ChallengeBar/ChallengeBar';
 
 export default function DrawingBoard() {
   const [gameMode, setGameMode] = useState();

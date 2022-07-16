@@ -5,10 +5,10 @@ import useInterval from '../../hooks/useInterval';
 import saveCanvas from '../../shared/canvas/saveCanvas';
 import eraseCanvas from '../../shared/canvas/eraseCanvas';
 import { Grid } from '@mui/material';
-import CurrentRound from './CurrentRound';
-import RoundTimer from './RoundTimer';
-import CurrentWord from './CurrentWord';
 import { setCanvasDirty } from "../../redux/features/canvasSlice"
+import CurrentRound from './components/CurrentRound';
+import RoundTimer from './components/RoundTimer';
+import CurrentWord from './components/CurrentWord';
 
 import {
   initialiseChallengeMode,
