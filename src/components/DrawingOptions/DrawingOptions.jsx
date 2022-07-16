@@ -59,7 +59,7 @@ export default function DrawingOptions(props) {
     } else if (location.pathname.includes('explore')) {
 
       // to optimize in the future, maybe delete just from store
-      dispatch(fetchImages(currentUser.uid));
+      dispatch(fetchImages());
     }
 
     setAnchorEl(null);
