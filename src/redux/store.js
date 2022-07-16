@@ -5,6 +5,7 @@ import imagesReducer from './features/imagesSlice';
 import snackBarReducer from './features/snackBarSlice';
 import challengeReducer from './features/challengeSlice';
 import authReducer from './features/authSlice';
+import canvasReducer from './features/canvasSlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,5 +15,6 @@ export const store = configureStore({
     images: imagesReducer,
     snackbar: snackBarReducer,
     challenge: challengeReducer,
+    canvas: canvasReducer
   },
 });

@@ -8,6 +8,7 @@ import { Grid } from '@mui/material';
 import CurrentRound from './CurrentRound';
 import RoundTimer from './RoundTimer';
 import CurrentWord from './CurrentWord';
+import { setCanvasDirty } from "../../redux/features/canvasSlice"
 
 import {
   initialiseChallengeMode,
@@ -19,6 +20,8 @@ import {
 
 export default function ChallengeBar(props) {
   const { currentUser } = useSelector((state) => state.auth);
+  const { canvasDirty } = useSelector((state) => state.canvas);
+
   const currentWord = useSelector((state) => state.challenge.currentWord);
   const roundTotal = useSelector((state) => state.challenge.roundTotal);
   const roundCurrent = useSelector((state) => state.challenge.roundCurrent);
@@ -45,8 +48,11 @@ export default function ChallengeBar(props) {
   // ---------------------------------------------
 
   async function roundEndLogic() {
-    await saveCanvas('challenge', currentWord, currentUser.uid);
-    eraseCanvas();
+    if (canvasDirty) {
+      await saveCanvas('challenge', currentWord, currentUser.uid);
+      eraseCanvas();
+    }
+    dispatch(setCanvasDirty(false));
     if (roundCurrent < roundTotal) {
       dispatch(incrementRound());
       dispatch(resetTimer());
