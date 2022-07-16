@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HomeIcon from '@mui/icons-material/Home';
 import ExploreIcon from '@mui/icons-material/Explore';
@@ -10,12 +11,17 @@ import Box from '@mui/material/Box';
 
 export default function Navigation() {
   const { currentUser } = useSelector((state) => state.auth);
+  const location = useLocation();
 
-  const linkStyle = {
-    color: 'white',
-  };
+  function getActiveLinkStyle(path) {
+    const linkStyle = {
+      color: location.pathname === path ? 'white' : '#21416b',
+    };
+    return linkStyle;
+  }
+
   return (
-    <AppBar position="absolute">
+    <AppBar position="absolute" color="primary">
       <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
         <Toolbar sx={{ maxWidth: '60rem', width: '100%' }}>
           <Box
@@ -25,20 +31,23 @@ export default function Navigation() {
               width: '100%',
             }}
           >
-            <Link to="/" style={linkStyle}>
+            <Link to="/" style={getActiveLinkStyle('/')}>
               <HomeIcon fontSize="large" />
             </Link>
             {currentUser && (
               <>
-                <Link to="/explore" style={linkStyle}>
+                <Link to="/explore" style={getActiveLinkStyle('/explore')}>
                   <ExploreIcon fontSize="large" />
                 </Link>
 
-                <Link to="/draw/practice" style={linkStyle}>
+                <Link
+                  to="/draw/practice"
+                  style={getActiveLinkStyle('/draw/practice')}
+                >
                   <BrushIcon fontSize="large" />
                 </Link>
 
-                <Link to="/profile" style={linkStyle}>
+                <Link to="/profile" style={getActiveLinkStyle('/profile')}>
                   <AccountCircleIcon fontSize="large" />
                 </Link>
               </>
