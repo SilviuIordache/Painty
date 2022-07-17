@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { getImageFile } from '../../dbservices/images/getImageFile.js';
+import DrawingLoader from './DrawingLoader';
 
 export default function DrawingContainer(props) {
   const [imageSrc, setImageSrc] = useState();
@@ -14,17 +15,23 @@ export default function DrawingContainer(props) {
     fetchData().catch((err) => {});
     return () => {
       imageRetrieved = false;
-      setImageSrc()
-    }
+      setImageSrc();
+    };
   }, [props.path]);
 
   return (
-    <img
-      id={props.id}
-      src={imageSrc}
-      alt={props.name}
-      key={props.index}
-      width="100%"
-    />
+    <>
+      {imageSrc ? (
+        <img
+          id={props.id}
+          src={imageSrc}
+          alt={props.name}
+          key={props.index}
+          width="100%"
+        />
+      ) : (
+        <DrawingLoader />
+      )}
+    </>
   );
 }
