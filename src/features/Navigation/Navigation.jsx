@@ -21,7 +21,7 @@ export default function Navigation() {
   }
 
   return (
-    <AppBar position="absolute" color="primary">
+    <AppBar position="fixed" color="primary">
       <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
         <Toolbar sx={{ maxWidth: '60rem', width: '100%' }}>
           <Box
