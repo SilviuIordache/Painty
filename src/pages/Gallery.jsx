@@ -1,24 +1,28 @@
 import React, { useEffect } from 'react';
 // import GalleryBar from '../components/GalleryBar/GalleryBar';
 import GalleryDrawing from '../features/GalleryDrawing/GalleryDrawing';
+import LoadMoreDrawings from '../features/GalleryDrawing/LoadMoreDrawings';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchImages } from '../redux/features/imagesSlice.js';
 import { useLocation } from 'react-router-dom';
 import { Grid } from '@mui/material';
+import { resetImages } from '../redux/features/imagesSlice';
 
 export default function Gallery() {
   const images = useSelector((state) => state.images.list);
+
   const { currentUser } = useSelector((state) => state.auth);
   const location = useLocation();
 
   const dispatch = useDispatch();
   useEffect(() => {
-    if (location.pathname.includes('gallery')) {
-      dispatch(fetchImages(currentUser.uid));
-    } else {
-      dispatch(fetchImages());
-    }
+    dispatch(fetchImages());
   }, [dispatch, currentUser.uid, location]);
+
+  // clear images when first loading the page
+  useEffect(() => {
+    dispatch(resetImages());
+  }, [dispatch]);
 
   return (
     <Grid container>
@@ -26,9 +30,14 @@ export default function Gallery() {
         {images.length === 0 ? (
           <p className="text-light">Your saved drawings will appear here.</p>
         ) : (
-          <Grid container spacing={2}>
-            <GalleryDrawingList images={images} />
-          </Grid>
+          <>
+            <Grid container spacing={2}>
+              <GalleryDrawingList images={images} />
+            </Grid>
+            <Grid container spacing={2}>
+              <LoadMoreDrawings />
+            </Grid>
+          </>
         )}
       </Grid>
     </Grid>

@@ -15,7 +15,7 @@ export default function AuthorName(props) {
     fetchData().catch((err) => {
       console.log(err)
     });
-    return () => (authorRetrieved = false);
+    return () => (authorRetrieved = true);
   }, [props.uid]);
 
   return <div className="d-inline">{authorName}</div>;

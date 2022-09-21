@@ -1,32 +1,54 @@
-import { query, collection, where, getDocs, orderBy } from 'firebase/firestore';
+import {
+  query,
+  collection,
+  where,
+  doc,
+  getDoc,
+  getDocs,
+  orderBy,
+  limit,
+  startAfter,
+} from 'firebase/firestore';
 import { db } from '../../firebase';
 
-export async function getImages(userID) {
-  async function getImagesFromDB() {
-    // needs indexes created in firebase to work
+export async function getImages(payload) {
+  // constraints array pipeline
+  let constraints = []
+  constraints.push(orderBy('date', 'desc'))
+  constraints.push(limit(process.env.REACT_APP_IMAGE_BATCH_SIZE))
 
-    let q;
-    if (userID) {
-      q = query(
-        collection(db, 'images'),
-        where('authorID', '==', userID),
-        orderBy('date', 'desc')
-      );
-    } else {
-      q = query(collection(db, 'images'), orderBy('date', 'desc'));
-    }
+  // user specific query
+  if (payload?.userId) constraints.push(where('authorID', '==', payload.userId));
 
-    const querySnapshot = await getDocs(q);
 
-    let images = [];
-    querySnapshot.forEach((doc) => {
-      const obj = doc.data();
-      obj.id = doc.id;
-      obj.date = obj.date.toDate().toString();
-      images.push(obj);
-    });
-    return images;
+  // cursor pagination-like query
+  if (payload?.lastImageId) {
+    const docRef = doc(db, 'images', payload.lastImageId);
+    const cursor = await getDoc(docRef);
+
+    if (cursor) constraints.push(startAfter(cursor))
   }
-  const images = await getImagesFromDB();
-  return images;
+
+  let q = query(
+    collection(db, 'images'),
+    ...constraints
+  );
+
+  const documentSnapshots = await getDocs(q);
+  const newLastImageId = documentSnapshots.docs[documentSnapshots.docs.length-1].id
+
+  let images = [];
+  documentSnapshots.forEach((doc) => {
+    const obj = doc.data();
+    obj.id = doc.id;
+    obj.date = obj.date.toDate().toString();
+    images.push(obj);
+  });
+
+  return {
+    images,
+    lastImageId: newLastImageId,
+    lastBatchLength: documentSnapshots.docs.length
+  }
+
 }

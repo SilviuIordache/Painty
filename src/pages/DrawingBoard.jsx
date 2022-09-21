@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Prompt, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Toolbar from '../features/Toolbar/Toolbar';
 import Canvas from '../features/Canvas/Canvas';
 import ChallengeBar from '../features/ChallengeBar/ChallengeBar';
