@@ -22,11 +22,23 @@ export default function DrawingContainer(props) {
 
   const [drawingLoaderHeight, setDrawingLoaderHeight] = useState();
   const drawingLoader = useRef();
-  useEffect(() => {
-    const width = drawingLoader.current.offsetWidth;
 
+  function calculateWidth() {
+    const width = drawingLoader?.current.offsetWidth;
     setDrawingLoaderHeight((width * 2) / 3);
+  }
+  useEffect(() => {
+    calculateWidth();
   }, []);
+  
+  useEffect(() => {
+    const onResize = async (e) => {
+      calculateWidth();
+    };
+    window.addEventListener('resize', onResize);
+
+    return () => window.removeEventListener('scroll', onResize);
+  });
 
   return (
     <Box
@@ -48,8 +60,8 @@ export default function DrawingContainer(props) {
           src={imageSrc}
           alt={props.name}
           key={props.index}
-          width="100%"
           height="100%"
+          width="100%"
         />
       )}
     </Box>
