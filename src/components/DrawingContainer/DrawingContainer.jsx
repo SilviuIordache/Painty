@@ -24,7 +24,7 @@ export default function DrawingContainer(props) {
   const drawingLoader = useRef();
 
   function calculateWidth() {
-    const width = drawingLoader?.current.offsetWidth;
+    const width = drawingLoader?.current?.offsetWidth;
     setDrawingLoaderHeight((width * 2) / 3);
   }
   useEffect(() => {
