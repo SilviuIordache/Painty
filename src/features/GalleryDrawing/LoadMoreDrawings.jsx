@@ -5,12 +5,12 @@ import { fetchImages } from '../../redux/features/imagesSlice.js';
 export default function Gallery() {
   const lastImageId = useSelector((state) => state.images.lastImageId);
 
-  const dispatch = useDispatch();
-  const [batchRetrieved, setBatchRetrieved] = useState(false);
+  const imagesLoading = useSelector((state) => state.images.status);
 
-  async function getMoreImages() {
-    await dispatch(fetchImages({ lastImageId }));
-  }
+  const dispatch = useDispatch();
+  // const [batchRetrieved, setBatchRetrieved] = useState(false);
+
+
 
   const drawingLoader = useRef(null);
   // useEffect(() => {
@@ -36,8 +36,13 @@ export default function Gallery() {
 
   const lastBatchLength = useSelector((state) => state.images.lastBatchLength);
   function showLoadButton() {
-    return lastBatchLength === +process.env.REACT_APP_IMAGE_BATCH_SIZE;
-    // return true;
+    const cond1 = imagesLoading !== 'loading';
+    const cond2 = lastBatchLength === +process.env.REACT_APP_IMAGE_BATCH_SIZE;
+    return cond1 && cond2;
+  }
+
+  async function getMoreImages() {
+    await dispatch(fetchImages({ lastImageId }));
   }
 
   return (
