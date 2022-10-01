@@ -13,29 +13,33 @@ import { db } from '../../firebase';
 
 export async function getImages(payload) {
   // constraints array pipeline
-  let constraints = []
-  constraints.push(orderBy('date', 'desc'))
-  constraints.push(limit(process.env.REACT_APP_IMAGE_BATCH_SIZE))
+  let constraints = [];
+  constraints.push(orderBy('date', 'desc'));
+  constraints.push(limit(process.env.REACT_APP_IMAGE_BATCH_SIZE));
 
   // user specific query
-  if (payload?.userId) constraints.push(where('authorID', '==', payload.userId));
-
+  if (payload?.userId)
+    constraints.push(where('authorID', '==', payload.userId));
 
   // cursor pagination-like query
   if (payload?.lastImageId) {
     const docRef = doc(db, 'images', payload.lastImageId);
     const cursor = await getDoc(docRef);
 
-    if (cursor) constraints.push(startAfter(cursor))
+    if (cursor) constraints.push(startAfter(cursor));
   }
 
-  let q = query(
-    collection(db, 'images'),
-    ...constraints
-  );
+  let q = query(collection(db, 'images'), ...constraints);
 
   const documentSnapshots = await getDocs(q);
-  const newLastImageId = documentSnapshots.docs[documentSnapshots.docs.length-1].id
+  if (documentSnapshots.docs.length === 0) {
+    return {
+      images: [],
+    };
+  }
+
+  const newLastImageId =
+    documentSnapshots.docs[documentSnapshots.docs.length - 1].id;
 
   let images = [];
   documentSnapshots.forEach((doc) => {
@@ -48,7 +52,6 @@ export async function getImages(payload) {
   return {
     images,
     lastImageId: newLastImageId,
-    lastBatchLength: documentSnapshots.docs.length
-  }
-
+    lastBatchLength: documentSnapshots.docs.length,
+  };
 }
