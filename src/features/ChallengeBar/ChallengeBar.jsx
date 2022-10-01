@@ -63,7 +63,7 @@ export default function ChallengeBar(props) {
 
       // go to the gallery to show what the user has drawn
       setTimeout(() => {
-        navigate('/gallery');
+        navigate('/explore');
       }, 0);
     }
   }

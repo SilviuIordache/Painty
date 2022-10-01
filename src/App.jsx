@@ -64,7 +64,7 @@ function App() {
               <PrivateRoute path="/draw/:mode">
                 <Route element={<DrawingBoard />} />
               </PrivateRoute>
-              <PrivateRoute path="/gallery">
+              <PrivateRoute path="/explore">
                 <Route element={<Gallery />} />
               </PrivateRoute>
               <PrivateRoute path="/drawing/:id">
