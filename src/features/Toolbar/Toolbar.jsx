@@ -18,13 +18,13 @@ export default function Toolbar(props) {
           </Box>
         </Box>
       </Grid>
-      <Grid item xs={12} md={4} xl={3} sx={{marginBottom: '0.5rem'}}>
+      <Grid item xs={12} md={4} lg={3} sx={{marginBottom: '0.5rem'}}>
         <ToolSelector />
       </Grid>
-      <Grid item xs={12} md={4} xl={3} sx={{marginBottom: '0.5rem'}}>
+      <Grid item xs={12} md={4} lg={3} sx={{marginBottom: '0.5rem'}}>
         <BrushSizeSelector />
       </Grid>
-      <Grid item xs={12} md={4} xl={2} sx={{ display: 'flex', justifyContent: 'end'}}>
+      <Grid item xs={12} md={4} lg={2} sx={{ display: 'flex', justifyContent: 'end'}}>
         <EraseCanvasButton/>
         
         {props.gameMode === 'practice' && (
