@@ -2,8 +2,7 @@ import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import ToastHandler from './components/Toast/ToastHandler';
 
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -46,10 +45,10 @@ function App() {
     <div />
   ) : (
     <div className="App" style={{ backgroundColor: '#525252' }}>
-      <ToastContainer position="bottom-right" />
+      <ToastHandler />
       <BrowserRouter>
         <Grid container>
-          <Navigation/>
+          <Navigation />
           <Container
             style={{
               minHeight: '100vh',
