@@ -23,6 +23,10 @@ export const imagesSlice = createSlice({
   reducers: {
     resetBatchRetrieved: (state) => {
       state.firstBatchRetrieved = false;
+    },
+    deleteImageFromStore: (state, { payload }) => {
+      const index = state.list.findIndex((item) => item.id === payload)
+      state.list.splice(index, 1);
     }
   },
   extraReducers: {
@@ -52,4 +56,4 @@ export const imagesSlice = createSlice({
 
 export default imagesSlice.reducer;
 
-export const { resetBatchRetrieved } = imagesSlice.actions;
+export const { resetBatchRetrieved, deleteImageFromStore } = imagesSlice.actions;

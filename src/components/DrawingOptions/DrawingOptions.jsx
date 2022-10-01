@@ -56,10 +56,7 @@ export default function DrawingOptions(props) {
 
     if (location.pathname.includes('drawing')) {
       navigate('/gallery');
-    } else if (location.pathname.includes('explore')) {
-
-      // to optimize in the future, maybe delete just from store
-      dispatch(fetchImages());
+      return
     }
 
     setAnchorEl(null);

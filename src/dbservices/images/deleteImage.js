@@ -1,4 +1,6 @@
 import { toast } from 'react-toastify';
+import { deleteImageFromStore } from '../../redux/features/imagesSlice.js';
+import { store } from '../../redux/store';
 
 import {
   getStorage,
@@ -30,4 +32,7 @@ export async function deleteImage(docID, imagePath) {
     console.log(err);
     toast.error('Error deleting image. Please retry');
   }
+
+  // also delete from the redux store
+  store.dispatch(deleteImageFromStore(docID))
 }
