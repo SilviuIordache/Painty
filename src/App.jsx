@@ -16,7 +16,6 @@ import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 import MainMenu from './pages/MainMenu';
 import DrawingBoard from './pages/DrawingBoard';
-import Gallery from './pages/Gallery';
 
 import DrawingDetails from './pages/DrawingDetails';
 import Signup from './pages/auth/Signup';
@@ -24,6 +23,7 @@ import Login from './pages/auth/Login';
 import ForgotPassword from './pages/auth/ForgotPassword';
 import Profile from './pages/auth/Profile';
 import Navigation from './features/Navigation/Navigation';
+import Explore from './pages/Explore';
 
 function App() {
   const dispatch = useDispatch();
@@ -52,7 +52,7 @@ function App() {
           <Container
             style={{
               minHeight: '100vh',
-              maxWidth: '60rem',
+              maxWidth: '56rem',
               backgroundColor: 'gray',
               paddingTop: '5.5rem',
             }}
@@ -65,7 +65,7 @@ function App() {
                 <Route element={<DrawingBoard />} />
               </PrivateRoute>
               <PrivateRoute path="/explore">
-                <Route element={<Gallery />} />
+                <Route element={<Explore />} />
               </PrivateRoute>
               <PrivateRoute path="/drawing/:id">
                 <Route element={<DrawingDetails />} />
@@ -73,7 +73,7 @@ function App() {
               <PrivateRoute path="/profile">
                 <Route element={<Profile />} />
               </PrivateRoute>
-              <Route path="/explore" element={<Gallery />} />
+              <Route path="/explore" element={<Explore />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/login" element={<Login />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />

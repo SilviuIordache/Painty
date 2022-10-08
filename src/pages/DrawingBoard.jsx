@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import Toolbar from '../features/Toolbar/Toolbar';
 import Canvas from '../features/Canvas/Canvas';
 import ChallengeBar from '../features/ChallengeBar/ChallengeBar';
+import { Box, Grid } from '@mui/material';
 
 export default function DrawingBoard() {
   const [gameMode, setGameMode] = useState();
@@ -13,14 +14,18 @@ export default function DrawingBoard() {
   }, [urlParams.mode]);
 
   return (
-    <div>
-      {/* <Prompt
+    <Box>
+      <Grid container>
+        <Grid item xs={12}>
+          {/* <Prompt
         when={isBlocking}
         message={`Leave this page? Unsaved work could be lost.`}
       /> */}
-      {gameMode === 'challenge' && <ChallengeBar />}
-      <Canvas />
-      <Toolbar gameMode={gameMode} />
-    </div>
+          {gameMode === 'challenge' && <ChallengeBar />}
+          <Canvas />
+          <Toolbar gameMode={gameMode} />
+        </Grid>
+      </Grid>
+    </Box>
   );
 }

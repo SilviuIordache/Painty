@@ -3,14 +3,13 @@ import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import DownloadIcon from '@mui/icons-material/Download';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import ImageIcon from '@mui/icons-material/Image';
-import { fetchImages } from '../../redux/features/imagesSlice'
 import { deleteImage } from '../../dbservices/images/deleteImage'
 
 
@@ -21,7 +20,6 @@ export default function DrawingOptions(props) {
   const { currentUser } = useSelector((state) => state.auth);
 
   let navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const handleClick = (event) => {
     event.stopPropagation();
