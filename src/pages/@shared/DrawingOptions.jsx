@@ -53,7 +53,7 @@ export default function DrawingOptions(props) {
     deleteImage(props.id, props.path);
 
     if (location.pathname.includes('drawing')) {
-      navigate('/gallery');
+      navigate('/explore');
       return
     }
 
