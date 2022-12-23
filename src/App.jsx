@@ -2,7 +2,7 @@ import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import ToastHandler from './components/Toast/ToastHandler';
+import ToastHandler from './pages/@shared/App/ToastHandler';
 
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -12,18 +12,18 @@ import { auth } from './firebase';
 import parseLoginResponse from './utils/parseLoginResponse';
 import { setCurrentUser, signOut } from './redux/features/authSlice.js';
 
-import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import PrivateRoute from './pages/@shared/App/PrivateRoute';
 
-import MainMenu from './pages/MainMenu';
-import DrawingBoard from './pages/DrawingBoard';
+import MainMenu from './pages/MainMenu/MainMenu';
+import DrawingBoard from './pages/DrawingBoard/DrawingBoard';
 
-import DrawingDetails from './pages/DrawingDetails';
+import DrawingDetails from './pages/DrawingDetails/DrawingDetails';
 import Signup from './pages/auth/Signup';
 import Login from './pages/auth/Login';
 import ForgotPassword from './pages/auth/ForgotPassword';
-import Profile from './pages/auth/Profile';
-import Navigation from './features/Navigation/Navigation';
-import Explore from './pages/Explore';
+import Profile from './pages/Profile/Profile';
+import Navigation from './pages/@shared/Navigation';
+import Explore from './pages/Explore/Explore';
 
 function App() {
   const dispatch = useDispatch();
