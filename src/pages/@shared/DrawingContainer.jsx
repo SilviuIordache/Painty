@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { getImageFile } from '../../dbservices/images/getImageFile.js';
+import { getImageFile } from 'dbservices/images/getImageFile.js';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 

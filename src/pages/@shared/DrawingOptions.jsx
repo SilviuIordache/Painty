@@ -10,7 +10,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import ImageIcon from '@mui/icons-material/Image';
-import { deleteImage } from '../../dbservices/images/deleteImage'
+import { deleteImage } from 'dbservices/images/deleteImage'
 
 
 export default function DrawingOptions(props) {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { signOut } from '../../../redux/features/authSlice.js';
+import { signOut } from 'redux/features/authSlice.js';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardActions, Button, Box } from '@mui/material';
 

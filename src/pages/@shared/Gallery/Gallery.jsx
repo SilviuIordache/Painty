@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   fetchImages,
   resetBatchRetrieved,
-} from '../../../redux/features/imagesSlice.js';
+} from 'redux/features/imagesSlice.js';
 import { useLocation } from 'react-router-dom';
 import { Grid } from '@mui/material';
 

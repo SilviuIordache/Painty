@@ -16,11 +16,11 @@ export default function getDailyWord() {
   const dayInYear = getDayInYear();
 
   // 2. get the number in the scrambled list at the index of value =  dayInYear
-  const randomizedNumbers = require('../../../data/wordOrder.json').list;
+  const randomizedNumbers = require('data/wordOrder.json').list;
   const randomIndex = randomizedNumbers[dayInYear];
 
   // 3. const randomWord = get the word at this randomIndex
-  const words = require('../../../data/words.json').list;
+  const words = require('data/words.json').list;
   const dailyWord = words[randomIndex];
   return dailyWord;
 }

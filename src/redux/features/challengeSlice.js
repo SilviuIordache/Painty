@@ -33,7 +33,7 @@ export const challengeSlice = createSlice({
 });
 
 function generateRandomWords(amount) {
-  const words = require('../../data/words.json').list;
+  const words = require('data/words.json').list;
 
   // generate unique random index numbers
   const randomIndexes = [];

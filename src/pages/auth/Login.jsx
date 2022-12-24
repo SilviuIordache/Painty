@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { signIn, resetErrorAndMessage } from '../../redux/features/authSlice.js';
+import { signIn, resetErrorAndMessage } from 'redux/features/authSlice.js';
 import {
   Alert,
   Grid,

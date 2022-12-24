@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getImages } from '../../dbservices/images/getImages';
+import { getImages } from 'dbservices/images/getImages';
 
 export const fetchImages = createAsyncThunk(
   'images/fetchImages',

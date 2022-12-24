@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getImageDoc } from '../../dbservices/images/getImageDoc';
-import DrawingContainer from '../@shared/DrawingContainer';
-import DrawingOptions from '../@shared/DrawingOptions';
-import UserName from '../@shared/UserName';
+import { getImageDoc } from 'dbservices/images/getImageDoc';
+import DrawingContainer from 'pages/@shared/DrawingContainer';
+import DrawingOptions from 'pages/@shared/DrawingOptions';
+import UserName from 'pages/@shared/UserName';
 
 export default function DrawingDetails() {
   const urlParams = useParams();

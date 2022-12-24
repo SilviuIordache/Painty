@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import UserName from '../../@shared/UserName';
+import UserName from 'pages/@shared/UserName';
 import {
   Alert,
   Card,

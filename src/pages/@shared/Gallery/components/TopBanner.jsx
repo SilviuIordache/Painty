@@ -1,5 +1,5 @@
-import DrawingOptions from '../../../@shared/DrawingOptions'
-import UserName from '../../../@shared/UserName';
+import DrawingOptions from 'pages/@shared/DrawingOptions'
+import UserName from 'pages/@shared/UserName';
 
 export default function TopBanner(props) {
 

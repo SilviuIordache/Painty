@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getUserProfile } from '../../dbservices/user/getUserProfile';
+import { getUserProfile } from 'dbservices/user/getUserProfile';
 
 export default function AuthorName(props) {
 

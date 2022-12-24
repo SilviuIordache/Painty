@@ -1,4 +1,4 @@
-import Gallery from '../@shared/Gallery/Gallery';
+import Gallery from 'pages/@shared/Gallery/Gallery';
 
 export default function Explore() {
   return <Gallery />;

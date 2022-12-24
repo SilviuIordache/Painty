@@ -1,6 +1,6 @@
 import { CardContent, Card, Grid } from '@mui/material';
 import React from 'react';
-import Gallery from '../../@shared/Gallery/Gallery';
+import Gallery from 'pages/@shared/Gallery/Gallery';
 
 export default function UserDrawings() {
   return (

@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { register } from '../../dbservices/auth/register';
-import { login } from '../../dbservices/auth/login';
-import { logout } from '../../dbservices/auth/logout';
-import { resetPassword } from '../../dbservices/auth/resetPassword';
+import { register } from 'dbservices/auth/register';
+import { login } from 'dbservices/auth/login';
+import { logout } from 'dbservices/auth/logout';
+import { resetPassword } from 'dbservices/auth/resetPassword';
 
 export const signUp = createAsyncThunk(
   'auth/register',
