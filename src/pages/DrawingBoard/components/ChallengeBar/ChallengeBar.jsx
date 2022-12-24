@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import useInterval from '../../../../hooks/useInterval';
+import useInterval from 'hooks/useInterval';
 import saveCanvas from '../../shared/saveCanvas';
 import eraseCanvas from '../../shared/eraseCanvas';
 import { Grid } from '@mui/material';
-import { setCanvasDirty } from "../../../../redux/features/canvasSlice"
+import { setCanvasDirty } from "redux/features/canvasSlice"
 import CurrentRound from './components/CurrentRound';
 import RoundTimer from './components/RoundTimer';
 import CurrentWord from './components/CurrentWord';
@@ -16,7 +16,7 @@ import {
   incrementRound,
   updateTimer,
   resetTimer,
-} from '../../../../redux/features/challengeSlice';
+} from 'redux/features/challengeSlice';
 
 export default function ChallengeBar(props) {
   const { currentUser } = useSelector((state) => state.auth);

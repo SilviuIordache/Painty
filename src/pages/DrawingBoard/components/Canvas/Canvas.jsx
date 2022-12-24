@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import useCheckMobileScreen from '../../../../hooks/useCheckMobileScreen';
+import useCheckMobileScreen from 'hooks/useCheckMobileScreen';
 import { useSelector, useDispatch } from 'react-redux';
 import FloodFill from 'q-floodfill';
 import BrushCursor from './components/DrawCursor/DrawCursor';
-import useEventListener from '../../../../hooks/useEventListener';
+import useEventListener from 'hooks/useEventListener';
 import { Grid, Box } from '@mui/material';
-import { setCanvasDirty } from '../../../../redux/features/canvasSlice';
+import { setCanvasDirty } from 'redux/features/canvasSlice';
 
 export default function Canvas() {
   const dispatch = useDispatch();

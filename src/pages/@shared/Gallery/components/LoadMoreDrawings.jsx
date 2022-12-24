@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchImages } from '../../../../redux/features/imagesSlice.js';
+import { fetchImages } from 'redux/features/imagesSlice.js';
 
 export default function Gallery() {
   const lastImageId = useSelector((state) => state.images.lastImageId);

@@ -14,7 +14,7 @@ export default function SaveCanvasButton(props) {
     );
 
     if (drawingTitle) {
-      saveCanvas('practice', drawingTitle, currentUser.uid)
+      saveCanvas('practice', drawingTitle, currentUser.uid);
     }
   }
 
