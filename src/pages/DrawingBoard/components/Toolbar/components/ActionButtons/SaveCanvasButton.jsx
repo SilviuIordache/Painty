@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import SaveIcon from '@mui/icons-material/Save';
 import Button from '@mui/material/Button';
-import saveCanvas from '../../../../../../shared/canvas/saveCanvas';
+import saveCanvas from '../../../../shared/saveCanvas';
 
 export default function SaveCanvasButton(props) {
   const { currentUser } = useSelector((state) => state.auth);

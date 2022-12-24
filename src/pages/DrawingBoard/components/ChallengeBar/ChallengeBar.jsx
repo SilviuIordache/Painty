@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import useInterval from '../../../../hooks/useInterval';
-import saveCanvas from '../../../../shared/canvas/saveCanvas';
-import eraseCanvas from '../../../../shared/canvas/eraseCanvas';
+import saveCanvas from '../../shared/saveCanvas';
+import eraseCanvas from '../../shared/eraseCanvas';
 import { Grid } from '@mui/material';
 import { setCanvasDirty } from "../../../../redux/features/canvasSlice"
 import CurrentRound from './components/CurrentRound';

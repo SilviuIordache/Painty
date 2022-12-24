@@ -1,21 +1,21 @@
-import React, { useState } from "react";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
+import React, { useState } from 'react';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
-import getDailyWord from '../../../utils/getDailyWord';
+import getDailyWord from './getDailyWord';
 
 export default function BasicCard(props) {
   const navigate = useNavigate();
 
   const cardStyle = {
-    textAlign: "left",
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
+    textAlign: 'left',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
   };
 
   const [dailyWord] = useState(getDailyWord());
@@ -31,7 +31,13 @@ export default function BasicCard(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="large" onClick={() => {navigate('/draw/challenge')}} variant="contained">
+        <Button
+          size="large"
+          onClick={() => {
+            navigate('/draw/challenge');
+          }}
+          variant="contained"
+        >
           PLAY
         </Button>
       </CardActions>
