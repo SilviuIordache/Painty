@@ -21,25 +21,27 @@ export const imagesSlice = createSlice({
   name: 'images',
   initialState,
   reducers: {
+    resetImageList: (state) => {
+      state.list = [];
+    },
     resetBatchRetrieved: (state) => {
       state.firstBatchRetrieved = false;
     },
     deleteImageFromStore: (state, { payload }) => {
-      const index = state.list.findIndex((item) => item.id === payload)
+      const index = state.list.findIndex((item) => item.id === payload);
       state.list.splice(index, 1);
-    }
+    },
   },
   extraReducers: {
     [fetchImages.pending]: (state) => {
       state.status = 'loading';
     },
     [fetchImages.fulfilled]: (state, { payload }) => {
-      
       if (!state.firstBatchRetrieved) {
         state.firstBatchRetrieved = true;
         state.list = [];
         state.lastImageId = '';
-        state.lastBatchLength = -1
+        state.lastBatchLength = -1;
       }
 
       state.list = [...state.list, ...payload.images];
@@ -56,4 +58,5 @@ export const imagesSlice = createSlice({
 
 export default imagesSlice.reducer;
 
-export const { resetBatchRetrieved, deleteImageFromStore } = imagesSlice.actions;
+export const { resetBatchRetrieved, deleteImageFromStore, resetImageList } =
+  imagesSlice.actions;

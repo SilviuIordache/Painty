@@ -15,7 +15,11 @@ export async function getImages(payload) {
   // constraints array pipeline
   let constraints = [];
   constraints.push(orderBy('date', 'desc'));
-  constraints.push(limit(process.env.REACT_APP_IMAGE_BATCH_SIZE));
+
+  if (payload?.latest)
+    constraints.push(limit(4));
+  else
+    constraints.push(limit(process.env.REACT_APP_IMAGE_BATCH_SIZE));
 
   // user specific query
   if (payload?.userId)

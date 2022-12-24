@@ -5,6 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
+import LatestDrawings from './components/LatestDrawings';
 
 export default function GalleryCard() {
   const navigate = useNavigate();
@@ -18,6 +19,8 @@ export default function GalleryCard() {
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
           Latest community drawings
         </Typography>
+
+        <LatestDrawings/>
       </CardContent>
       <CardActions>
         <Button
