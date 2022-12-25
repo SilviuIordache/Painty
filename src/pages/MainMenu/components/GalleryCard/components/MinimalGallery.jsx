@@ -1,11 +1,11 @@
-import { Grid } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import DrawingContainer from 'pages/@shared/DrawingContainer';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchImages, resetImageList } from 'redux/features/imagesSlice';
 import { useNavigate } from 'react-router-dom';
 
-export default function LatestDrawings() {
+export default function MinimalGallery(props) {
   const images = useSelector((state) => state.images.list);
 
   const dispatch = useDispatch();
@@ -13,8 +13,8 @@ export default function LatestDrawings() {
 
   useEffect(() => {
     dispatch(resetImageList());
-    dispatch(fetchImages({ latest: true }));
-  }, [dispatch]);
+    dispatch(fetchImages({ amount: props.amount }));
+  }, [dispatch, props.amount]);
 
   let mappedImages = images.map((image) => (
     <Grid
@@ -25,7 +25,9 @@ export default function LatestDrawings() {
         navigate(`/drawing/${image.id}`);
       }}
     >
-      <DrawingContainer name={image.name} id={image.id} path={image.path} />
+      <Box sx={{ cursor: 'pointer' }}>
+        <DrawingContainer name={image.name} id={image.id} path={image.path} />
+      </Box>
     </Grid>
   ));
 

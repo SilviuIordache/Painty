@@ -16,8 +16,8 @@ export async function getImages(payload) {
   let constraints = [];
   constraints.push(orderBy('date', 'desc'));
 
-  if (payload?.latest)
-    constraints.push(limit(4));
+  if (payload?.amount)
+    constraints.push(limit(payload.amount));
   else
     constraints.push(limit(process.env.REACT_APP_IMAGE_BATCH_SIZE));
 
