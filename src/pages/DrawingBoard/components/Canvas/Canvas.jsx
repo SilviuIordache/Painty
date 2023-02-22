@@ -7,7 +7,13 @@ import useEventListener from 'hooks/useEventListener';
 import { Grid, Box } from '@mui/material';
 import { setCanvasDirty } from 'redux/features/canvasSlice';
 
+import useDrawPanning from './hooks/useDrawPanning';
+
 export default function Canvas() {
+
+  useDrawPanning();
+
+
   const dispatch = useDispatch();
 
   useEventListener('mousedown', handleMouseDown);
@@ -31,8 +37,8 @@ export default function Canvas() {
   const [canvasRelativeX, setCanvasRelativeX] = useState(0);
   const [canvasRelativeY, setCanvasRelativeY] = useState(0);
 
-  const [canvasAbsoluteWidth] = useState(800);
-  const [canvasAbsoluteHeight] = useState(600);
+  const canvasAbsoluteWidth = 800
+  const canvasAbsoluteHeight = 600
 
   const [canvasRelativeWidth, setCanvasRelativeWidth] = useState(0);
   const [canvasRelativeHeight, setCanvasRelativeHeight] = useState(0);
@@ -60,7 +66,6 @@ export default function Canvas() {
         drawPathMobile(e);
         break;
       default:
-        drawPathMobile(e);
         break;
     }
   }
@@ -255,16 +260,6 @@ export default function Canvas() {
 
     dispatch(setCanvasDirty(true));
   }
-
-  // prevent panning on component load; add back panning on component destroy
-  useEffect(() => {
-    const html = document.documentElement;
-    html.style.touchAction = 'none';
-
-    return function cleanup() {
-      html.style.touchAction = 'auto';
-    };
-  }, []);
 
   return (
     <Box>
